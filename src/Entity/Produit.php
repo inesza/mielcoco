@@ -39,7 +39,7 @@ class Produit
     private $prix_unitaire;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Composition", mappedBy="produit", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Composition", mappedBy="produit")
      */
     private $compositions;
 

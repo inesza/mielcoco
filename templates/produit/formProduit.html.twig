@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Miel & Coco - {{ mode is defined ? mode|capitalize : "Ajouter" }} un produit{% endblock %}
+
+{% block body %}
+<div class="container">
+{{ form_start(formProduit) }}
+{# {% mode is defined and mode == "Supprimer" ? %} #}
+    {{ form_row(formProduit.photo) }}
+    <img class="img-produit" src="/images/produits/{{ produit.photo }}">
+{# {% else %}
+    {{ form_row(formProduit.photo, { attr:{readonly : mode is defined and mode =="Supprimer" ? true : false},}) }} #}
+{# {% endif %} #}
+    <br>
+    {{ form_row(formProduit.nom, {attr:{readonly : mode is defined and mode =="Supprimer" ? true : false} }) }}
+    <br>
+    {{ form_row(formProduit.unite, {attr:{readonly : mode is defined and mode =="Supprimer" ? true : false} }) }}
+    <br>
+    {{ form_row(formProduit.prix_unitaire, {attr:{readonly : mode is defined and mode =="Supprimer" ? true : false} }) }}
+    <br>
+    <button class="btn btn-dark">{{ mode is defined ? mode|capitalize : "Ajouter" }}</button>
+{{ form_end(formProduit) }}
+</div>
+{% endblock %}

@@ -49,7 +49,7 @@ class Recette
     private $categories;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Composition", mappedBy="recette", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Composition", mappedBy="recette")
      */
     private $compositions;
 

@@ -25,13 +25,13 @@ class Composition
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Recette", inversedBy="compositions")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="recette_id", referencedColumnName="id", nullable=false)
      */
     private $recette;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Produit", inversedBy="compositions")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="produit_id", referencedColumnName="id", nullable=false)
      */
     private $produit;
 

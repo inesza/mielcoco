@@ -5,18 +5,16 @@
 {% block body %}
 <div class="container">
 {{ form_start(formProduit) }}
-{# {% mode is defined and mode == "Supprimer" ? %} #}
     {{ form_row(formProduit.photo) }}
-    <img class="img-produit" src="/images/produits/{{ produit.photo }}">
-{# {% else %}
-    {{ form_row(formProduit.photo, { attr:{readonly : mode is defined and mode =="Supprimer" ? true : false},}) }} #}
-{# {% endif %} #}
+    {% if mode is defined and mode == "Modifier" %} 
+        <img class='img-produit' src='/images/produits/{{ produit.photo }}'>
+    {% endif %}
     <br>
-    {{ form_row(formProduit.nom, {attr:{readonly : mode is defined and mode =="Supprimer" ? true : false} }) }}
+    {{ form_row(formProduit.nom) }}
     <br>
-    {{ form_row(formProduit.unite, {attr:{readonly : mode is defined and mode =="Supprimer" ? true : false} }) }}
+    {{ form_row(formProduit.unite) }}
     <br>
-    {{ form_row(formProduit.prix_unitaire, {attr:{readonly : mode is defined and mode =="Supprimer" ? true : false} }) }}
+    {{ form_row(formProduit.prix_unitaire) }}
     <br>
     <button class="btn btn-dark">{{ mode is defined ? mode|capitalize : "Ajouter" }}</button>
 {{ form_end(formProduit) }}

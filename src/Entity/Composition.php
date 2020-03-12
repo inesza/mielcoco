@@ -19,91 +19,25 @@ class Composition
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Recette", mappedBy="composition", orphanRemoval=true)
-     */
-    private $recette;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Produit", mappedBy="composition")
-     */
-    private $produit;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $quantite;
 
-    public function __construct()
-    {
-        $this->recette = new ArrayCollection();
-        $this->produit = new ArrayCollection();
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Recette", inversedBy="compositions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $recette;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Produit", inversedBy="compositions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $produit;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection|Recette[]
-     */
-    public function getRecette(): Collection
-    {
-        return $this->recette;
-    }
-
-    public function addRecette(Recette $recette): self
-    {
-        if (!$this->recette->contains($recette)) {
-            $this->recette[] = $recette;
-            $recette->setComposition($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRecette(Recette $recette): self
-    {
-        if ($this->recette->contains($recette)) {
-            $this->recette->removeElement($recette);
-            // set the owning side to null (unless already changed)
-            if ($recette->getComposition() === $this) {
-                $recette->setComposition(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Produit[]
-     */
-    public function getProduit(): Collection
-    {
-        return $this->produit;
-    }
-
-    public function addProduit(Produit $produit): self
-    {
-        if (!$this->produit->contains($produit)) {
-            $this->produit[] = $produit;
-            $produit->setComposition($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduit(Produit $produit): self
-    {
-        if ($this->produit->contains($produit)) {
-            $this->produit->removeElement($produit);
-            // set the owning side to null (unless already changed)
-            if ($produit->getComposition() === $this) {
-                $produit->setComposition(null);
-            }
-        }
-
-        return $this;
     }
 
     public function getQuantite(): ?int
@@ -117,4 +51,29 @@ class Composition
 
         return $this;
     }
+
+    public function getRecette(): ?Recette
+    {
+        return $this->recette;
+    }
+
+    public function setRecette(?Recette $recette): self
+    {
+        $this->recette = $recette;
+
+        return $this;
+    }
+
+    public function getProduit(): ?Produit
+    {
+        return $this->produit;
+    }
+
+    public function setProduit(?Produit $produit): self
+    {
+        $this->produit = $produit;
+
+        return $this;
+    }
+
 }

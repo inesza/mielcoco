@@ -9,3 +9,22 @@
 import '../css/app.scss';
 const $ = require('jquery'); 
 require('bootstrap');
+
+
+$(document).ready(function () {
+    var theHREF;
+
+    $(".confirmModalLink").click(function(e) {
+        e.preventDefault();
+        theHREF = $(this).attr("href");
+        $("#supprProduit").modal("show");
+    });
+
+    $("#annulerSuppr").click(function(e) {
+        $("#supprProduit").modal("hide");
+    });
+
+    $("#confirmerSuppr").click(function(e) {
+        window.location.href = theHREF;
+    });
+});

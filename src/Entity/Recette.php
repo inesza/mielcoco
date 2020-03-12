@@ -49,14 +49,15 @@ class Recette
     private $categories;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Composition", inversedBy="recette")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToMany(targetEntity="App\Entity\Composition", mappedBy="recette", orphanRemoval=true)
      */
-    private $composition;
+    private $compositions;
+
 
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->compositions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -112,12 +113,12 @@ class Recette
         return $this;
     }
 
-    public function getNiveau(): ?int
+    public function getNiveau(): ?string
     {
         return $this->niveau;
     }
 
-    public function setNiveau(int $niveau): self
+    public function setNiveau(string $niveau): self
     {
         $this->niveau = $niveau;
 
@@ -152,14 +153,33 @@ class Recette
         return $this;
     }
 
-    public function getComposition(): ?Composition
+    /**
+     * @return Collection|Composition[]
+     */
+    public function getCompositions(): Collection
     {
-        return $this->composition;
+        return $this->compositions;
     }
 
-    public function setComposition(?Composition $composition): self
+    public function addComposition(Composition $composition): self
     {
-        $this->composition = $composition;
+        if (!$this->compositions->contains($composition)) {
+            $this->compositions[] = $composition;
+            $composition->setRecette($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComposition(Composition $composition): self
+    {
+        if ($this->compositions->contains($composition)) {
+            $this->compositions->removeElement($composition);
+            // set the owning side to null (unless already changed)
+            if ($composition->getRecette() === $this) {
+                $composition->setRecette(null);
+            }
+        }
 
         return $this;
     }

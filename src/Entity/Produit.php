@@ -39,14 +39,13 @@ class Produit
     private $prix_unitaire;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Composition", inversedBy="produit")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Composition", mappedBy="produit", orphanRemoval=true)
      */
-    private $composition;
+    private $compositions;
 
     public function __construct()
     {
-        $this->recettes = new ArrayCollection();
+        $this->compositions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -102,15 +101,35 @@ class Produit
         return $this;
     }
 
-    public function getComposition(): ?Composition
+    /**
+     * @return Collection|Composition[]
+     */
+    public function getCompositions(): Collection
     {
-        return $this->composition;
+        return $this->compositions;
     }
 
-    public function setComposition(?Composition $composition): self
+    public function addComposition(Composition $composition): self
     {
-        $this->composition = $composition;
+        if (!$this->compositions->contains($composition)) {
+            $this->compositions[] = $composition;
+            $composition->setProduit($this);
+        }
 
         return $this;
     }
+
+    public function removeComposition(Composition $composition): self
+    {
+        if ($this->compositions->contains($composition)) {
+            $this->compositions->removeElement($composition);
+            // set the owning side to null (unless already changed)
+            if ($composition->getProduit() === $this) {
+                $composition->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

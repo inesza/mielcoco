@@ -66,6 +66,20 @@ class ProduitController extends AbstractController
         $formProduit->handleRequest($rq);
         if($formProduit->isSubmitted()) {
             if($formProduit->isValid()) {
+                $anciennePhoto = $produitAModifier->getPhoto();
+                $photoProduit = $formProduit->get('photo')->getData();
+                $nomProduit = $formProduit->get('nom')->getData();
+                if ($photoProduit) {
+                    if ($anciennePhoto) {
+                        unlink("../public/images/produits/" . $anciennePhoto);
+                    }
+                    $filename = $nomProduit .'-'.uniqid().'.'.$photoProduit->guessExtension();
+                    $photoProduit->move(
+                        $this->getParameter('photosProduits'),
+                        $filename
+                    );
+                    $produitAModifier->setPhoto($filename);
+                }
                 $em->persist($produitAModifier); 
                 $em->flush();   
                 $this->addFlash("success", "Modification bien enregistrée"); 
@@ -84,24 +98,15 @@ class ProduitController extends AbstractController
     public function delete(ProduitRepository $produitRepo, EMI $em, Request $rq, int $id)
     {
         $produitASupprimer = $produitRepo->find($id);
-        // $produitASupprimer->setPhoto(new File($this->getParameter('photosProduits').'/'. $produitASupprimer->getPhoto())   );
-        // dd($produitASupprimer);
-        $formProduit = $this->createForm(ProduitType::class, $produitASupprimer);
-        
-        $formProduit->handleRequest($rq);
-
-        if($formProduit->isSubmitted()) {
-            if($formProduit->isValid()) {
-                $produitASupprimer = $produitRepo->find($id);
-                $em->remove($produitASupprimer); 
-                $em->flush();  
-                $this->addFlash("success", "produit supprimé de la base");  
-                return $this->redirectToRoute("admin_produit");
-            } else {
-                $this->addFlash("danger", "Le formulaire n'est pas valide");
-            }
+        $photoASupprimer = $produitASupprimer->getPhoto();
+        if ($photoASupprimer) {
+            unlink("../public/images/produits/" . $photoASupprimer);
         }
-        $formProduit = $formProduit->createView();  
-        return $this->render('produit/formProduit.html.twig', ["formProduit" => $formProduit, "produit" => $produitASupprimer, "mode" => "Supprimer"] );
+        $em->remove($produitASupprimer); 
+        $em->flush();  
+        $this->addFlash("success", "produit supprimé de la base");  
+        return $this->redirectToRoute("admin_produit");
+
+        return $this->render('produit/index.html.twig', ["produit" => $produitASupprimer] );
     }
 }

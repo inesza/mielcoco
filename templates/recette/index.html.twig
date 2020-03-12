@@ -1,20 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello RecetteController!{% endblock %}
+{% block title %}Miel & Coco - Administration recettes{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="container">
+    <h1>Administration - Recettes</h1>
+    <div class="d-flex justify-content-between">
+        <p>Nombre de recettes : {{ liste_recettes|length }}</p> 
+        <p><a href="{{ path("admin_recette_ajouter") }}" class="btn btn-dark">Ajouter une recette</a></p>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Photo</th>
+                <th>Nom de la recette</th>
+                <th>Description</th>
+                <th>Catégories</th>
+                <th colspan="2">Actions</th>
+            </tr>
+        </thead>
+        {% for recette in liste_recettes %}
+            <tr>
+                <td><img class="img-recette" src="/images/recettes/{{ recette.photo }}"></td> 
+                <td>{{ recette.nom }}</td>
+                <td>{{ recette.description}}</td>
+                <td> 
+                    {% for indice, categorie in recette.categories %}
+                        {% if indice > 0 %}
+                        {{ " - " }}
+                        {% endif %}
+                        {{  categorie }}
+                    {% endfor %}
+                </td>
+                <td><a href=""><i class="fas fa-eye"></i> Voir le détail</a></td>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                {# <td><a href="{{ path("admin_recette_modifier", { id: recette.id }) }}" class="fa fa-pen"></a></td>
+                <td><a href="{{ path("admin_recette_supprimer", { id: recette.id }) }}" class="fa fa-trash confirmModalLink"  data-toggle="modal" data-target="#supprProduit"></a></td> #}
+            </tr>
+        {% endfor %}
+    </table>
+</div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/inesz/Desktop/Symfony/MielCoco/src/Controller/RecetteController.php'|file_link(0) }}">src/Controller/RecetteController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/inesz/Desktop/Symfony/MielCoco/templates/recette/index.html.twig'|file_link(0) }}">templates/recette/index.html.twig</a></code></li>
-    </ul>
+<!-- Modal -->
+<div class="modal fade" id="supprProduit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Supprimer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            Confirmer la suppression de la recette
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="annulerSuppr">Annuler</button>
+        <button type="button" class="btn btn-primary" id="confirmerSuppr">Supprimer</button>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

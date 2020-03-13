@@ -39,7 +39,6 @@ class RecetteController extends AbstractController
      */
     public function add(RecetteRepository $recetteRepo, CategorieRepository $catRepo, EMI $em, Request $rq)
     {
-        // dd($rq->request);
         $formRecette = $this->createForm(RecetteType::class);
         $formRecette->handleRequest($rq);
         if($formRecette->isSubmitted()) {
@@ -113,7 +112,7 @@ class RecetteController extends AbstractController
     
 
     /**
-     * @Route("/admin/Recette/modifier/{id}", name="admin_Recette_modifier", requirements={"id" = "\d+"})
+     * @Route("/admin/Recette/modifier/{id}", name="admin_recette_modifier", requirements={"id" = "\d+"})
      */
     public function update(RecetteRepository $RecetteRepo, EMI $em, Request $rq, int $id)
     {
@@ -149,21 +148,20 @@ class RecetteController extends AbstractController
     }
 
     /**
-     * @Route("/admin/Recette/supprimer/{id}", name="admin_Recette_supprimer", requirements={"id" = "\d+"})
+     * @Route("/admin/Recette/supprimer/{id}", name="admin_recette_supprimer", requirements={"id" = "\d+"})
      */
-    public function delete(RecetteRepository $RecetteRepo, EMI $em, Request $rq, int $id)
+    public function delete(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, EMI $em, Request $rq, int $id)
     {
-        $RecetteASupprimer = $RecetteRepo->find($id);
-        $photoASupprimer = $RecetteASupprimer->getPhoto();
-        if ($photoASupprimer) {
+        $recetteASupprimer = $recetteRepo->find($id);
+
+        $photoASupprimer = $recetteASupprimer->getPhoto();
+        if (file_exists("../public/images/recettes/" . $photoASupprimer)) {
             unlink("../public/images/recettes/" . $photoASupprimer);
         }
-        $em->remove($RecetteASupprimer); 
+        $em->remove($recetteASupprimer); 
         $em->flush();  
         $this->addFlash("success", "Recette supprimée de la base");  
         return $this->redirectToRoute("admin_recette");
-
-        return $this->render('recette/index.html.twig', ["recette" => $RecetteASupprimer] );
     }
 
     /**

@@ -20,7 +20,7 @@
     <h3>Composition</h3>
     <ul>
         {% for compo in recette.compositions %}
-            <li> {{  compo.id }} </li>
+            <li> {{  compo.produit.nom }}, {{ compo.quantite}} {{ compo.produit.unite}} </li>
         {% endfor %}
     </ul>
 </div>

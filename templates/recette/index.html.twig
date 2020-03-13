@@ -36,8 +36,8 @@
                 <td><a href="{{ path("admin_recette_ajouter_compo" , { id: recette.id }) }}"><i class="fas fa-plus-circle"></i> Ajouter les ingrédients</a></td>
                 <td><a href="{{ path("admin_recette_detail" , { id: recette.id }) }}"><i class="fas fa-eye"></i> Voir le détail</a></td>
 
-                {# <td><a href="{{ path("admin_recette_modifier", { id: recette.id }) }}" class="fa fa-pen"></a></td>
-                <td><a href="{{ path("admin_recette_supprimer", { id: recette.id }) }}" class="fa fa-trash confirmModalLink"  data-toggle="modal" data-target="#supprProduit"></a></td> #}
+                <td><a href="{{ path("admin_recette_modifier", { id: recette.id }) }}" class="fa fa-pen"></a></td>
+                <td><a href="{{ path("admin_recette_supprimer", { id: recette.id }) }}" class="fa fa-trash confirmModalLink"  data-toggle="modal" data-target="#supprProduit"></a></td>
             </tr>
         {% endfor %}
     </table>

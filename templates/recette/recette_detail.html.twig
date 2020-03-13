@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Miel & Coco - Administration recettes{% endblock %}
+
+{% block body %}
+<div class="container">
+    <a class="btn btn-secondary mb-5" href="{{ path("admin_recette") }}"><i class="fas fa-caret-left"></i> Retour à la liste des recettes</a>
+    <h1>{{ recette.nom }}</h1>
+    <img src="/images/recettes/{{ recette.photo }}">
+    <p>{{ recette.description }}</p>
+    <p>{{ recette.instructions }}</p>
+    <p>
+        {% for indice, categorie in recette.categories %}
+            {% if indice > 0 %}
+                {{ " - " }}
+            {% endif %}
+            {{  categorie.nom }}
+        {% endfor %}
+    </p>
+    <h3>Composition</h3>
+    <ul>
+        {% for compo in recette.compositions %}
+            <li> {{  compo.id }} </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

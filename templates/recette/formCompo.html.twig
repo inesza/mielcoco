@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Miel & Coco - {{ mode is defined ? mode|capitalize : "Ajouter" }} les ingrédients{% endblock %}
+
+{% block body %}
+<div class="container">
+<h3> {{ recette.nom }} </h3>
+<p>Ajouter les ingrédients</p>
+{%  if produitsAjoutes is defined %}
+<h3>Ingrédients ajoutés</h3>
+<ul>
+{% for produitAjoute in produitsAjoutes %}
+    <li>{{  produitAjoute.nom }}, {{ produitAjoute.unite}}</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+<h3>Ajouter un ingrédient</h3>
+{{ form_start(formCompo) }}
+    {{ form_row(formCompo.produit, { attr:{ "class":"form-inline" }}) }}
+    {{ form_row(formCompo.quantite, { attr:{ "class":"form-inline" }}) }}
+    <i class="fas fa-plus-circle"></i> Ajouter un autre ingrédient
+    <br>
+    <button class="btn btn-dark">{{ mode is defined ? mode|capitalize : "Ajouter" }}</button>
+{{ form_end(formCompo) }}
+</div>
+{% endblock %}

@@ -106,7 +106,5 @@ class ProduitController extends AbstractController
         $em->flush();  
         $this->addFlash("success", "produit supprimé de la base");  
         return $this->redirectToRoute("admin_produit");
-
-        return $this->render('produit/index.html.twig', ["produit" => $produitASupprimer] );
     }
 }

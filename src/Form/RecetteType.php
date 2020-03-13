@@ -59,9 +59,9 @@ class RecetteType extends AbstractType
                     return $categorie->getNom();
                 }
             ])
-            ->add('composition', CompositionType::class, [
-                "mapped" => false
-            ])
+            // ->add('composition', CompositionType::class, [
+            //     "mapped" => false
+            // ])
         ;
     }
 

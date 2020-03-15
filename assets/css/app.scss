@@ -12,5 +12,22 @@
     width: 100px;
     object-fit: cover;
 }
+li.nav-item{
+    list-style-type:none;
+}
+.nav-link{
+    color:grey;
+}
+.header{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top:50px;
+    padding-bottom:30px;
+}
+
+#menu li{
+    padding-right: 50px;
+}
 
 

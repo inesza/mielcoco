@@ -4,20 +4,23 @@
 
 {% block body %}
     
-    <table class="table table-bordered">
-        <tr>
-            <th colspan=2 class="text-center">Nb de membres : {{ taille }}</th>
-        </tr>
-        <tr>
-            <th>Membres</th><th>Role</th><th colspan=2>Actions</th>
-        <tr>
-        {% for user in users %}
+    <div class="container">
+    <h1>Administration - Recettes</h1>
+    <div class="d-flex justify-content-between">
+        <p>Nombre de membres : {{ taille }}</p> 
+        <p><a href="{{ path("user_register") }}" class="btn btn-dark">Ajouter un utilisateur</a></p>
+    </div>
+        <table class="table table-bordered">
             <tr>
-                <td><a href="{{ path("user_show", { id: user.id }) }}">{{ user.email }}</a></td>
-                <td>{{ user.roles[0] }}</td>
-                <td><a href="{{ path("user_update", { id: user.id }) }}" class="fa fa-pen"></a></td>
-                <td><a href="{{ path("user_delete", { id: user.id }) }}" class="fa fa-trash"></a></td>
-            </tr>
+                <th>Membres</th><th>Role</th><th colspan=2>Actions</th>
+            <tr>
+            {% for user in users %}
+                <tr>
+                    <td><a href="{{ path("user_show", { id: user.id }) }}">{{ user.email }}</a></td>
+                    <td>{{ user.roles[0] }}</td>
+                    <td><a href="{{ path("user_update", { id: user.id }) }}" class="fa fa-pen"></a></td>
+                    <td><a href="{{ path("user_delete", { id: user.id }) }}" class="fa fa-trash"></a></td>
+                </tr>
         {% endfor %}
     </table>
 

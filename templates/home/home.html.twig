@@ -4,11 +4,13 @@
 
 {% block body %}
 
-
-{% if app.user %}
+{# {% if app.user %}
+    <div class="container">
             <div class="mb-3">
                 You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
             </div>
-{% endif %}
+    </div>
+{% endif %} #}
+
 
 {% endblock %}

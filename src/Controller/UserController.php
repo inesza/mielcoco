@@ -67,4 +67,5 @@ class UserController extends AbstractController
         }
         return $this->render("user/formulaire.html.twig", [ "user" => $userAsupprimer, "mode" => "confirmer" ]);
     }
+
 }

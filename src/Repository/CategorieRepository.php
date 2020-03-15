@@ -19,6 +19,17 @@ class CategorieRepository extends ServiceEntityRepository
         parent::__construct($registry, Categorie::class);
     }
 
+    // public function findBestsellers()
+    // {
+    //     return $this->createQueryBuilder('c') 
+    //         ->leftJoin('c.recette', 'recette')
+    //         ->where('c.nom = Bestsellers ')
+    //         ->setMaxResults(3)
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+
     // /**
     //  * @return Categorie[] Returns an array of Categorie objects
     //  */

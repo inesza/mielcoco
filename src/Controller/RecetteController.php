@@ -114,7 +114,7 @@ class RecetteController extends AbstractController
     /**
      * @Route("/admin/Recette/modifier/{id}", name="admin_recette_modifier", requirements={"id" = "\d+"})
      */
-    public function update(RecetteRepository $RecetteRepo, EMI $em, Request $rq, int $id)
+    public function update(RecetteRepository $RecetteRepo, CategorieRepository $catRepo, EMI $em, Request $rq, int $id)
     {
         $RecetteAModifier = $RecetteRepo->find($id);
         $formRecette = $this->createForm(RecetteType::class, $RecetteAModifier);
@@ -124,6 +124,10 @@ class RecetteController extends AbstractController
                 $anciennePhoto = $RecetteAModifier->getPhoto();
                 $photoRecette = $formRecette->get('photo')->getData();
                 $nomRecette = $formRecette->get('nom')->getData();
+                $idCategories = $rq->request->get('recette')['categorie'];
+                foreach ($idCategories as $id) {
+                    $RecetteAModifier->addCategory($catRepo->find($id));
+                }
                 if ($photoRecette) {
                     if ($anciennePhoto) {
                         unlink("../public/images/recettes/" . $anciennePhoto);

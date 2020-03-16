@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ recette.nom }}{% endblock %}
+{% block body %}
+<main class='container recipe'>
+    <section class="recipe-top mb-5 d-flex flex-column">
+        <h1>{{ recette.nom }}</h1>
+        <div class="row">
+            <div class="left col">
+            <div class="block-pictos">
+                <div class="row-1">
+                {% for category in recette.categories %}
+                    {{  category.nom }}
+                {% endfor %}
+                </div>
+                <div class="row-2">
+                    <p>Niveau: {{ recette.niveau }}</p> 
+                </div>
+                <div>
+                    <p>{{ recette.description }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="right row">
+        <img src='/images/recettes/{{ recette.photo }}'</img>
+        </div>
+    </section>
+    <section class="ingredient mb-5 d-flex flex-column">
+    <h2>Ingrédients</h2>
+    <table class="table-ingredient">
+    <thead>
+        <tr>
+            <th>Ingrédients</th>
+            <th>Quantité</th>
+            <th>Unité</th>
+        <tr>
+    <thead>
+    <tbody>
+    {% for composition in recette.compositions %}
+        <tr>
+            <td>{{  composition.produit.nom }}</td>
+            <td>{{ composition.quantite}}</td>
+            <td>{{ composition.produit.unite}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </section>
+    <section class="ingredient mb-5 d-flex flex-column">
+        <h2>Instructions</h2>
+        <p>{{ recette.instructions }}</p>
+    </section>
+</main>
+{% endblock %}
+

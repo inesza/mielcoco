@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Miel & Coco - Recherche  produits{% endblock %}
+
+{% block body %}
+
+
+<div class="container">
+    <h1>Les Produits</h1>
+
+    <dl>
+    {% for produit in liste_produits %}
+    <dl>
+        <dt>
+            <dt><h2>{{ produit.nom }}</dt></li>
+            {# <li><p>{{ produit.photo }}</p></li> #}
+            <dd><h2>{{ produit.unite }}</h2></dd>
+            <dd><h2>{{ produit.prix_unitaire }}</h2></dd>
+        </dt>
+    </di>
+    {% endfor %}
+    </dl>
+</div>
+{% endblock %}

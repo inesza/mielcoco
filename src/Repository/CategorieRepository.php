@@ -19,6 +19,23 @@ class CategorieRepository extends ServiceEntityRepository
         parent::__construct($registry, Categorie::class);
     }
 
+    /**
+     * @return Recette[] Returns an array of Recette objects
+     */
+
+    public function findByNom($value)
+    {
+        // SELECT r.* FROM recette r WHERE r.nom LIKE "%" . $value . "%"
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.nom = :val')
+            ->setParameter('val', "%" . $value . "%")
+            ->orderBy('r.nom', 'ASC')
+            // ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // public function findBestsellers()
     // {
     //     return $this->createQueryBuilder('c') 

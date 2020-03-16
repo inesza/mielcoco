@@ -19,6 +19,23 @@ class ProduitRepository extends ServiceEntityRepository
         parent::__construct($registry, Produit::class);
     }
 
+    /**
+     * @return Produit[] Returns an array of Produit objects
+     */
+    
+    public function findByNom($value)
+    {
+        // SELECT p.* FROM produit p WHERE p.nom LIKE "%" . $value . "%"
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.nom = :val')
+            ->setParameter('val', "%" . $value . "%")
+            ->orderBy('p.nom', 'ASC')
+            // ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Produit[] Returns an array of Produit objects
     //  */

@@ -15,9 +15,13 @@ use Symfony\Component\HttpFoundation\File\File;
 
 use App\Entity\Composition;
 use App\Repository\CompositionRepository;
+use App\Form\CompositionType;
 
 use App\Entity\Categorie;
 use App\Repository\CategorieRepository;
+
+use App\Entity\Produit;
+use App\Repository\ProduitRepository;
 
 class RecetteController extends AbstractController
 {
@@ -33,16 +37,21 @@ class RecetteController extends AbstractController
     /**
      * @Route("/admin/recette/ajouter", name="admin_recette_ajouter")
      */
-    public function add(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, EMI $em, Request $rq)
+    public function add(RecetteRepository $recetteRepo, CategorieRepository $catRepo, EMI $em, Request $rq)
     {
         $formRecette = $this->createForm(RecetteType::class);
         $formRecette->handleRequest($rq);
         if($formRecette->isSubmitted()) {
             if($formRecette->isValid()) {
             $recette = $formRecette->getData();
-            $photoRecette = $formRecette->get('photo')->getData();
             $nomRecette = $formRecette->get('nom')->getData();
-            $compositionRecette = $formRecette->getData();
+        
+            $idCategories = $rq->request->get('recette')['categorie'];
+            foreach ($idCategories as $id) {
+                 $recette->addCategory($catRepo->find($id));
+            }
+
+            $photoRecette = $formRecette->get('photo')->getData();
             if ($photoRecette) {
                 $filename = $nomRecette .'-'.uniqid().'.'.$photoRecette->guessExtension();
                 $photoRecette->move(
@@ -52,10 +61,10 @@ class RecetteController extends AbstractController
                 $recette->setPhoto($filename);
             }
                 
-                $em->persist($recette); 
-                $em->persist($compositionRecette);
-                $em->flush();    
-                $this->addFlash("success", "Recette bien ajoutée à la base");
+                $em->persist($recette);
+                
+                $em->flush();
+                $this->addFlash("success", "Recette bien ajoutée. Ajoutez les ingrédients.");
                 return $this->redirectToRoute("admin_recette");
             } else {
                 $this->addFlash("danger", "Le formulaire n'est pas valide");
@@ -66,9 +75,46 @@ class RecetteController extends AbstractController
     }
 
     /**
-     * @Route("/admin/Recette/modifier/{id}", name="admin_Recette_modifier", requirements={"id" = "\d+"})
+     * @Route("/admin/recette/ajouter/compo-{id}", name="admin_recette_ajouter_compo")
      */
-    public function update(RecetteRepository $RecetteRepo, EMI $em, Request $rq, int $id)
+    public function addCompo(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, EMI $em, Request $rq, int $id)
+    {
+        
+        $recette = $recetteRepo->find($id);
+        $formCompo = $this->createForm(CompositionType::class);
+        $formCompo->handleRequest($rq);
+        if($formCompo->isSubmitted()) {
+            if($formCompo->isValid()) {
+                $compo = $formCompo->getData();
+                $compo->setRecette($recette);
+                $em->persist($compo); 
+                $em->flush(); 
+                
+                $this->addFlash("success", "Ingrédient bien ajouté.");
+            } else {
+                $this->addFlash("danger", "Le formulaire n'est pas valide");
+            }
+        }
+        $formCompo = $formCompo->createView();  
+        return $this->render('recette/formCompo.html.twig', compact("formCompo", "recette") );
+    }
+
+    /**
+     * @Route("/admin/recette/ajouter/compo-{id}", name="admin_recette_produitsAjoutes")
+     */
+    public function produitsAjoutes(ProduitRepository $produitRepo, CompositionRepository $compoRepo)
+    {
+        $compoEnCours = $recetteRepo->find($id);
+        $produitsAjoutes = $produitRepo->findAll();   
+        return $this->render('recette/formCompo.html.twig', compact("produitsAjoutes") );
+    }
+
+    
+
+    /**
+     * @Route("/admin/Recette/modifier/{id}", name="admin_recette_modifier", requirements={"id" = "\d+"})
+     */
+    public function update(RecetteRepository $RecetteRepo, CategorieRepository $catRepo, EMI $em, Request $rq, int $id)
     {
         $RecetteAModifier = $RecetteRepo->find($id);
         $formRecette = $this->createForm(RecetteType::class, $RecetteAModifier);
@@ -78,6 +124,10 @@ class RecetteController extends AbstractController
                 $anciennePhoto = $RecetteAModifier->getPhoto();
                 $photoRecette = $formRecette->get('photo')->getData();
                 $nomRecette = $formRecette->get('nom')->getData();
+                $idCategories = $rq->request->get('recette')['categorie'];
+                foreach ($idCategories as $id) {
+                    $RecetteAModifier->addCategory($catRepo->find($id));
+                }
                 if ($photoRecette) {
                     if ($anciennePhoto) {
                         unlink("../public/images/recettes/" . $anciennePhoto);
@@ -102,20 +152,29 @@ class RecetteController extends AbstractController
     }
 
     /**
-     * @Route("/admin/Recette/supprimer/{id}", name="admin_Recette_supprimer", requirements={"id" = "\d+"})
+     * @Route("/admin/Recette/supprimer/{id}", name="admin_recette_supprimer", requirements={"id" = "\d+"})
      */
-    public function delete(RecetteRepository $RecetteRepo, EMI $em, Request $rq, int $id)
+    public function delete(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, EMI $em, Request $rq, int $id)
     {
-        $RecetteASupprimer = $RecetteRepo->find($id);
-        $photoASupprimer = $RecetteASupprimer->getPhoto();
-        if ($photoASupprimer) {
+        $recetteASupprimer = $recetteRepo->find($id);
+
+        $photoASupprimer = $recetteASupprimer->getPhoto();
+        if (file_exists("../public/images/recettes/" . $photoASupprimer)) {
             unlink("../public/images/recettes/" . $photoASupprimer);
         }
-        $em->remove($RecetteASupprimer); 
+        $em->remove($recetteASupprimer); 
         $em->flush();  
         $this->addFlash("success", "Recette supprimée de la base");  
         return $this->redirectToRoute("admin_recette");
+    }
 
-        return $this->render('recette/index.html.twig', ["recette" => $RecetteASupprimer] );
+    /**
+     * @Route("/admin/Recette/{id}", name="admin_recette_detail", requirements={"id"="\d+"}) 
+     */
+    public function recette_detail(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, ProduitRepository $produitRepo, EMI $em, int $id, Request $rq) {
+        $recette = $recetteRepo->find($id);      
+        $composition = $recette->getCompositions();
+
+        return $this->render("recette/recette_detail.html.twig", compact("recette", "composition"));   
     }
 }

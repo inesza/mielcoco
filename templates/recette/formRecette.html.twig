@@ -20,10 +20,10 @@
     <br>
     {{ form_row(formRecette.categorie) }}
     <br>
-    {{ form_row(formRecette.composition, { attr:{ "class":"form-inline" }}) }}
+    {# {{ form_row(formRecette.composition, { attr:{ "class":"form-inline" }}) }}
     <i class="fas fa-plus-circle"></i> Ajouter un autre ingrédient
-    <br>
-    <button class="btn btn-dark">{{ mode is defined ? mode|capitalize : "Ajouter" }}</button>
+    <br> #}
+    <button class="btn btn-dark">Enregistrer</button>
 {{ form_end(formRecette) }}
 </div>
 {% endblock %}

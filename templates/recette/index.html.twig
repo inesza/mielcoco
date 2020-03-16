@@ -16,6 +16,7 @@
                 <th>Nom de la recette</th>
                 <th>Description</th>
                 <th>Catégories</th>
+                <th>Ingrédients</th>
                 <th colspan="2">Actions</th>
             </tr>
         </thead>
@@ -29,13 +30,14 @@
                         {% if indice > 0 %}
                         {{ " - " }}
                         {% endif %}
-                        {{  categorie }}
+                        {{  categorie.nom }}
                     {% endfor %}
                 </td>
-                <td><a href=""><i class="fas fa-eye"></i> Voir le détail</a></td>
+                <td><a href="{{ path("admin_recette_ajouter_compo" , { id: recette.id }) }}"><i class="fas fa-plus-circle"></i> Ajouter les ingrédients</a></td>
+                <td><a href="{{ path("admin_recette_detail" , { id: recette.id }) }}"><i class="fas fa-eye"></i> Voir le détail</a></td>
 
-                {# <td><a href="{{ path("admin_recette_modifier", { id: recette.id }) }}" class="fa fa-pen"></a></td>
-                <td><a href="{{ path("admin_recette_supprimer", { id: recette.id }) }}" class="fa fa-trash confirmModalLink"  data-toggle="modal" data-target="#supprProduit"></a></td> #}
+                <td><a href="{{ path("admin_recette_modifier", { id: recette.id }) }}" class="fa fa-pen"></a></td>
+                <td><a href="{{ path("admin_recette_supprimer", { id: recette.id }) }}" class="fa fa-trash confirmModalLink"  data-toggle="modal" data-target="#supprProduit"></a></td>
             </tr>
         {% endfor %}
     </table>

@@ -6,12 +6,30 @@
         {% block stylesheets %}{{ encore_entry_link_tags("app") }}{% endblock %}
     </head>
     <body>
-    <header class="navbar navbar-expand-lg navbar-light bg-light mb-3">
-        <nav class="container" >
-            <a class="navbar-brand" href="{{ path('home') }}">Miel & Coco (nav temporaire)</a>
+    <header class="container">
+        <div class="header">
+            <a class="navbar-brand" href="{{ path('home') }}">Miel & Coco </a>
 
+                    <form class="form-inline  my-2 my-lg-0" method="GET">
+                    <input class="form-control mr-sm-2" type="search" name="recherche" aria-label="Search">
+                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+                <li class="nav-item">
+                {% if not is_granted("IS_AUTHENTICATED_FULLY") %}
+                    <a class="nav-link" href="{{ path("app_login") }}">Connexion</a>
+                {% endif %}
+
+                {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+                    <a class="nav-link" href="{{ path("app_logout") }}">Déconnexion</a>
+                {% endif %}
+                </li>
+        </div>
+        <nav class="container navbar-expand-lg navbar-light bg-light mb-3">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
+
+                {# si l'ADMIN est connecte #}
+                 <ul class="navbar-nav mr-auto">
+                    {% if is_granted("ROLE_ADMIN") %} 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administration</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -19,13 +37,33 @@
                             <a class="dropdown-item" href="{{ path("admin_recette") }}">Recettes</a>
                         </div>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path("user_list") }}">Utilisateurs</a>
+                    </li>
+                    {% endif %}
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" name="recherche" aria-label="Search">
-                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-                </form>
+
+
+                <ul class="navbar-nav mr-auto"id="menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path("home") }}"><i class="fas fa-home"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">CORPS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">CHEVEUX</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">VISAGE</a>
+                    </li>
+                </ul>
+
+
+
             </div>
-        </nav>
+
+        </div>
     </header>
     <div class="container my-4">
         {% for type, messages in app.flashes %}

@@ -94,3 +94,45 @@ li.nav-item{
     justify-content: center;
     align-items: center;
 }
+
+.recipe h2 {
+    float: left;
+}
+
+.recipe-top .left {
+    background-color: #ffffff;
+    width: 55%;
+    float: left !important;
+}
+
+.recipe-top .right {
+    width: 45%;
+    float: right !important;
+}
+
+.recipe-top .right img {
+    width: 100%;
+    float: right !important;
+}
+
+.table-ingredient {
+    width: 100%;
+    border: 1px solid #e4cee7;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+thead {
+    background-color: #ffc107;
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tbody {
+    background-color: #ffffff;
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+

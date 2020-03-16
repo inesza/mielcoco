@@ -114,7 +114,7 @@ class RecetteController extends AbstractController
     /**
      * @Route("/admin/Recette/modifier/{id}", name="admin_recette_modifier", requirements={"id" = "\d+"})
      */
-    public function update(RecetteRepository $RecetteRepo, CategorieRepository $catRepo, EMI $em, Request $rq, int $id)
+    public function update(RecetteRepository $RecetteRepo, EMI $em, Request $rq, int $id)
     {
         $RecetteAModifier = $RecetteRepo->find($id);
         $formRecette = $this->createForm(RecetteType::class, $RecetteAModifier);
@@ -124,10 +124,6 @@ class RecetteController extends AbstractController
                 $anciennePhoto = $RecetteAModifier->getPhoto();
                 $photoRecette = $formRecette->get('photo')->getData();
                 $nomRecette = $formRecette->get('nom')->getData();
-                $idCategories = $rq->request->get('recette')['categorie'];
-                foreach ($idCategories as $id) {
-                    $RecetteAModifier->addCategory($catRepo->find($id));
-                }
                 if ($photoRecette) {
                     if ($anciennePhoto) {
                         unlink("../public/images/recettes/" . $anciennePhoto);
@@ -176,5 +172,16 @@ class RecetteController extends AbstractController
         $composition = $recette->getCompositions();
 
         return $this->render("recette/recette_detail.html.twig", compact("recette", "composition"));   
+    }
+
+    /**
+     * @Route("/Recette/{id}", name="recette_fiche", requirements={"id"="\d+"}) 
+     */
+    public function recette_fiche(RecetteRepository $recetteRepo, EMI $em, int $id, Request $rq) {
+        $recette = $recetteRepo->find($id);      
+        $composition = $recette->getCompositions();
+        $categorie = $recette->getCategories();
+
+        return $this->render("recette/recette_fiche.html.twig", compact("recette"));   
     }
 }

@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface as EMI;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UserRepository;
+use App\Entity\User;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 class UserController extends AbstractController
@@ -66,6 +68,34 @@ class UserController extends AbstractController
             return $this->redirectToRoute("user_list");  // redirection vers la route
         }
         return $this->render("user/formulaire.html.twig", [ "user" => $userAsupprimer, "mode" => "confirmer" ]);
+    }
+
+    /**
+     * @Route("/admin/user/ajouter", name="user_add")
+     */
+    public function add(EMI $em, Request $rq)
+    {
+    
+
+        if($rq->isMethod("POST")){ 
+            $email = $rq->request->get('email');
+            $mdp = $rq->request->get('password');
+            $mdp = password_hash($mdp, PASSWORD_DEFAULT);
+            $roles = $rq->request->get('roles');
+            
+            $user = new User; 
+            $user->setEmail($email);
+            $user->setPassword($mdp);
+            $user->setRoles(array($rq->request->get("role")));
+
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute("user_list");
+
+        }else{
+            return $this->render('user/ajout.html.twig'); 
+        }
     }
 
 }

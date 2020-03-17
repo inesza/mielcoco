@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container">
+    <form method="POST" class="">
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" name="email" value="{{ user is defined ? user.email : "" }}">
+        </div>
+        <div class="form-group">
+            <label>Rôle</label>
+            <textarea name="role">{{ user is defined ? user.roles[0] : "" }}</textarea>
+        </div>
+        <div class="form-group">
+            <label>Mot de passe</label>
+            <input type="password" value="{{ user is defined ? user.password : "" }}">
+        </div>
+
+        <button type="submit"><i class="fa fa-save"></i> {{ mode is defined ? mode|capitalize : "Ajouter" }}</button>
+    </form>
+</div>
+{% endblock %}

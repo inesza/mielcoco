@@ -19,6 +19,8 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Component\HttpFoundation\Cookie; 
+use Symfony\Component\HttpFoundation\Response;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
 {
@@ -102,5 +104,22 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     protected function getLoginUrl()
     {
         return $this->urlGenerator->generate('app_login');
+    }
+
+    public function setCookie(Cookie $cookie, Response $res){
+        $cookie = new Cookie(
+            'my_cookie',    // Cookie nom.
+            $obj->getValue(),    // Cookie value.
+            time() + ( 365 * 24 * 60 * 60)  // expirer dans 1 an
+    );
+        $res = new Response();
+        $res->headers->setCookie( $cookie );
+        $res->send();
+    }
+
+    public function deleteCookie(Cookie $cookie, Response $res){
+        $res = new Response();
+        $res->headers->clearCookie('my_old_cookie');
+        $res->send();
     }
 }

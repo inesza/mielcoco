@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Miel & Coco - Recherche  recettes{% endblock %}
+{% block title %}Miel & Coco - Recherche recettes{% endblock %}
 
 {% block body %}
 
 
 <div class="container">
-    <h1>Les Recettes</h1><br>
+    <h2>Recettes</h2><br>
 
     <dl>
     {% for recette in liste_recettes %}
     <dl>
         <dt>
-            <dt><h2>{{ recette.nom }}</h2></li>
+            <dd><img class="img-recette" src="/images/recettes/{{ recette.photo }}"></dd> 
+            <dt><h4>{{ recette.nom }}</dt></h4>
             <dd><p>{{ recette.description }}</p></dd>
             <dd><p>{{ recette.instructions }}</p></dd>
-            {# <dd><p>{{ recette.photo }}</p></dd> #}
             <dd><p>{{ recette.niveau }}</p></dd>
         </dt>
     </dl>

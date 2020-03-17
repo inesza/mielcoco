@@ -6,16 +6,16 @@
 
 
 <div class="container">
-    <h1>Les Produits</h1>
+    <h2>Produits</h2>
 
     <dl>
     {% for produit in liste_produits %}
     <dl>
         <dt>
-            <dt><h2>{{ produit.nom }}</dt></li>
-            {# <li><p>{{ produit.photo }}</p></li> #}
-            <dd><h2>{{ produit.unite }}</h2></dd>
-            <dd><h2>{{ produit.prix_unitaire }}</h2></dd>
+            <dd><img class="img-produit" src="/images/produits/{{ produit.photo }}"></dd> 
+            <dt><h2>{{ produit.nom }}</h2></dt>
+            <dd><p>{{ produit.unite }}</p></dd>
+            <dd><p>{{ produit.prixunitaire }}</p></dd>
         </dt>
     </di>
     {% endfor %}

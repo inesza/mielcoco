@@ -8,14 +8,32 @@
             <div class="left col">
             <div class="block-pictos">
                 <div class="row-1">
+                {% set catNoms = [] %}
                 {% for category in recette.categories %}
-                    {{  category.nom }}
+                {% set catNoms = catNoms|merge([ category.nom ]) %}
+                {% endfor %}
+                {% if "Visage" in catNoms  %}
+                    <img class='picto' title="Visage" src='/images/categories/logo_visage.png'</img>
+                {% endif %}
+                {% if "Corps" in catNoms %}
+                        <img class='picto' title="Corps" src='/images/categories/logo_corps.png'</img>
+                {% endif %}
+                {% if "Cheveux" in catNoms %}
+                    <img class='picto' title="Cheveux" src='/images/categories/logo_cheveux.png'</img>
+                {% endif %}
+                {% if "Accessoires" in catNoms %}
+                    <img class='picto' title="Accessoires" src='/images/categories/logo_accessoires.png'</img>
+                {% endif %}
+                {% if "Bestsellers" in catNoms %}
+                    <img class='picto' title="Bestsellers" src='/images/categories/logo_bestsellers.png'</img>
+                {% endif %}
+               
+                {% for category in recette.categories %}
+                    
                 {% endfor %}
                 </div>
                 <div class="row-2">
                     <p>Niveau: {{ recette.niveau }}</p> 
-                </div>
-                <div>
                     <p>{{ recette.description }}</p>
                 </div>
             </div>
@@ -24,6 +42,7 @@
         <img src='/images/recettes/{{ recette.photo }}'</img>
         </div>
     </section>
+    {% if "Accessoires" not in catNoms %}
     <section class="ingredient mb-5 d-flex flex-column">
     <h2>Ingrédients</h2>
     <table class="table-ingredient">
@@ -49,6 +68,7 @@
         <h2>Instructions</h2>
         <p>{{ recette.instructions }}</p>
     </section>
+    {% endif %}
 </main>
 {% endblock %}
 

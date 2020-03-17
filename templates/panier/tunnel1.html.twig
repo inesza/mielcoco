@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commander - Mon adresse{% endblock %}
+
+{% block body %}
+<main class="container">
+    <div class="formulaire col-md-5 offset-md-3">
+    {{ form_start(formClient) }}
+        <div class="form-row">
+            {{ form_row(formClient.prenom) }}
+            {{ form_row(formClient.nom) }}
+        </div>
+        {{ form_row(formClient.adresse) }}
+        <div class="form-row">
+            {{ form_row(formClient.cp) }}
+            {{ form_row(formClient.ville) }}
+        </div>
+        {{ form_row(formClient.telephone) }}
+        <br>
+        <div class="navigation d-flex justify-content-between w-100 my-3">
+            <a class="btn btn-warning" href=""><i class="fas fa-caret-left"></i> Retour</a>
+            <button class="btn btn-warning">Valider et payer ma commande <i class="fas fa-caret-right"></i></button>   
+        </div>
+    {{ form_end(formClient) }}
+    </div>
+
+</main>
+
+{% endblock %}

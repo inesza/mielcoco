@@ -85,6 +85,7 @@ class HomeController extends AbstractController
     public function cgv()
     {
         return $this->render('home/cgvMentions.html.twig');
+    }
 
  //------------------------------MENU---------------------------------------------------------
     /**

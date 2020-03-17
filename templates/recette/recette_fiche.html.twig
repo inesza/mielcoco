@@ -51,14 +51,16 @@
             <th>Ingrédients</th>
             <th>Quantité</th>
             <th>Unité</th>
+            <th>Prix unitaire</th>
         <tr>
     <thead>
     <tbody>
     {% for composition in recette.compositions %}
         <tr>
-            <td>{{  composition.produit.nom }}</td>
-            <td>{{ composition.quantite}}</td>
-            <td>{{ composition.produit.unite}}</td>
+            <td>{{ composition.produit.nom }}</td>
+            <td>{{ composition.quantite }}</td>
+            <td>{{ composition.produit.unite }}</td>
+            <td>{{ composition.produit.PrixUnitaire }} €</td>
         </tr>
     {% endfor %}
     </tbody>

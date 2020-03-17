@@ -136,6 +136,12 @@ tbody {
     vertical-align: middle;
     border-color: inherit;
 }
+/* Footer */
+.img-responsive{
+    max-width: 100%; 
+    height: auto; 
+    display: block;
+}
 
 .picto {
     margin: 0px 5px 0px 0px;
@@ -149,4 +155,3 @@ tbody {
 .row-2 p{
     background-color: #ffffff;
 }
-

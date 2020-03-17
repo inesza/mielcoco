@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Miel & Coco - {{ mode is defined ? mode|capitalize : "Ajouter" }} une catégorie{% endblock %}
+
+{% block body %}
+<div class="container">
+{{ form_start(formCategorie) }}
+    {{ form_row(formCategorie.nom) }}
+    <br>
+    <button class="btn btn-dark">{{ mode is defined ? mode|capitalize : "Ajouter" }}</button>
+{{ form_end(formCategorie) }}
+</div>
+{% endblock %}

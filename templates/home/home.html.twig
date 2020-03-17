@@ -4,7 +4,6 @@
 
 {% block body %}
 
-
 <main class="container">
     <section class="slider mb-5">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="5000">
@@ -46,7 +45,7 @@
                     <h5 class="vignette-recette-titre">{{ recette.nom }}</h5>
                     <p class="vignette-recette-texte">{{ recette.description|slice(0, 50) }} </p>
                     <div class="d-flex justify-content-around w-100">
-                        <a href="#" class="btn btn-warning">En savoir plus</a>
+                        <a href="{{path("recette_fiche", { id: recette.id } )}}" class="btn btn-warning">En savoir plus</a>
                         <a href="{{ path('ajout_panier', {'id': recette.id }) }}" class="btn btn-warning"><i class="fas fa-shopping-basket"></i></a>
                     </div>
                 </div>

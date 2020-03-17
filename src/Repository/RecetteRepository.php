@@ -19,22 +19,22 @@ class RecetteRepository extends ServiceEntityRepository
         parent::__construct($registry, Recette::class);
     }
 
-    // /**
-    //  * @return Recette[] Returns an array of Recette objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Recette[] Returns an array of Recette objects
+     */
+
+    public function findByNom($value)
     {
+        // SELECT r.* FROM recette r WHERE r.nom LIKE "%" . $value . "%"
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('r.nom LIKE :val')
+            ->setParameter('val', "%" . $value . "%")
+            ->orderBy('r.nom', 'ASC')
+            // ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Recette

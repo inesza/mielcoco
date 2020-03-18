@@ -55,6 +55,7 @@ class HomeController extends AbstractController
         $liste_recettes = $recetteRepo->findByNom($nom);
         return $this->render('home/listeRecettes.html.twig', compact("liste_recettes"));
     }
+    
     /**
      * @Route("/produit/{nom}", name="recherche_produit")
      */

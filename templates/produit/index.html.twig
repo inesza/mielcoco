@@ -3,31 +3,27 @@
 {% block title %}Miel & Coco - Administration produits{% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="container bg-white p-5">
     <h1>Administration - Produits</h1>
-    <div class="d-flex justify-content-between">
-        <p>Nombre de produits : {{ liste_produits|length }}</p> 
-        <p><a href="{{ path("admin_produit_ajouter") }}" class="btn btn-dark">Ajouter un produit</a></p>
-    </div>
+    <p>Nombre de produits : {{ liste_produits|length }}</p> 
+    <p><a href="{{ path("admin_produit_ajouter") }}" class="btn btn-dark">Ajouter un produit</a></p>
+
     <table class="table table-hover">
-        <thead>
+        <thead class="bg-light">
             <tr>
-                <th>Photo</th>
-                <th>Nom du produit</th>
-                <th>Unité</th>
-                <th>Prix unitaire</th>
-                <th colspan="2">Actions</th>
+                <th colspan="2">Produit</th>
+                <th>prix</th>
+                <th colspan="2" class="text-center">Actions</th>
             </tr>
         </thead>
         {% for produit in liste_produits %}
             <tr>
                 <td><img class="img-produit" src="/images/produits/{{ produit.photo }}"></td> 
                 <td>{{ produit.nom }}</td>
-                <td>{{ produit.unite }}</td>
-                <td>{{ produit.prixUnitaire }}</td>
+                <td>{{ produit.prixUnitaire }}€/1{{ produit.unite }}</td>
 
-                <td><a href="{{ path("admin_produit_modifier", { id: produit.id }) }}" class="fa fa-pen"></a></td>
-                <td><a href="{{ path("admin_produit_supprimer", { id: produit.id }) }}" class="fa fa-trash confirmModalLink"  data-toggle="modal" data-target="#supprProduit"></a></td>
+                <td class="text-center"><a href="{{ path("admin_produit_modifier", { id: produit.id }) }}" class="fa fa-pen"></a></td>
+                <td class="text-center"><a href="{{ path("admin_produit_supprimer", { id: produit.id }) }}" class="fa fa-trash confirmModalLink"  data-toggle="modal" data-target="#supprProduit"></a></td>
             </tr>
         {% endfor %}
     </table>

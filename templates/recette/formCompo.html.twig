@@ -1,27 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Miel & Coco - {{ mode is defined ? mode|capitalize : "Ajouter" }} les ingrédients{% endblock %}
+{% block title %}Miel & Coco - Ingrédients de : {{ recette.nom }}{% endblock %}
 
 {% block body %}
-<div class="container">
-<h3> {{ recette.nom }} </h3>
-<p>Ajouter les ingrédients</p>
-{%  if produitsAjoutes is defined %}
-<h3>Ingrédients ajoutés</h3>
-<ul>
-{% for produitAjoute in produitsAjoutes %}
-    <li>{{  produitAjoute.nom }}, {{ produitAjoute.unite}}</li>
-{% endfor %}
-</ul>
-{% endif %}
+<main class="container bg-white p-5">
+    <a class="btn btn-secondary mb-5" href="{{ path("admin_recette") }}"><i class="fas fa-caret-left"></i> Retour à la liste des recettes</a>
+    <h3> {{ recette.nom }} - Ingrédients</h3>
+    <section class="row d-flex mt-5 justify-content-around">
+        <div class="ajouter">
+            <h4>Ajouter un ingrédient</h4>
+            {{ form_start(formCompo) }}
+                {{ form_row(formCompo.produit, { attr:{ "class":"form-inline" }}) }}
+                {{ form_row(formCompo.quantite, { attr:{ "class":"form-inline" }}) }}
+                <br>
+                <button class="btn btn-dark">{{ mode is defined ? mode|capitalize : "Ajouter" }}</button>
+            {{ form_end(formCompo) }}
+        </div>
 
-<h3>Ajouter un ingrédient</h3>
-{{ form_start(formCompo) }}
-    {{ form_row(formCompo.produit, { attr:{ "class":"form-inline" }}) }}
-    {{ form_row(formCompo.quantite, { attr:{ "class":"form-inline" }}) }}
-    <i class="fas fa-plus-circle"></i> Ajouter un autre ingrédient
-    <br>
-    <button class="btn btn-dark">{{ mode is defined ? mode|capitalize : "Ajouter" }}</button>
-{{ form_end(formCompo) }}
+        <div class="ingredients">
+            <h4>Ingrédients ajoutés</h4>
+            <table>
+                <tbody>
+                {% for item in recette.compositions %}
+                    <tr>
+                        <td class="py-1">{{  item.produit.nom }}</td>
+                        <td class="px-5">{{ item.quantite}} {{ item.produit.unite}}</td>
+                        <td><a href="{{ path("admin_ingredient_retirer", { id: recette.id , idcompo: item.id }) }}" class="fa fa-trash confirmModalLink"  data-toggle="modal" data-target="#supprProduit"></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="supprProduit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmer la suppression</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            Retirer cet ingrédient de la recette ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="annulerSuppr">Annuler</button>
+        <button type="button" class="btn btn-primary" id="confirmerSuppr">Confirmer</button>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

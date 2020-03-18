@@ -20,6 +20,12 @@ $(document).ready(function () {
         $("#supprProduit").modal("show");
     });
 
+    $(".confirmModalLink").click(function(e) {
+        e.preventDefault();
+        theHREF = $(this).attr("href");
+        $("#supprCategorie").modal("show");
+    });
+
     $("#annulerSuppr").click(function(e) {
         $("#supprProduit").modal("hide");
     });

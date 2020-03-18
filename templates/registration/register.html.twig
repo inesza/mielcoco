@@ -6,14 +6,15 @@
 
     <div class="container">
 
-    <h1>Register</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Créer votre compte</h1>
+    <br>
 
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword) }}
         {{ form_row(registrationForm.agreeTerms) }}
-
-        <button class="btn-primary">Register</button>
+        <br>
+        <button class="btn btn-sm btn-primary">Enregistrer</button>
     {{ form_end(registrationForm) }}
     </div>
 {% endblock %}

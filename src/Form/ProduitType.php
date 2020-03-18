@@ -19,7 +19,7 @@ class ProduitType extends AbstractType
         $builder
             ->add('nom', Type\TextType::class, [
                 "attr" => ["placeholder" => "Nom du produit"],
-                "label" => "Nom du produit",
+                "label" => false,
                 "constraints" => [
                     new Constraints\NotBlank([ "message" => "Ce champ ne peut pas être vide"]),
                     new Constraints\Length([ 
@@ -31,18 +31,28 @@ class ProduitType extends AbstractType
             ])
             ->add('photo', Type\FileType::class, [
                 "mapped" => false,
-                "required" => false 
+                "required" => false,
+                "label" => false,
+                "attr" => [
+                    "placeholder" => "Photo"
+                ]
             ])
             ->add('unite', Type\TextType::class, [
-                "help" => "ml, mg, cl, cg, l, g",
+                "label" => false,
+                "attr" => [
+                    "placeholder" => "Unité de mesure (ml, cl, l, mg, g, kg...)"
+                ],
                 "constraints" => [
                     new Constraints\NotBlank([ "message" => "Ce champ ne peut pas être vide"])
                 ]
             ])
             ->add('prix_unitaire', Type\NumberType::class, [
-                "help" => "Saisissez le prix pour une unité de produit",
+                "label" => false,
+                "attr" => [
+                    "placeholder" => "Prix pour une unité du produit"
+                ],
                 "constraints" => [
-                    new Constraints\NotBlank([ "message" => "Ce champ ne peut pas être vide"])
+                    new Constraints\NotBlank([ "message" => "Saisissez un prix"])
                 ]
             ])
 

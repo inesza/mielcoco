@@ -1,7 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Miel & Coco - {{ mode is defined ? mode|capitalize : "Ajouter" }} un produit{% endblock %}
+{% block title %}Miel & Coco - Confirmation de commande{% endblock %}
 
 {% block body %}
-Commande bien enregistrée ! 
+<main class="container bg-white p-5">
+     <div class="d-flex flex-column align-items-center">
+        <p class="h2 my-5 text-center">Commande bien enregistrée !<br>Elle sera bientôt chez vous ! </p>
+            <img src="/images/divers/commerce-and-shopping.svg" class="w-25">
+        <a class="btn btn-warning my-5" href="{{ path('home') }}">Retour au site</a>
+    </div>
+</main>
 {% endblock %}

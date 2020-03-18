@@ -5,10 +5,10 @@
 {% block body %}
 
 <div class="container">
-     <h1>Corps</h1>
-         <div class="d-flex justify-content-around w-100">
+     <h1 class="ml-4">Corps</h1>
+         <div class="d-flex justify-content-around w-100 flex-wrap">
         {% for recette in categCorps %}
-            <div class="vignette-recette">
+            <div class="vignette-recette m-4">
                 <img src="/images/recettes/{{ recette.photo }}" class="vignette-recette-img" alt="{{ recette.nom }}">
                 <div class="vignette-recette-body d-flex flex-column align-items-center p-4">
                     <h5 class="vignette-recette-titre">{{ recette.nom }}</h5>

@@ -100,28 +100,45 @@ class RecetteController extends AbstractController
     }
 
     /**
+     * @Route("/admin/recette/ajouter/compo-{id}/retirer-{idcompo}", name="admin_ingredient_retirer", requirements={"id" = "\d+"})
+     */
+    public function removeIngredient(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, EMI $em, int $id, int $idcompo, Request $rq)
+    {
+        $recette = $recetteRepo->find($id); 
+        dd($idcompo);
+        $recette->removeComposition($idcompo);
+
+        // $em->remove($compoARetirer); 
+        // $em->flush();  
+        $this->addFlash("success", "Ingrédient retiré de la recette");  
+        return $this->redirectToRoute("admin_recette_ajouter_compo", compact("compoARetirer"));
+    }
+
+    /**
      * @Route("/admin/recette/ajouter/compo-{id}", name="admin_recette_produitsAjoutes")
      */
     public function produitsAjoutes(ProduitRepository $produitRepo, CompositionRepository $compoRepo)
-    {
-        $compoEnCours = $recetteRepo->find($id);
-        $produitsAjoutes = $produitRepo->findAll();   
+    { 
+        $recette = $recetteRepo->find($id);      
+        $produitsAjoutes = $recette->getCompositions();
         return $this->render('recette/formCompo.html.twig', compact("produitsAjoutes") );
     }
 
     
 
+    
+
     /**
-     * @Route("/admin/Recette/modifier/{id}", name="admin_recette_modifier", requirements={"id" = "\d+"})
+     * @Route("/admin/recette/modifier/{id}", name="admin_recette_modifier", requirements={"id" = "\d+"})
      */
-    public function update(RecetteRepository $RecetteRepo, EMI $em, Request $rq, int $id)
+    public function update(RecetteRepository $RecetteRepo, CategorieRepository $catRepo, EMI $em, Request $rq, int $id)
     {
-        $RecetteAModifier = $RecetteRepo->find($id);
-        $formRecette = $this->createForm(RecetteType::class, $RecetteAModifier);
+        $recetteAModifier = $RecetteRepo->find($id);
+        $formRecette = $this->createForm(RecetteType::class, $recetteAModifier);
         $formRecette->handleRequest($rq);
         if($formRecette->isSubmitted()) {
             if($formRecette->isValid()) {
-                $anciennePhoto = $RecetteAModifier->getPhoto();
+                $anciennePhoto = $recetteAModifier->getPhoto();
                 $photoRecette = $formRecette->get('photo')->getData();
                 $nomRecette = $formRecette->get('nom')->getData();
                 if ($photoRecette) {
@@ -133,9 +150,18 @@ class RecetteController extends AbstractController
                         $this->getParameter('photosRecettes'),
                         $filename
                     );
-                    $RecetteAModifier->setPhoto($filename);
+                    $recetteAModifier->setPhoto($filename);
+                } 
+                
+                $categories = $recetteAModifier->getCategories();
+                foreach ($categories as $categorie){
+                    $recetteAModifier->removeCategory($categorie);    
                 }
-                $em->persist($RecetteAModifier); 
+                $idCategories = $rq->request->get('recette')['categorie'];
+                foreach ($idCategories as $id) {
+                    $recetteAModifier->addCategory($catRepo->find($id));
+                }
+                $em->persist($recetteAModifier); 
                 $em->flush();   
                 $this->addFlash("success", "Modification bien enregistrée"); 
                 return $this->redirectToRoute("admin_recette");
@@ -144,11 +170,11 @@ class RecetteController extends AbstractController
             }
         }
         $formRecette = $formRecette->createView();  
-        return $this->render('recette/formRecette.html.twig', ["formRecette" => $formRecette, "recette" => $RecetteAModifier, "mode" => "Modifier"] );
+        return $this->render('recette/formRecette.html.twig', ["formRecette" => $formRecette, "recette" => $recetteAModifier, "mode" => "Modifier"] );
     }
 
     /**
-     * @Route("/admin/Recette/supprimer/{id}", name="admin_recette_supprimer", requirements={"id" = "\d+"})
+     * @Route("/admin/recette/supprimer/{id}", name="admin_recette_supprimer", requirements={"id" = "\d+"})
      */
     public function delete(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, EMI $em, Request $rq, int $id)
     {
@@ -165,7 +191,7 @@ class RecetteController extends AbstractController
     }
 
     /**
-     * @Route("/admin/Recette/{id}", name="admin_recette_detail", requirements={"id"="\d+"}) 
+     * @Route("/admin/recette/{id}", name="admin_recette_detail", requirements={"id"="\d+"}) 
      */
     public function recette_detail(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, ProduitRepository $produitRepo, EMI $em, int $id, Request $rq) {
         $recette = $recetteRepo->find($id);      
@@ -175,7 +201,7 @@ class RecetteController extends AbstractController
     }
 
     /**
-     * @Route("/Recette/{id}", name="recette_fiche", requirements={"id"="\d+"}) 
+     * @Route("/detail/recette/{id}", name="recette_fiche", requirements={"id"="\d+"}) 
      */
     public function recette_fiche(RecetteRepository $recetteRepo, EMI $em, int $id, Request $rq) {
         $recette = $recetteRepo->find($id);      

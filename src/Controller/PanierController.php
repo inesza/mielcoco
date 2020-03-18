@@ -139,10 +139,7 @@ class PanierController extends AbstractController
                 $client->setIdUser($user);
                 $em->persist($client); 
                 $em->flush();    
-                $this->addFlash("success", "produit bien ajouté à la base");
                 return $this->redirectToRoute("paiement_panier");
-            } else {
-                $this->addFlash("danger", "Le formulaire n'est pas valide");
             }
         }
         $formClient = $formClient->createView();  

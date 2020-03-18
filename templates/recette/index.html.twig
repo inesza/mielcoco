@@ -3,41 +3,41 @@
 {% block title %}Miel & Coco - Administration recettes{% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="container bg-white p-5">
     <h1>Administration - Recettes</h1>
-    <div class="d-flex justify-content-between">
-        <p>Nombre de recettes : {{ liste_recettes|length }}</p> 
-        <p><a href="{{ path("admin_recette_ajouter") }}" class="btn btn-dark">Ajouter une recette</a></p>
-    </div>
-    <table class="table table-hover">
-        <thead>
+    <p>Nombre de recettes : {{ liste_recettes|length }}</p> 
+    <p><a href="{{ path("admin_recette_ajouter") }}" class="btn btn-dark">Ajouter une recette</a></p>
+    <table class="table table-hover align-middle">
+        <thead class="bg-light">
             <tr>
-                <th>Photo</th>
-                <th>Nom de la recette</th>
-                <th>Description</th>
-                <th>Catégories</th>
-                <th>Ingrédients</th>
+                <th colspan="2">Recette</th>
+                <th class="text-center">Catégories</th>
+                <th class="text-center">Ingrédients</th>
+                <th  class="text-center">Voir le détail</th>
                 <th colspan="2">Actions</th>
             </tr>
         </thead>
         {% for recette in liste_recettes %}
             <tr>
-                <td><img class="img-recette" src="/images/recettes/{{ recette.photo }}"></td> 
-                <td>{{ recette.nom }}</td>
-                <td>{{ recette.description}}</td>
-                <td> 
+                <td class="align-middle"><img class="img-recette" src="/images/recettes/{{ recette.photo }}"></td> 
+                <td class="align-middle">
+                  {{ recette.nom }}
+                  <br>
+                  <em><small>{{ recette.description|slice(0,30)}}...</small></em>
+                </td>
+                <td class="align-middle text-center"> 
                     {% for indice, categorie in recette.categories %}
                         {% if indice > 0 %}
-                        {{ " - " }}
+                        {{ "<br>" }}
                         {% endif %}
                         {{  categorie.nom }}
                     {% endfor %}
                 </td>
-                <td><a href="{{ path("admin_recette_ajouter_compo" , { id: recette.id }) }}"><i class="fas fa-plus-circle"></i> Ajouter les ingrédients</a></td>
-                <td><a href="{{ path("admin_recette_detail" , { id: recette.id }) }}"><i class="fas fa-eye"></i> Voir le détail</a></td>
+                <td class="align-middle text-center"><a href="{{ path("admin_recette_ajouter_compo" , { id: recette.id }) }}"><i class="fas fa-clipboard-list"></i><br><small>Ingrédients</small></a></td>
+                <td class="align-middle text-center"><a href="{{ path("admin_recette_detail" , { id: recette.id }) }}"><i class="fas fa-eye"></i><br><small>Détail</small></a></td>
 
-                <td><a href="{{ path("admin_recette_modifier", { id: recette.id }) }}" class="fa fa-pen"></a></td>
-                <td><a href="{{ path("admin_recette_supprimer", { id: recette.id }) }}" class="fa fa-trash confirmModalLink"  data-toggle="modal" data-target="#supprProduit"></a></td>
+                <td class="align-middle text-center"><a href="{{ path("admin_recette_modifier", { id: recette.id }) }}" class="fa fa-pen"></a></td>
+                <td class="align-middle text-center"><a href="{{ path("admin_recette_supprimer", { id: recette.id }) }}" class="fa fa-trash confirmModalLink"  data-toggle="modal" data-target="#supprProduit"></a></td>
             </tr>
         {% endfor %}
     </table>

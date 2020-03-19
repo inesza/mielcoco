@@ -9,9 +9,9 @@
          <div class="d-flex justify-content-around w-100 flex-wrap">
         {% for recette in categCorps %}
             <div class="vignette-recette m-4">
-                <img src="/images/recettes/{{ recette.photo }}" class="vignette-recette-img" alt="{{ recette.nom }}">
+                <a href="{{path("recette_fiche", { id: recette.id } )}}"><img src="/images/recettes/{{ recette.photo }}" class="vignette-recette-img" alt="{{ recette.nom }}"></a>
                 <div class="vignette-recette-body d-flex flex-column align-items-center p-4">
-                    <h5 class="vignette-recette-titre">{{ recette.nom }}</h5>
+                    <a href="{{path("recette_fiche", { id: recette.id } )}}"><h5 class="vignette-recette-titre">{{ recette.nom }}</h5></a>
                     <p class="vignette-recette-texte">{{ recette.description|slice(0, 50) }} </p>
                     <div class="d-flex justify-content-around w-100">
                         <a href="{{path("recette_fiche", { id: recette.id } )}}" class="btn btn-warning">En savoir plus</a>

@@ -10,9 +10,9 @@
         <div class="header container">
             <a class="navbar-brand" href="{{ path('home') }}"><img class="logo" src="/images/divers/logomielcoco.png" alt="Miel&Coco"></a>
 
-            <form class="form-inline my-2 my-lg-0" method="POST">
+            <form class="form-inline my-2 my-lg-0" method="POST" action="{{ path('recherche') }}">
                 <input class="form-control mr-sm-2 border-warning" type="search" name="recherche" aria-label="Search">
-                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit" href="{{ path('recherche') }}"><i class="fas fa-search"></i></button>
+                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
             </form>  
                 <li class="nav-item">
                 {% if not is_granted("IS_AUTHENTICATED_FULLY") %}

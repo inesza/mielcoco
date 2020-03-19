@@ -29,7 +29,7 @@ class HomeController extends AbstractController
         
         return $this->render('home/home.html.twig', compact("bestsellers"));
     }
-
+ //------------------------------RECHERCHE---------------------------------------------------------
     /**
      * @Route("/recherche", name="recherche")
      */
@@ -64,7 +64,7 @@ class HomeController extends AbstractController
         $liste_produits = $produitRepo->findByNom($nom);
         return $this->render('home/listeProduits.html.twig', compact("liste_produits"));
     }
-
+ //------------------------------FOOTER--------------------------------------------------------
     /**
      * @Route("/qui_sommes_nous", name="qui_sommes_nous")
      */

@@ -33,7 +33,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/recherche", name="recherche")
      */
-    public function recherche(ProduitRepository $produitRepo,RecetteRepository $recetteRepo, Request $rq)
+    public function recherche(ProduitRepository $produitRepo, RecetteRepository $recetteRepo, Request $rq)
     {
         if($rq->isMethod("POST")){
             $nom = $rq->request->get("recherche");

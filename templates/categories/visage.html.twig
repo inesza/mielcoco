@@ -15,7 +15,7 @@
                     <p class="vignette-recette-texte">{{ recette.description|slice(0, 50) }} </p>
                     <div class="d-flex justify-content-around w-100">
                         <a href="{{path("recette_fiche", { id: recette.id } )}}" class="btn btn-warning">En savoir plus</a>
-                        <a href="#" class="btn btn-warning"><i class="fas fa-shopping-basket"></i></a>
+                        <a href="{{ path('ajout_panier', { id: recette.id }) }}" class="btn btn-warning"><i class="fas fa-shopping-basket"></i></a>
                     </div>
                 </div>
             </div>

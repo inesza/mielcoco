@@ -38,13 +38,15 @@ class HomeController extends AbstractController
         if($rq->isMethod("POST")){
             $nom = $rq->request->get("recherche");
             $liste_recettes = $recetteRepo->findByNom($nom);
-            $liste_produits = $produitRepo->findByNom($nom);
+            // $liste_produits = $produitRepo->findByNom($nom);
         } 
         else {
             $liste_recettes = $recetteRepo->findAll();
-            $liste_produits = $produitRepo->findAll();
+            // $liste_produits = $produitRepo->findAll();
         }
-        return $this->render('home/recherche.html.twig', compact("liste_recettes", "liste_produits"));
+        return $this->render('home/recherche.html.twig', compact("liste_recettes", 
+        // "liste_produits"
+        ));
     }
 
     /**

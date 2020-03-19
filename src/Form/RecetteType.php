@@ -42,12 +42,18 @@ class RecetteType extends AbstractType
                 "label" => false,
                 "attr" => [
                     "placeholder" => "Description courte"
+                ],
+                "constraints" => [
+                    new Constraints\NotBlank([ "message" => "Ce champ ne peut pas être vide"])
                 ]
             ])
             ->add('instructions', Type\TextareaType::class, [
                 "label" => false,
                 "attr" => [
                     "placeholder" => "Instructions"
+                ],
+                "constraints" => [
+                    new Constraints\NotBlank([ "message" => "Ce champ ne peut pas être vide"])
                 ]
             ])
             ->add('photo', Type\FileType::class, [
@@ -65,6 +71,9 @@ class RecetteType extends AbstractType
                     'Débutant' => "debutant",
                     'Intermédiaire' => "intermediaire",
                     'Confirmé' => "confirme"
+                ],
+                "constraints" => [
+                    new Constraints\NotBlank([ "message" => "Ce champ ne peut pas être vide"])
                 ]
             ])
             ->add('categorie', EntityType::class, [ 
@@ -72,6 +81,9 @@ class RecetteType extends AbstractType
                 "class" => Categorie::class, 
                 "expanded" => true,
                 "multiple" => true,
+                "constraints" => [
+                    new Constraints\NotBlank([ "message" => "Ce champ ne peut pas être vide"])
+                ],
                 "attr" => ["class" => "form-check"],
                 "choice_label" => function(Categorie $categorie){
                     return $categorie->getNom();

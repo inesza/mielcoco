@@ -44,8 +44,8 @@ class HomeController extends AbstractController
             $liste_recettes = $recetteRepo->findAll();
             // $liste_produits = $produitRepo->findAll();
         }
-        return $this->render('home/recherche.html.twig', compact("liste_recettes", 
-        // "liste_produits"
+        return $this->render('home/recherche.html.twig', compact("liste_recettes"
+        // , "liste_produits"
         ));
     }
 

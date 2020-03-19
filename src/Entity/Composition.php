@@ -19,7 +19,7 @@ class Composition
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", precision=10, scale=2)
      */
     private $quantite;
 

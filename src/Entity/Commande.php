@@ -23,7 +23,7 @@ class Commande
     private $client;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", precision=10, scale=2)
      */
     private $montant;
 

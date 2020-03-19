@@ -1,68 +1,63 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ recette.nom }}{% endblock %}
 {% block body %}
-<main class='container recipe'>
+<main class='container recipe bg-white'>
     <section class="recipe-top mb-5 d-flex flex-column">
-        <h1>{{ recette.nom }}</h1>
-        <div class="row">
-            <div class="left col">
-            <div class="block-pictos">
-                <div class="row-1">
-                {% set catNoms = [] %}
-                {% for category in recette.categories %}
-                {% set catNoms = catNoms|merge([ category.nom ]) %}
-                {% endfor %}
-                {% if "Visage" in catNoms  %}
-                    <img class='picto' title="Visage" src='/images/categories/logo_visage.png'</img>
-                {% endif %}
-                {% if "Corps" in catNoms %}
-                        <img class='picto' title="Corps" src='/images/categories/logo_corps.png'</img>
-                {% endif %}
-                {% if "Cheveux" in catNoms %}
-                    <img class='picto' title="Cheveux" src='/images/categories/logo_cheveux.png'</img>
-                {% endif %}
-                {% if "Accessoires" in catNoms %}
-                    <img class='picto' title="Accessoires" src='/images/categories/logo_accessoires.png'</img>
-                {% endif %}
-                {% if "Bestsellers" in catNoms %}
-                    <img class='picto' title="Bestsellers" src='/images/categories/logo_bestsellers.png'</img>
-                {% endif %}
-               
-                {% for category in recette.categories %}
-                    
-                {% endfor %}
-                </div>
-                <div class="row-2">
-                    <p>Niveau: {{ recette.niveau }}</p> 
-                    <p>{{ recette.description }}</p>
-                </div>
+        <div class="row d-flex">  
+            <div class="left col-7 p-4">
+                <h1>{{ recette.nom }}</h1>
+                <div class="block-pictos">
+                    <div class="row-1">
+                        {% set catNoms = [] %}
+                        {% for category in recette.categories %}
+                        {% set catNoms = catNoms|merge([ category.nom ]) %}
+                        {% endfor %}
+                        {% if "Visage" in catNoms  %}
+                            <img class='picto' title="Visage" src='/images/categories/logo_visage.png'</img>
+                        {% endif %}
+                        {% if "Corps" in catNoms %}
+                                <img class='picto' title="Corps" src='/images/categories/logo_corps.png'</img>
+                        {% endif %}
+                        {% if "Cheveux" in catNoms %}
+                            <img class='picto' title="Cheveux" src='/images/categories/logo_cheveux.png'</img>
+                        {% endif %}
+                        {% if "Accessoires" in catNoms %}
+                            <img class='picto' title="Accessoires" src='/images/categories/logo_accessoires.png'</img>
+                        {% endif %}
+                        {% if "Bestsellers" in catNoms %}
+                            <img class='picto' title="Bestsellers" src='/images/categories/logo_bestsellers.png'</img>
+                        {% endif %}
+                    </div>
+                    <div class="row-2">
+                        <p>Niveau: {{ recette.niveau }}</p> 
+                        <p>{{ recette.description }}</p>
+                    </div>
+                </div>     
             </div>
-        </div>
-        <div class="right row">
-        <img src='/images/recettes/{{ recette.photo }}'</img>
+            <div class="right col-5">
+                <img src='/images/recettes/{{ recette.photo }}'>
+            </div>
         </div>
     </section>
     {% if "Accessoires" not in catNoms %}
-    <section class="ingredient mb-5 d-flex flex-column">
-    <h2>Ingrédients</h2>
-    <table class="table-ingredient">
-    <thead>
-        <tr>
-            <th>Ingrédients</th>
-            <th>Quantité</th>
-            <th>Unité</th>
-        <tr>
-    <thead>
-    <tbody>
-    {% for composition in recette.compositions %}
-        <tr>
-            <td>{{  composition.produit.nom }}</td>
-            <td>{{ composition.quantite}}</td>
-            <td>{{ composition.produit.unite}}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-    </table>
+    <section class="ingredient mb-5 d-flex flex-column col-md-6">
+        <h2>Ingrédients</h2>
+        <table class="table-ingredient">
+            <thead>
+                <tr>
+                    <th>Ingrédients</th>
+                    <th>Quantité</th>
+                <tr>
+            <thead>
+            <tbody>
+            {% for composition in recette.compositions %}
+                <tr>
+                    <td>{{  composition.produit.nom }}</td>
+                    <td>{{ composition.quantite}} {{ composition.produit.unite}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </section>
     <section class="ingredient mb-5 d-flex flex-column">
         <h2>Instructions</h2>

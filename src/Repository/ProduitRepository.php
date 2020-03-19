@@ -27,7 +27,7 @@ class ProduitRepository extends ServiceEntityRepository
     {
         // SELECT p.* FROM produit p WHERE p.nom LIKE "%" . $value . "%"
         return $this->createQueryBuilder('p')
-            ->andWhere('p.nom = :val')
+            ->andWhere('p.nom LIKE :val')
             ->setParameter('val', "%" . $value . "%")
             ->orderBy('p.nom', 'ASC')
             // ->setMaxResults(10)
@@ -35,23 +35,7 @@ class ProduitRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-
-    // /**
-    //  * @return Produit[] Returns an array of Produit objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Produit

@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Categorie;
 use App\Repository\CategorieRepository;
 use App\Entity\Recette;
+use App\Entity\Produit;
 use App\Repository\RecetteRepository;
 use App\Repository\ProduitRepository;
 
@@ -32,27 +33,29 @@ class HomeController extends AbstractController
     /**
      * @Route("/recherche", name="recherche")
      */
-    public function recherche(RecetteRepository $recetteRepo, Request $rq)
+    public function recherche(ProduitRepository $produitRepo,RecetteRepository $recetteRepo, Request $rq)
     {
         if($rq->isMethod("POST")){
             $nom = $rq->request->get("recherche");
             $liste_recettes = $recetteRepo->findByNom($nom);
-            // return $this->redirectToRoute("recherche_recette");  // redirection vers la route recherche_recette
+            $liste_produits = $produitRepo->findByNom($nom);
         } 
         else {
             $liste_recettes = $recetteRepo->findAll();
+            $liste_produits = $produitRepo->findAll();
         }
-        return $this->render('home/listeRecettes.html.twig', compact("liste_recettes"));
+        return $this->render('home/recherche.html.twig', compact("liste_recettes", "liste_produits"));
     }
 
     /**
      * @Route("/recette/{nom}", name="recherche_recette")
      */
-    public function rechProd(RecetteRepository $recetteRepo, $nom)
+    public function rechRecette(RecetteRepository $recetteRepo, $nom)
     {
         $liste_recettes = $recetteRepo->findByNom($nom);
         return $this->render('home/listeRecettes.html.twig', compact("liste_recettes"));
     }
+    
     /**
      * @Route("/produit/{nom}", name="recherche_produit")
      */
@@ -62,27 +65,28 @@ class HomeController extends AbstractController
         return $this->render('home/listeProduits.html.twig', compact("liste_produits"));
     }
 
-    // /**
-    //  * @Route("/", name="bestsellers")
-    //  */
-    // public function bestsellers(RecetteRepository $recetteRepo, CategorieRepository $catRepo, Request $rq)
-    // {
-    //     // $best = $catRepo->find('Bestsellers');
-    //     // $bestsellers = $best->getRecettes();
-    //     $recettes = $recetteRepo->findAll();
-    //     return $this->render('home/home.html.twig', compact("recettes"));
+    /**
+     * @Route("/qui_sommes_nous", name="qui_sommes_nous")
+     */
+    public function aPropos()
+    {
+        return $this->render('home/aPropos.html.twig');
+    }
 
-
-    //     // return $this->render('home/home.html.twig', compact("bestsellers"));
-    // }
-
-    // public function bestsellers(RecetteRepository $recetteRepo, Request $rq)
-    // {
-    //     $recettes = $recetteRepo->findAll();   
-        
-    //     return $this->render('home/home.html.twig', compact("recettes"));
-    // }
-
+    /**
+     * @Route("/cosmetique_bio", name="cosmetique_bio")
+     */
+    public function cosmetiqueB()
+    {
+        return $this->render('home/cosmetiqueBio.html.twig');
+    }
+    /**
+     * @Route("/cgv_mentions", name="cgv_mentions")
+     */
+    public function cgv()
+    {
+        return $this->render('home/cgvMentions.html.twig');
+    }
 
  //------------------------------MENU---------------------------------------------------------
     /**

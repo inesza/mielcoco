@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Miel & Coco - Mon panier{% endblock %}
+
+{% block body %}
+<div class="container bg-white p-5">
+    <h1>Mon panier</h1>
+
+    {% if items | length > 0 %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th colspan="2"></th>
+                <th class="text-right">Prix</th>
+                <th colspan="2" class="text-center">Quantité</th>
+                <th class="text-right">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <td style="width: 16.66%"><img class="img-recette" src="/images/recettes/{{ item.recette.photo }}"></td> 
+                <td>{{ item.recette.nom }}</td>
+                <td class="text-right"> {{ item.prix }} €
+                </td>
+                <td class="text-center">
+                    <a href="{{ path('baisse_panier', {'id': item.recette.id }) }}"><i class="fas fa-minus-circle mr-2"></i></a>
+                     {{ item.quantite }}  
+                    <a href="{{ path('ajout_panier', {'id': item.recette.id }) }}"><i class="fas fa-plus-circle ml-2"></i></a>
+                    
+                </td>
+                <td><a href="{{ path('supprimer_panier', {'id': item.recette.id }) }}" class="fa fa-trash confirmModalLink"  data-toggle="modal" data-target="#supprProduit"></a></td>
+                <td class="text-right"> {{ item.prix  * item.quantite }} € </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td><button class='btn btn-light'>Vider mon panier</button></td>
+                <td colspan="4" class="text-right">Total :</td>
+                <td class="text-right">{{ totalPanier }} €</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="5" class="text-right">Frais de livraison :</td>
+                <td class="text-right">{{ fdp }} €</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="5" class="text-right font-weight-bold">Total avec frais de port</td>
+                <td class="text-right h2">{{ totalPanier + fdp }} €</td>
+                
+            </tr>               
+        </tfoot>
+    </table>
+    <a class='btn btn-warning mr-4 mb-5 offset-md-9' href="{{ path('adresse_panier') }}">Valider mon panier</a>
+    {% else %}
+    <div class="panier-vide d-flex flex-column align-items-center">
+        <p class="h2 my-5">Rien dans le panier :( </p>
+            <img src="/images/divers/paniervide.svg" class="w-25">
+        <a class="btn btn-warning my-5" href="{{ path('home') }}">Je commence mon shopping</a>
+    </div>
+        
+    {% endif %}
+</div>
+    <!-- Modal -->
+    <div class="modal fade" id="supprProduit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Supprimer</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+                Retirer cette recette du panier ?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="annulerSuppr">Non, je la garde !</button>
+            <button type="button" class="btn btn-primary" id="confirmerSuppr">Oui, je l'enlève</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+
+
+{% endblock %}

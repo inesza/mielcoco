@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Miel & Coco - Recherche{% endblock %}
+
+{% block body %}
+
+
+<div class="container">
+
+    <h2>Produits & Recettes</h2>
+
+    <dl>
+    {% for produit in liste_produits %}
+    <dl>
+        <dt>
+            <dd><img class="img-produit" src="/images/produits/{{ produit.photo }}"></dt> 
+            <dt><h4>{{ produit.nom }}</h4></dt>
+            <dd><p>{{ produit.unite }}</p></dd>
+            <dd><p>{{ produit.prixunitaire }}</p></dd>
+        </dt>
+    </di>
+    {% endfor %}
+    </dl>
+    
+    <dl>
+    {% for recette in liste_recettes %}
+    <dl>
+        <dt>
+            <dd><img class="img-recette" src="/images/recettes/{{ recette.photo }}"></dd> 
+            <dt><h4>{{ recette.nom }}</h4></dt>
+            <dd><p>{{ recette.description }}</p></dd>
+            <dd><p>{{ recette.instructions }}</p></dd>
+            <dd><p>{{ recette.niveau }}</p></dd>
+        </dt>
+    </dl>
+    {% endfor %}
+    </dl>
+</div>
+{% endblock %}

@@ -3,25 +3,54 @@
 {% block title %}Miel & Coco - Administration recettes{% endblock %}
 
 {% block body %}
-<div class="container">
-    <a class="btn btn-secondary mb-5" href="{{ path("admin_recette") }}"><i class="fas fa-caret-left"></i> Retour à la liste des recettes</a>
-    <h1>{{ recette.nom }}</h1>
-    <img src="/images/recettes/{{ recette.photo }}">
-    <p>{{ recette.description }}</p>
-    <p>{{ recette.instructions }}</p>
-    <p>
-        {% for indice, categorie in recette.categories %}
-            {% if indice > 0 %}
-                {{ " - " }}
-            {% endif %}
-            {{  categorie.nom }}
-        {% endfor %}
-    </p>
-    <h3>Composition</h3>
-    <ul>
-        {% for compo in recette.compositions %}
-            <li> {{  compo.produit.nom }}, {{ compo.quantite}} {{ compo.produit.unite}} </li>
-        {% endfor %}
-    </ul>
+<div class="container bg-white p-5">
+    <a class="btn btn-secondary mb-1" href="{{ path("admin_recette") }}"><i class="fas fa-caret-left"></i> Retour à la liste des recettes</a>
+    <div class="col-md-6 offset-md-3 my-4 bg-light p-4 rounded">
+        <h1>{{ recette.nom }}</h1>
+        <img class="w-100 my-3" src="/images/recettes/{{ recette.photo }}">
+        <p><strong>Description</strong><br>{{ recette.description }}</p>
+        <p><strong>Instructions</strong><br>{{ recette.instructions }}</p>
+        <p><strong>Niveau</strong><br>{{ recette.niveau }}</p>
+        <p><strong>Catégories</strong><br>
+            {% for indice, categorie in recette.categories %}
+                {% if indice > 0 %}
+                    {{ " - " }}
+                {% endif %}
+                {{  categorie.nom }}
+            {% endfor %}
+        </p>
+        <p><strong>Composition</strong>
+        <ul>
+            {% for compo in recette.compositions %}
+                <li> {{  compo.produit.nom }}, {{ compo.quantite}} {{ compo.produit.unite}} </li>
+            {% endfor %}
+        </ul>
+        </p>
+        <div class="d-flex justify-content-around mt-4">
+            <a href="{{ path("admin_recette_supprimer", { id: recette.id }) }}" class="btn btn-secondary text-light" confirmModalLink  data-toggle="modal" data-target="#supprProduit">Supprimer la recette</a>
+            <a href="{{ path("admin_recette_modifier", { id: recette.id }) }}" class="btn btn-warning">Modifier la recette</a>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="supprProduit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Supprimer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            Confirmer la suppression de la recette
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="annulerSuppr">Annuler</button>
+        <button type="button" class="btn btn-primary" id="confirmerSuppr">Supprimer</button>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

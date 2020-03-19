@@ -34,7 +34,7 @@ class Produit
     private $unite;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", precision=10, scale=2)
      */
     private $prix_unitaire;
 

@@ -5,9 +5,9 @@
 {% block body %}
 
 
-<div class="container">
+<div class="container py-5">
 
-    <h2>Produits & Recettes</h2>
+    <h2>Résultats de votre recherche</h2>
 
     {# <dl>
     {% for produit in liste_produits %}
@@ -21,30 +21,27 @@
     </di>
     {% endfor %}
     </dl> #}
-    
-    <dl>
-    {% for recette in liste_recettes %}
-    {# <dl>
-        <dt>
-            <dd><img class="img-recette" src="/images/recettes/{{ recette.photo }}"></dd> 
-            <dt><h4>{{ recette.nom }}</h4></dt>
-            <dd><p>{{ recette.description }}</p></dd>
-            <dd><p>{{ recette.instructions }}</p></dd>
-            <dd><p>{{ recette.niveau }}</p></dd>
-        </dt>
-    </dl> #}
-    <div class="vignette-recette m-2">
-        <img src="/images/recettes/{{ recette.photo }}" class="vignette-recette-img" alt="{{ recette.nom }}">
-        <div class="vignette-recette-body d-flex flex-column align-items-center p-4">
-            <h5 class="vignette-recette-titre">{{ recette.nom }}</h5>
-            <p class="vignette-recette-texte">{{ recette.description|slice(0, 50) }} </p>
-            <div class="d-flex justify-content-around w-100">
-                <a href="{{path("recette_fiche", { id: recette.id } )}}" class="btn btn-warning">En savoir plus</a>
-                <a href="{{ path('ajout_panier', { id: recette.id }) }}" class="btn btn-warning"><i class="fas fa-shopping-basket"></i></a>
+    {% if liste_recettes | length > 0 %}
+    <div class="d-flex justify-content-around w-100 flex-wrap">
+        {% for recette in liste_recettes %}
+        <div class="vignette-recette m-2">
+            <img src="/images/recettes/{{ recette.photo }}" class="vignette-recette-img" alt="{{ recette.nom }}">
+            <div class="vignette-recette-body d-flex flex-column align-items-center p-4">
+                <h5 class="vignette-recette-titre">{{ recette.nom }}</h5>
+                <p class="vignette-recette-texte">{{ recette.description|slice(0, 50) }} </p>
+                <div class="d-flex justify-content-around w-100">
+                    <a href="{{path("recette_fiche", { id: recette.id } )}}" class="btn btn-warning">En savoir plus</a>
+                    <a href="{{ path('ajout_panier', { id: recette.id }) }}" class="btn btn-warning"><i class="fas fa-shopping-basket"></i></a>
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-    </dl>
-</div>
+    {% else %}
+    <div class="d-flex flex-column align-items-center">
+        <p class="h2 my-5">Votre recherche n'a retourné aucun résultat :(</p>
+            <img src="/images/divers/paniervide.svg" class="w-25">
+        <a class="btn btn-warning my-5" href="{{ path('home') }}">Retourner à l'accueil</a>
+    </div>
+    {% endif %}
 {% endblock %}

@@ -6,6 +6,62 @@
 <div class="container bg-white p-5">
     <h1>Mon panier</h1>
 
+        {% if items | length > 0 %}
+        {% for item in items %}
+            <div class="item-panier w-100 row">
+                <div class="col-sm-2"><img class="img-recette" src="/images/recettes/{{ item.recette.photo }}"></div> 
+                <div class="col-md-4">{{ item.recette.nom }}</td>
+                <td class="text-right"> {{ item.prix }} €
+                </td>
+                <td class="text-center">
+                    <a href="{{ path('baisse_panier', {'id': item.recette.id }) }}"><i class="fas fa-minus-circle mr-2"></i></a>
+                     {{ item.quantite }}  
+                    <a href="{{ path('ajout_panier', {'id': item.recette.id }) }}"><i class="fas fa-plus-circle ml-2"></i></a>
+                    
+                </td>
+                <td><a href="{{ path('supprimer_panier', {'id': item.recette.id }) }}" class="fa fa-trash confirmModalLink"  data-toggle="modal" data-target="#supprProduit"></a></td>
+                <td class="text-right"> {{ item.prix  * item.quantite }} € </td>
+            </div>
+        {% endfor %}
+        <tfoot>
+            <tr>
+                <td><button class='btn btn-light'>Vider mon panier</button></td>
+                <td colspan="4" class="text-right">Total :</td>
+                <td class="text-right">{{ totalPanier }} €</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="5" class="text-right">Frais de livraison :</td>
+                <td class="text-right">{{ fdp }} €</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="5" class="text-right font-weight-bold">Total avec frais de port</td>
+                <td class="text-right h2">{{ totalPanier + fdp }} €</td>
+                
+            </tr>               
+        </tfoot>
+    </table>
+    <a class='btn btn-warning mr-4 mb-5 offset-md-9' href="{{ path('adresse_panier') }}">Valider mon panier</a>
+    {% else %}
+    <div class="panier-vide d-flex flex-column align-items-center">
+        <p class="h2 my-5">Rien dans le panier :( </p>
+            <img src="/images/divers/paniervide.svg" class="w-25">
+        <a class="btn btn-warning my-5" href="{{ path('home') }}">Je commence mon shopping</a>
+    </div>
+        
+    {% endif %}
+
+
+
+
+
+
+
+
+
+
+
     {% if items | length > 0 %}
     <table class="table table-hover">
         <thead>

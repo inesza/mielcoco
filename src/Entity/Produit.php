@@ -89,12 +89,12 @@ class Produit
         return $this;
     }
 
-    public function getPrixUnitaire(): ?int
+    public function getPrixUnitaire(): ?float
     {
         return $this->prix_unitaire;
     }
 
-    public function setPrixUnitaire(int $prix_unitaire): self
+    public function setPrixUnitaire(float $prix_unitaire): self
     {
         $this->prix_unitaire = $prix_unitaire;
 

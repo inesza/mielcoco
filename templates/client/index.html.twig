@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Compte{% endblock %}
+
+{% block body %}
+
+<div class = "container">
+
+    <div class="row">
+        <div class="col-3">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a class="nav-link" href="">Mes coordonnées</a> 
+                </li>
+                <li class="list-group-item">
+                    <a class="nav-link" href="">Suivre mes commandes</a>  
+                </li>
+                <li class="list-group-item">
+                    <a class="nav-link" href="{{ path('panier') }}">Mon panier</a>  
+                </li>
+                <li class="list-group-item">
+                  <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a> 
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

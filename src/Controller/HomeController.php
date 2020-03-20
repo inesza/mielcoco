@@ -20,9 +20,8 @@ class HomeController extends AbstractController
      */
     public function index(RecetteRepository $recetteRepo, CategorieRepository $catRepo)
     {
-        $categorie = 5;
-        $best = $catRepo->find($categorie);
-        $bestsellers = $best->getRecettes();  
+        $best = $catRepo->findBy(["nom" => "Bestsellers"]);
+        $bestsellers = $best[0]->getRecettes();  
 
         foreach ($bestsellers as $best => $recette){
             $compo = $recetteRepo->find($recette)->getCompositions();
@@ -98,9 +97,8 @@ class HomeController extends AbstractController
      */
     public function categVisage(RecetteRepository $recetteRepo, CategorieRepository $catRepo)
     {
-        $categorie = 3;
-        $visage = $catRepo->find($categorie);
-        $categVisage= $visage->getRecettes(); 
+        $visage = $catRepo->findBy(["nom" => "Visage"]);
+        $categVisage= $visage[0]->getRecettes();  
         foreach ($categVisage as $recette){
             $recette->getPrixRecette();
         }
@@ -114,9 +112,8 @@ class HomeController extends AbstractController
      */
     public function categCheveux(RecetteRepository $recetteRepo, CategorieRepository $catRepo)
     {
-        $categorie = 2;
-        $cheveux = $catRepo->find($categorie);
-        $categCheveux= $cheveux->getRecettes(); 
+        $cheveux = $catRepo->findBy(["nom" => "Cheveux"]);
+        $categCheveux= $cheveux[0]->getRecettes(); 
         foreach ($categCheveux as $recette){
             $recette->getPrixRecette();
         }
@@ -129,9 +126,8 @@ class HomeController extends AbstractController
      */
     public function categCorps(RecetteRepository $recetteRepo, CategorieRepository $catRepo)
     {
-        $categorie = 1;
-        $corps = $catRepo->find($categorie);
-        $categCorps= $corps->getRecettes(); 
+        $corps = $catRepo->findBy(["nom" => "Corps"]);
+        $categCorps= $corps[0]->getRecettes();  
         foreach ($categCorps as $recette){
             $recette->getPrixRecette();
         }
@@ -144,9 +140,12 @@ class HomeController extends AbstractController
      */
     public function categAccessoires(RecetteRepository $recetteRepo, CategorieRepository $catRepo)
     {
-        $categorie = 4;
-        $access = $catRepo->find($categorie);
-        $categAccessoires= $access->getRecettes(); 
+        $accessoires = $catRepo->findBy(["nom" => "Accessoires"]);
+        $categAccessoires= $accessoires[0]->getRecettes(); 
+        foreach ($categAccessoires as $recette){
+            $recette->getPrixRecette();
+        }
+ 
 
         return $this->render('categories/accessoires.html.twig', compact("categAccessoires") );
     }
@@ -156,8 +155,11 @@ class HomeController extends AbstractController
      */
     public function recettes(RecetteRepository $recetteRepo)
     {
-        $liste_recettes = $recetteRepo->findAll();   
-        return $this->render('home/toutesRecettes.html.twig', compact("liste_recettes") );
+        $liste_recettes = $recetteRepo->findAll();  
+        foreach ($liste_recettes as $recette){
+            $recette->getPrixRecette();
+        } 
+        return $this->render('categories/toutesRecettes.html.twig', compact("liste_recettes") );
     }
 
 }

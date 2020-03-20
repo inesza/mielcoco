@@ -10,13 +10,13 @@
         <h2 class="titres my-5"><i class="fas fa-star text-warning"></i> Corps <i class="fas fa-star text-warning"></i></h2>
         <div class="d-flex justify-content-around w-100 flex-wrap">
         {% for recette in categCorps %}
-            <div class="vignette-recette m-4">
+            <div class="vignette-recette m-2">
                 <a href="{{path("recette_fiche", { id: recette.id } )}}"><img src="/images/recettes/{{ recette.photo }}" class="vignette-recette-img" alt="{{ recette.nom }}"></a>
                 <div class="vignette-recette-body d-flex flex-column align-items-center p-4">
                     <a href="{{path("recette_fiche", { id: recette.id } )}}"><h5 class="vignette-recette-titre">{{ recette.nom }}</h5></a>
-                    <p class="vignette-recette-texte">{{ recette.description|slice(0, 50) }} </p>
+                    <p class="vignette-recette-texte p-2">{{ recette.description }} </p>
                     <div class="d-flex justify-content-around w-100">
-                        <a href="{{path("recette_fiche", { id: recette.id } )}}" class="btn btn-warning">En savoir plus</a>
+                        <a href="{{path("recette_fiche", { id: recette.id } )}}" class="btn btn-warning">En savoir +</a>
                         <div class="bg-light rounded font-weight-bold border border-warning"><span class="mx-2">{{ recette.prixRecette }}€</span><a href="{{ path('ajout_panier', { id: recette.id }) }}" class="btn btn-warning"><i class="fas fa-shopping-basket"></i></a></div>
                     </div>
                 </div>

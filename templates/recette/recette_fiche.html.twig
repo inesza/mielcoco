@@ -59,7 +59,8 @@
                 <p>{{ recette.instructions }}</p>
             </section>
             {% endif %}
-            <div class="mb-5 d-flex justify-content-center w-100">
+            <div class="mb-5 d-flex flex-column align-items-center justify-content-center w-100">
+            <p class="h2">{{ recette.prixRecette }}€</p>
             <a href="{{ path('ajout_panier', { id: recette.id }) }}" class="btn btn-warning btn-lg"><i class="fas fa-shopping-basket"></i> Ajouter au panier</a>
             </div>
         </div>

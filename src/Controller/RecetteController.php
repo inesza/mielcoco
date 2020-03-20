@@ -194,6 +194,7 @@ class RecetteController extends AbstractController
     public function recette_detail(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, ProduitRepository $produitRepo, EMI $em, int $id, Request $rq) {
         $recette = $recetteRepo->find($id);      
         $composition = $recette->getCompositions();
+        $recette->getPrixRecette();
 
         return $this->render("recette/recette_detail.html.twig", compact("recette", "composition"));   
     }
@@ -205,6 +206,7 @@ class RecetteController extends AbstractController
         $recette = $recetteRepo->find($id);      
         $composition = $recette->getCompositions();
         $categorie = $recette->getCategories();
+        $recette->getPrixRecette();
 
         return $this->render("recette/recette_fiche.html.twig", compact("recette"));   
     }

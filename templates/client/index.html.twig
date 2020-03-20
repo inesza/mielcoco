@@ -3,28 +3,35 @@
 {% block title %}Mon Compte{% endblock %}
 
 {% block body %}
+    
+    <!-- Mon compte -->
+      {# si le client est connecte #}
+      {% if is_granted("ROLE_USER") %} 
 
-<div class = "container">
+        {% for client in liste_clients %}
+            <p>Bonjour,{{ app.user.email }}</p>
+        {% endfor %}
 
-    <div class="row">
-        <div class="col-3">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <a class="nav-link" href="">Mes coordonnées</a> 
-                </li>
-                <li class="list-group-item">
-                    <a class="nav-link" href="">Suivre mes commandes</a>  
-                </li>
-                <li class="list-group-item">
-                    <a class="nav-link" href="{{ path('panier') }}">Mon panier</a>  
-                </li>
-                <li class="list-group-item">
-                  <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a> 
-                </li>
-            </ul>
+      {# <div class = "container">
+        <div class="row">
+          <div class="col-3">
+              <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                      <a class="nav-link" href="">Mes coordonnées</a> 
+                  </li>
+                  <li class="list-group-item">
+                      <a class="nav-link" href="{{ path('commande') }}">Suivre mes commandes</a>  
+                  </li>
+                  <li class="list-group-item">
+                      <a class="nav-link" href="{{ path('panier') }}">Mon panier</a>  
+                  </li>
+                  <li class="list-group-item">
+                    <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a> 
+                  </li>
+              </ul>
+          </div>
         </div>
-    </div>
-
-</div>
-
+      </div> #}
+      {% endif %}
+    <!-- Mon compte -->
 {% endblock %}

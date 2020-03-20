@@ -19,23 +19,23 @@ class ClientRepository extends ServiceEntityRepository
         parent::__construct($registry, Client::class);
     }
 
-    // /**
-    //  * @return Client[] Returns an array of Client objects
-    //  */
-    /*
+    /**
+     * @return Client[] Returns an array of Client objects
+     */
+    
     public function findByExampleField($value)
     {
+        // SELECT c.* FROM client c WHERE c.nom LIKE "%" . $value . "%"
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('c.id LIKE :val')
+            ->setParameter('val', "%" . $value . "%")
             ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            // ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
-
+    
     /*
     public function findOneBySomeField($value): ?Client
     {

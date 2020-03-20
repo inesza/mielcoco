@@ -62,12 +62,11 @@ class UserController extends AbstractController
     public function delete(UserRepository $ur, Request $rq, EMI $em, int $id)
     {
         $userAsupprimer = $ur->find($id);
-        if($rq->isMethod("POST")){
+        if($userAsupprimer){
             $em->remove($userAsupprimer);    // équivalent à la création d'une requête DELETE
             $em->flush();                       // exécute la (ou les) requête(s) en attente
             return $this->redirectToRoute("user_list");  // redirection vers la route
         }
-        return $this->render("user/formulaire.html.twig", [ "user" => $userAsupprimer, "mode" => "confirmer" ]);
     }
 
     /**

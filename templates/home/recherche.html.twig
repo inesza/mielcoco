@@ -4,23 +4,10 @@
 
 {% block body %}
 
+<main class="container py-5">  
 
-<div class="container py-5">
-
-    <h2 class="titres">Résultats de votre recherche</h2>
-
-    {# <dl>
-    {% for produit in liste_produits %}
-    <dl>
-        <dt>
-            <dd><img class="img-produit" src="/images/produits/{{ produit.photo }}"></dt> 
-            <dt><h4>{{ produit.nom }}</h4></dt>
-            <dd><p>{{ produit.unite }}</p></dd>
-            <dd><p>{{ produit.prixunitaire }}</p></dd>
-        </dt>
-    </di>
-    {% endfor %}
-    </dl> #}
+    <section class="container mb-5 d-flex flex-column align-items-center">
+        <h2 class="titres my-5"><i class="fas fa-star text-warning"></i> Résultat de votre recherche <i class="fas fa-star text-warning"></i></h2>
     {% if liste_recettes | length > 0 %}
     <div class="d-flex justify-content-around w-100 flex-wrap">
         {% for recette in liste_recettes %}
@@ -44,4 +31,6 @@
         <a class="btn btn-warning my-5" href="{{ path('home') }}">Retourner à l'accueil</a>
     </div>
     {% endif %}
+    </section>
+</main>
 {% endblock %}

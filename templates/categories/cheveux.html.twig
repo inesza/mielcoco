@@ -4,9 +4,11 @@
 
 {% block body %}
 
-<div class="container p-3">
-    <h1 class="ml-4 mt-5 titres">Toutes nos recettes pour les cheveux</h1>
-         <div class="d-flex justify-content-around w-100 flex-wrap">
+<main class="container p-3">  
+    
+    <section class="container mb-5 d-flex flex-column align-items-center">
+        <h2 class="titres my-5"><i class="fas fa-star text-warning"></i> Cheveux <i class="fas fa-star text-warning"></i></h2>
+        <div class="d-flex justify-content-around w-100 flex-wrap">
         {% for recette in categCheveux %}
             <div class="vignette-recette m-4">
                 <a href="{{path("recette_fiche", { id: recette.id } )}}"><img src="/images/recettes/{{ recette.photo }}" class="vignette-recette-img" alt="{{ recette.nom }}"></a>
@@ -21,6 +23,7 @@
             </div>
         {% endfor %}
         </div>
-</div>
+    </section>
+</main>
 
 {% endblock %}

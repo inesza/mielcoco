@@ -6,101 +6,93 @@
         {% block stylesheets %}{{ encore_entry_link_tags("app") }}{% endblock %}
     </head>
     <body>
-     <header>
-        <div class="header container">
-            <a class="navbar-brand" href="{{ path('home') }}">Miel & Coco </a>
+    <header class="bg-white" id="haut">
+        {# si l'ADMIN est connecte #}
+        {% if is_granted("ROLE_ADMIN") %} 
+        <div class=" navigation bg-dark fixed-top">
+            <nav class=" container navbar-expand-lg navbar-light">
+                <button class="navbar-toggler text-light my-2 w-100 border-0" type="button" data-toggle="collapse" data-target="#navbarAdmin" aria-controls="navbarAdmin" aria-expanded="false" aria-label="Toggle navigation">
+                  <i class="fas fa-tools"></i> Administration <i class="fas fa-caret-down"></i>
+                </button>
+                <div class="collapse navbar-collapse  text-center w-100" id="navbarAdmin">
+                    <ul class="container navbar-nav mr-auto mt-2 mt-lg-0"id="menu">
+                        <li class="nav-item">
+                          <span class="nav-link text-muted">ADMINISTRATION</span></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path("admin_produit") }}">Produits</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path("admin_recette") }}">Recettes</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path("admin_categorie") }}">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path("user_list") }}">Utilisateurs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path("liste_commande") }}">Commandes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path("app_logout") }}"><small>Déconnexion <i class="fas fa-sign-out-alt ml-2"></i></small></a>
+                        </li>
+                    </ul>
+                </div> 
+           </nav>
         </div>
-      </header>
-    <div class="container my-4">
+        {% endif %}
+
+        <div class="header container engagement-all d-flex justify-content-between flex-column flex-sm-row w-100 flex-wrap">
+            <a class="navbar-brand" href="{{ path('home') }}"><img class="logo" src="/images/divers/logomielcoco.png" alt="Miel&Coco"></a>
+        </div>
+    </header>
+    
         {% for type, messages in app.flashes %}
-        <div class="alert alert-{{ type }} col-md-4">
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
+        <div class="container my-4">
+          <div class="alert alert-{{ type }} col-md-4">
+              {% for message in messages %}
+                  {{ message }}
+              {% endfor %}
+          </div>
         </div>
         {% endfor %}
-    </div>
+    
         {% block body %}{% endblock %}
         
         <!-- Footer -->
     <!-- Footer -->
-<footer class="expand-lg light bg-light">
-
-  <!-- Footer Links -->
-  <div class="container text-center text-md-left">
-
-    <!-- Footer links -->
-    <div class="row text-center text-md-left mt-3 pb-3">
-
-      <hr class="w-100 clearfix d-md-none">
-
-      <!-- Grid column -->
-      <div class="col-md-4 col-lg-32 col-xl-3 mx-auto mt-3">
-        <h6 class="text-uppercase mb-4 font-weight-bold">A propos de Miel & Coco</h6>
-        <p>
-          <a href="{{ path('qui_sommes_nous') }}">Qui sommes nous?</a>
-        </p>
-        <p>
-          <a href="{{ path('cosmetique_bio') }}">Cosmétique Bio</a>
-        </p>
-        <p>
-          <a href="{{ path('cgv_mentions') }}">Conditions générales de vente</a>
-        </p>
-        <p>
-          <a href="{{ path('cgv_mentions') }}">Mentions légales</a>
-        </p>
-        <p>
-          <a href="{{ path('cgv_mentions') }}">Protection des données </a>
-        </p>
+<footer class="site-footer">
+  <div class="container flex-colum flex-sm-row align-items-center text-center text-sm-left justify-content-sm-around">
+    <div class="row justify-content-md-center">
+      <div class="col-xs-6 col-md-5">
+        <a href="#haut"><img class="logo mb-3" src="/images/divers/logomielcoco.png" alt="Miel&Coco"></a>
+    </div>
+    <div class="col-xs-6 col-md-4">
+        <h6 class="font-weight-bold">A propos de Miel & Coco</h6>
+        <ul class="footer-links">
+          <li><a href="{{ path('qui_sommes_nous') }}">Qui sommes nous?</a></li>
+          <li><a href="{{ path('cosmetique_bio') }}">Cosmétique Bio</a></li>
+          <li><a href="{{ path('cgv_mentions') }}">Conditions générales de vente</a></li>
+          <li><a href="{{ path('cgv_mentions') }}">Mentions légales</a></li>
+          <li><a href="{{ path('cgv_mentions') }}">Protection des données </a></li>
+        </ul>
       </div>
-      <!-- Grid column -->
-
-      <hr class="w-100 clearfix d-md-none">
-
-      <!-- Grid column -->
-      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
-        <img class="" src=""><h3 class="text-uppercase mb-4 font-weight-bold">Miel & Coco</h3>
-        <p class="text-center text-md-left">© 2020 - Tous droits réservés.<br>
-          <a href="{{ path('home') }}"> Miel & Coco </a>
-        </p>
+  </div>
+  <hr>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-sm-6 col-xs-12">
+        <p class="copyright-text">2020 &copy;Miel&Coco. Tous droits réservés.</p>
       </div>
-
-      <!-- Grid column -->
-      <hr class="w-100 clearfix d-md-none">
-
-      <!-- Grid column -->
-      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
-       <h6 class="text-uppercase mb-4 font-weight-bold">Nous suivre</h6>
-        <!-- Social buttons -->
-              <a class="btn-floating btn-sm rgba-white-slight mx-1">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a class="btn-floating btn-sm rgba-white-slight mx-1">
-                <i class="fab fa-twitter"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a class="btn-floating btn-sm rgba-white-slight mx-1">
-                <i class="fab fa-instagram"></i>
-              </a>
-            </li>
-          </ul>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+            <ul class="social-icons">
+              <li><a class="facebook"><i class="fab fa-facebook"></i></a></li>
+              <li><a class="twitter"><i class="fab fa-twitter"></i></a></li>
+              <li><a class="instagram"><i class="fab fa-instagram"></i></a></li>   
+            </ul>
+          </div>
         </div>
       </div>
-      <!-- Grid column -->
- 
-    </div>
-    <!-- Footer links -->
-
-  </div>
-  <!-- Footer Links -->
-
-</footer>
-<!-- Footer -->
-        {% block javascripts %}{{ encore_entry_script_tags("app") }}{% endblock %}
+      {% block javascripts %}{{ encore_entry_script_tags("app") }}{% endblock %}
     </body>
 </html>
-
-

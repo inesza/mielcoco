@@ -20,14 +20,15 @@ class HomeController extends AbstractController
      */
     public function index(RecetteRepository $recetteRepo, CategorieRepository $catRepo)
     {
-        // return $this->render('home/home.html.twig', [
-        //     'controller_name' => 'HomeController',
-        // ]);
-        $categorie = 5;
-        $best = $catRepo->find($categorie);
-        $bestsellers = $best->getRecettes();  
+        $best = $catRepo->findBy(["nom" => "Bestsellers"]);
+        $bestsellers = $best[0]->getRecettes();  
+
+        foreach ($bestsellers as $best => $recette){
+            $compo = $recetteRepo->find($recette)->getCompositions();
+            $recette->getPrixRecette();
+        }
         
-        return $this->render('home/home.html.twig', compact("bestsellers"));
+        return $this->render('home/home.html.twig', compact("bestsellers", "compo"));
     }
  //------------------------------RECHERCHE---------------------------------------------------------
     /**
@@ -96,9 +97,11 @@ class HomeController extends AbstractController
      */
     public function categVisage(RecetteRepository $recetteRepo, CategorieRepository $catRepo)
     {
-        $categorie = 3;
-        $visage = $catRepo->find($categorie);
-        $categVisage= $visage->getRecettes(); 
+        $visage = $catRepo->findBy(["nom" => "Visage"]);
+        $categVisage= $visage[0]->getRecettes();  
+        foreach ($categVisage as $recette){
+            $recette->getPrixRecette();
+        }
 
         return $this->render('categories/visage.html.twig', compact("categVisage") );
     }
@@ -109,9 +112,11 @@ class HomeController extends AbstractController
      */
     public function categCheveux(RecetteRepository $recetteRepo, CategorieRepository $catRepo)
     {
-        $categorie = 2;
-        $cheveux = $catRepo->find($categorie);
-        $categCheveux= $cheveux->getRecettes(); 
+        $cheveux = $catRepo->findBy(["nom" => "Cheveux"]);
+        $categCheveux= $cheveux[0]->getRecettes(); 
+        foreach ($categCheveux as $recette){
+            $recette->getPrixRecette();
+        }
 
         return $this->render('categories/cheveux.html.twig', compact("categCheveux") );
     }
@@ -121,11 +126,40 @@ class HomeController extends AbstractController
      */
     public function categCorps(RecetteRepository $recetteRepo, CategorieRepository $catRepo)
     {
-        $categorie = 1;
-        $corps = $catRepo->find($categorie);
-        $categCorps= $corps->getRecettes(); 
+        $corps = $catRepo->findBy(["nom" => "Corps"]);
+        $categCorps= $corps[0]->getRecettes();  
+        foreach ($categCorps as $recette){
+            $recette->getPrixRecette();
+        }
 
         return $this->render('categories/corps.html.twig', compact("categCorps") );
+    }
+
+        /**
+     * @Route("/accessoires", name="accessoires")
+     */
+    public function categAccessoires(RecetteRepository $recetteRepo, CategorieRepository $catRepo)
+    {
+        $accessoires = $catRepo->findBy(["nom" => "Accessoires"]);
+        $categAccessoires= $accessoires[0]->getRecettes(); 
+        foreach ($categAccessoires as $recette){
+            $recette->getPrixRecette();
+        }
+ 
+
+        return $this->render('categories/accessoires.html.twig', compact("categAccessoires") );
+    }
+
+    /**
+     * @Route("/recettes", name="recettes")
+     */
+    public function recettes(RecetteRepository $recetteRepo)
+    {
+        $liste_recettes = $recetteRepo->findAll();  
+        foreach ($liste_recettes as $recette){
+            $recette->getPrixRecette();
+        } 
+        return $this->render('categories/toutesRecettes.html.twig', compact("liste_recettes") );
     }
 
 }

@@ -5,7 +5,7 @@
 
 /* Général */
 body {
-    background-color:rgb(167, 33, 33);
+    background-color:rgb(252, 238, 195);
 background-image:
 radial-gradient(circle at 100% 150%, rgb(252, 238, 195) 24%, white 24%, white 28%, rgb(252, 238, 195) 28%, rgb(252, 238, 195) 36%, white 36%, white 40%, transparent 40%, transparent),
 radial-gradient(circle at 0    150%, rgb(252, 238, 195) 24%, white 24%, white 28%, rgb(252, 238, 195) 28%, rgb(252, 238, 195) 36%, white 36%, white 40%, transparent 40%, transparent),
@@ -15,6 +15,17 @@ radial-gradient(circle at 0    50%, white 5%, rgb(252, 238, 195) 5%, rgb(252, 23
 background-size: 100px 50px;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+    color: rgb(194, 153, 18);
+    transition: 0.5s;
+}
+
 .titres {
     font-family: 'Lobster Two', cursive;
 }
@@ -22,9 +33,16 @@ background-size: 100px 50px;
 /* Navbar */
 .logo {
     width: 230px;
+    padding-bottom:10px;
+}
+#menu a{
+    color:gray;
 }
 
-
+/* Home */ 
+.home-container {
+    background: #ffffff44;
+}
 
 /* Administration */
 
@@ -53,9 +71,7 @@ li.nav-item{
     padding-top:30px;
     padding-bottom:30px;
 }
-#logo{
-    padding-top:20px;
-}
+
 
 #menu li{
     padding-right: 50px;
@@ -82,6 +98,10 @@ li.nav-item{
     font-size : 1.5em;
 }
 
+.vignette-recette-texte {
+    font-size: 0.8em;
+}
+
 /* Engagements */
 
 .engagement {
@@ -104,12 +124,15 @@ li.nav-item{
     align-items: center;
 }
 
+/* Recettes */
+
 .recipe h2 {
     float: left;
 }
 
 .recipe-top .left {
     background-color: #ffc107;
+    border-top-left-radius : 20px;
 }
 
 .recipe-top .right {
@@ -156,4 +179,157 @@ tbody {
 
 .row-2 {
     padding: 30px 0px 0px;
+}
+
+.img-fiche-recette {
+    width: 100%;
+    height: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-top-right-radius: 20px;
+}
+
+.img-fiche-recette-ingredient {
+    height : 50px;
+    width: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.recipe {
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+/* FOOTER */
+
+.site-footer
+{
+  background-color:white;
+  color:gray;
+  padding-top:20px;
+}
+.site-footer h6
+{
+  color: gray;
+  text-transform:uppercase;
+  letter-spacing:2px
+}
+.site-footer a
+{
+  color:gray;
+}
+.site-footer a:hover
+{
+  color:#3366cc;
+  text-decoration:none;
+}
+.footer-links
+{
+  padding-left:0;
+  list-style:none
+}
+
+.site-footer .social-icons
+{
+  text-align:right
+}
+
+.site-footer .social-icons a
+{
+  width:40px;
+  height:40px;
+  line-height:40px;
+  margin-left:6px;
+  margin-right:0;
+  border-radius:100%;
+  background-color:#33353d
+}
+
+@media (max-width:991px)
+{
+  .site-footer [class^=col-]
+  {
+    margin-bottom:30px
+  }
+}
+@media (max-width:767px)
+{
+  .site-footer
+  {
+    padding-bottom:0
+  }
+  .site-footer .copyright-text,.site-footer .social-icons
+  {
+    text-align:center
+  }
+}
+.social-icons
+{
+  padding-left:0;
+  margin-bottom:0;
+  list-style:none
+}
+.social-icons li
+{
+  display:inline-block;
+  margin-bottom:4px
+}
+.social-icons li.title
+{
+  margin-right:15px;
+  text-transform:uppercase;
+  color:#96a2b2;
+  font-weight:700;
+  font-size:13px
+}
+.social-icons a{
+  background-color:#eceeef;
+  color:#818a91;
+  font-size:16px;
+  display:inline-block;
+  line-height:44px;
+  width:44px;
+  height:44px;
+  text-align:center;
+  margin-right:8px;
+  border-radius:100%;
+  -webkit-transition:all .2s linear;
+  -o-transition:all .2s linear;
+  transition:all .2s linear
+}
+.social-icons a:active,.social-icons a:focus,.social-icons a:hover
+{
+  color:#fff;
+  background-color:#29aafe
+}
+.social-icons.size-sm a
+{
+  line-height:34px;
+  height:34px;
+  width:34px;
+  font-size:14px
+}
+.social-icons a.facebook:hover
+{
+  background-color:#3b5998
+}
+.social-icons a.instagram:hover
+{
+  background-color:#ea4c89
+}
+.social-icons a.twitter:hover
+{
+  background-color:#007bb6
+}
+
+@media (max-width:767px)
+{
+  .social-icons li.title
+  {
+    display:block;
+    margin-right:0;
+    font-weight:600
+  }
+
 }

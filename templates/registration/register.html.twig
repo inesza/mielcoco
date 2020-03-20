@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Miel & Coco - Création de compte{% endblock %}
 
 {% block body %}
 
-    <div class="container">
-
-    <h1 class="h3 mb-3 font-weight-normal">Créer votre compte</h1>
-    <br>
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+    <div class="container bg-white p-5">
+        <h1 class="h3 mb-3 font-weight-normal titres offset-md-3">Créer votre compte</h1>
         <br>
-        <button class="btn btn-sm btn-primary">Enregistrer</button>
-    {{ form_end(registrationForm) }}
+        <div class="col-md-5 offset-md-3">
+        {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.plainPassword) }}
+            {{ form_row(registrationForm.agreeTerms) }}
+            <br>
+            <button class="btn btn-warning">Créer mon compte</button>
+        {{ form_end(registrationForm) }}
+        </div>
     </div>
 {% endblock %}

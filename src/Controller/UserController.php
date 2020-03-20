@@ -16,7 +16,7 @@ class UserController extends AbstractController
 
 
     /**
-     * @Route("/user/{id}", name="user_show", requirements={"id"="\d+"})
+     * @Route("/admin/user/{id}", name="user_show", requirements={"id"="\d+"})
      */
     public function show(UserRepository $ur, $id)
     {
@@ -25,7 +25,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/list", name="user_list")
+     * @Route("/admin/user/list", name="user_list")
      */
     public function liste(UserRepository $ur)
     {
@@ -37,7 +37,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/modifier/{id}", name="user_update")
+     * @Route("/admin/user/modifier/{id}", name="user_update")
      */
     public function update(UserRepository $ur, Request $rq, EMI $em, int $id)
     {
@@ -57,7 +57,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/supprimer/{id}", name="user_delete")
+     * @Route("/admin/user/supprimer/{id}", name="user_delete")
      */
     public function delete(UserRepository $ur, Request $rq, EMI $em, int $id)
     {

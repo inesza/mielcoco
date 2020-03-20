@@ -48,6 +48,7 @@ class ProduitType extends AbstractType
             ])
             ->add('prix_unitaire', Type\NumberType::class, [
                 "label" => false,
+                "scale" => 2,
                 "attr" => [
                     "placeholder" => "Prix pour une unité du produit"
                 ],

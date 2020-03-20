@@ -183,4 +183,15 @@ class Recette
 
         return $this;
     }
+
+    public function getPrixRecette()
+    {
+        $prixRecette = 0;
+        foreach ($this->compositions as $ligne){
+            $prixProduit = $ligne->getProduit()->getPrixUnitaire();
+            $qteProduit = $ligne->getQuantite(); 
+            $prixRecette += ($prixProduit * $qteProduit); 
+        }
+        $this->prixRecette = $prixRecette;
+    }
 }

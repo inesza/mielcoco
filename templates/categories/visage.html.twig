@@ -4,9 +4,11 @@
 
 {% block body %}
 
-<div class="container">
-    <h1>Visage</h1>
-         <div class="d-flex justify-content-around w-100">
+<main class="container">  
+
+    <section class="container mb-5 d-flex flex-column align-items-center">
+        <h2 class="titres my-5"><i class="fas fa-star text-warning"></i> Visage <i class="fas fa-star text-warning"></i></h2>
+        <div class="d-flex justify-content-around w-100 flex-wrap">
         {% for recette in categVisage %}
             <div class="vignette-recette">
                 <img src="/images/recettes/{{ recette.photo }}" class="vignette-recette-img" alt="{{ recette.nom }}">
@@ -21,6 +23,7 @@
             </div>
         {% endfor %}
         </div>
-</div>
+    </section>
+</main>
 
 {% endblock %}

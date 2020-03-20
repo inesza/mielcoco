@@ -42,7 +42,9 @@ class HomeController extends AbstractController
         else {
             $liste_recettes = $recetteRepo->findAll();
         }
-        return $this->render('home/listeRecettes.html.twig', compact("liste_recettes"));
+        return $this->render('home/recherche.html.twig', compact("liste_recettes"
+        // "liste_produits"
+        ));
     }
 
     /**
@@ -120,6 +122,27 @@ class HomeController extends AbstractController
         $categCorps= $corps->getRecettes(); 
 
         return $this->render('categories/corps.html.twig', compact("categCorps") );
+    }
+
+        /**
+     * @Route("/accessoires", name="accessoires")
+     */
+    public function categAccessoires(RecetteRepository $recetteRepo, CategorieRepository $catRepo)
+    {
+        $categorie = 4;
+        $access = $catRepo->find($categorie);
+        $categAccessoires= $access->getRecettes(); 
+
+        return $this->render('categories/accessoires.html.twig', compact("categAccessoires") );
+    }
+
+    /**
+     * @Route("/recettes", name="recettes")
+     */
+    public function recettes(RecetteRepository $recetteRepo)
+    {
+        $liste_recettes = $recetteRepo->findAll();   
+        return $this->render('home/toutesRecettes.html.twig', compact("liste_recettes") );
     }
 
 }

@@ -1,27 +1,49 @@
 {% extends "base.html.twig" %}
 
-{% block title %} Liste des membres {% endblock %}
+{% block title %}Miel & Coco - Liste des membres {% endblock %}
 
 {% block body %}
     
-    <div class="container">
-    <h1>Administration - Recettes</h1>
-    <div class="d-flex justify-content-between">
-        <p>Nombre de membres : {{ taille }}</p> 
-        <p><a href="{{ path("user_add") }}" class="btn btn-dark">Ajouter un utilisateur</a></p>
-    </div>
-        <table class="table table-bordered">
+<div class="container bg-white p-5">
+    <h1>Administration - Utilisateurs</h1>
+    <p>Nombre de membres : {{ taille }}</p> 
+    <p><a href="{{ path("user_add") }}" class="btn btn-dark">Ajouter un utilisateur</a></p>
+    <table class="table table-bordered">
+        <thead class="bg-light">
             <tr>
                 <th>Membres</th><th>Role</th><th colspan=2>Actions</th>
-            <tr>
+            </tr>
+        </thead>
             {% for user in users %}
                 <tr>
-                    <td><a href="{{ path("user_show", { id: user.id }) }}">{{ user.email }}</a></td>
-                    <td>{{ user.roles[0] }}</td>
-                    <td><a href="{{ path("user_update", { id: user.id }) }}" class="fa fa-pen"></a></td>
-                    <td><a href="{{ path("user_delete", { id: user.id }) }}" class="fa fa-trash"></a></td>
+                    <td class="align-middle"><a href="{{ path("user_show", { id: user.id }) }}">{{ user.email }}</a></td>
+                    <td class="align-middle">{{ user.roles[0] }}</td>
+                    <td class="align-middle"><a href="{{ path("user_update", { id: user.id }) }}" class="fa fa-pen"></a></td>
+                    <td class="align-middle"><a href="{{ path("user_delete", { id: user.id }) }}" class="fa fa-trash confirmModalLink" data-toggle="modal" data-target="#supprProduit"></a></td>
                 </tr>
         {% endfor %}
     </table>
+</div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="supprProduit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Supprimer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            Confirmer la suppression
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="annulerSuppr">Annuler</button>
+        <button type="button" class="btn btn-primary" id="confirmerSuppr">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

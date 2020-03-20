@@ -4,13 +4,11 @@
 
 {% block body %}
     
-<div class="container">
-    <h3>Administration - Commandes</h3>
-    <br>
-    <div class="d-flex justify-content-between">
-        <p>Nombre de commandes : {{ taille }}</p> 
-    </div>
-        <table class="table table-bordered">
+<div class="container bg-white p-5">
+    <h1>Administration - Commandes</h1>
+    <p>Nombre de commandes : {{ taille }}</p> 
+    <table class="table table-bordered">
+        <thead class="bg-light">
             <tr>
                 <th>Id</th>
                 <th>Client</th>
@@ -19,16 +17,17 @@
                 <th>Date - Heure</th>
                 <th>Etat</th>
                 <th>Action</th>
-            <tr>
+            </tr>
+        </thread>
             {% for commande in commandes %}
                 <tr>
-                    <td>{{ commande.id }}</td>
-                    <td>{{ commande.client.id }}</td>
-                    <td>{{ commande.client.nom }}</td>
-                    <td>{{ commande.montant}}</td>
-                    <td>{{ commande.date|date("m/d/Y - H:i:s")}}</td>
-                    <td>{{ commande.etat}}</td>
-                    <td><a href="{{ path("commande_modifier", { id: commande.id }) }}"class="fa fa-pen"></a></td>
+                    <td class="align-middle">{{ commande.id }}</td>
+                    <td class="align-middle">{{ commande.client.id }}</td>
+                    <td class="align-middle">{{ commande.client.nom }}</td>
+                    <td class="align-middle">{{ commande.montant}}</td>
+                    <td class="align-middle">{{ commande.date|date("m/d/Y - H:i:s")}}</td>
+                    <td class="align-middle">{{ commande.etat}}</td>
+                    <td class="align-middle"><a href="{{ path("commande_modifier", { id: commande.id }) }}"class="fa fa-pen"></a></td>
                 </tr>
         {% endfor %}
     </table>

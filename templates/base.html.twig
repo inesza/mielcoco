@@ -71,11 +71,39 @@
                         <a class="nav-link" href="{{ path("visage") }}">VISAGE</a>
                     </li>
                 </ul>
-            </div>
+                
+              {# <!-- Mon compte -->
+              {# si le client est connecte #}
+                {% if is_granted("ROLE_USER") %} 
+                <div>
+                  <p>Bonjour, {{app.user.email }}</p>
+                </div>
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    MON COMPTE
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item" type="button">
+                      <a href="">Mes coordonnées</a>
+                      {# {{ path('client_update') }} #}
+                    </button>
+                    <button class="dropdown-item" type="button">
+                      <a href="{{ path('commande') }}">Suivre mes commandes</a>  
+                    </button>
+                    <button class="dropdown-item" type="button">
+                      <a href="{{ path('panier') }}">Mon panier</a> 
+                    </button>
+                    <button class="dropdown-item" type="button">
+                      <a href="{{ path('app_logout') }}">Se déconnecter</a> 
+                    </button>
+                  </div>
+                </div>
+              {% endif %} <!-- Mon compte -->
 
+            </div>
         </div>
     </header>
-    
+   
         {% for type, messages in app.flashes %}
         <div class="container my-4">
           <div class="alert alert-{{ type }} col-md-4">
@@ -87,7 +115,6 @@
         {% endfor %}
     
         {% block body %}{% endblock %}
-        
         <!-- Footer -->
     <!-- Footer -->
 <footer class="expand-lg light bg-light">

@@ -19,14 +19,12 @@ class CommandeController extends AbstractController
      */
     public function liste(CommandeRepository $cr)
     {
-    
         $commandes = $cr->findAll();
     
         $taille = count($commandes);
         return $this->render('commande/index.html.twig', [
             "commandes" => $commandes, "taille" => $taille
         ]);
-
     }
 
     /**

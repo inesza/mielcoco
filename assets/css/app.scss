@@ -2,17 +2,20 @@
 @import "~bootstrap/scss/bootstrap";
 
 @import url('https://fonts.googleapis.com/css?family=Lobster+Two&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
 /* Général */
 body {
     background-color:rgb(252, 238, 195);
-background-image:
-radial-gradient(circle at 100% 150%, rgb(252, 238, 195) 24%, white 24%, white 28%, rgb(252, 238, 195) 28%, rgb(252, 238, 195) 36%, white 36%, white 40%, transparent 40%, transparent),
-radial-gradient(circle at 0    150%, rgb(252, 238, 195) 24%, white 24%, white 28%, rgb(252, 238, 195) 28%, rgb(252, 238, 195) 36%, white 36%, white 40%, transparent 40%, transparent),
-radial-gradient(circle at 50%  100%, white 10%, rgb(252, 238, 195) 10%, rgb(252, 238, 195) 23%, white 23%, white 30%, rgb(252, 238, 195) 30%, rgb(252, 238, 195) 43%, white 43%, white 50%, rgb(252, 238, 195) 50%, rgb(252, 238, 195) 63%, white 63%, white 71%, transparent 71%, transparent),
-radial-gradient(circle at 100% 50%, white 5%, rgb(252, 238, 195) 5%, rgb(252, 238, 195) 15%, white 15%, white 20%, rgb(252, 238, 195) 20%, rgb(252, 238, 195) 29%, white 29%, white 34%, rgb(252, 238, 195) 34%, rgb(252, 238, 195) 44%, white 44%, white 49%, transparent 49%, transparent),
-radial-gradient(circle at 0    50%, white 5%, rgb(252, 238, 195) 5%, rgb(252, 238, 195) 15%, white 15%, white 20%, rgb(252, 238, 195) 20%, rgb(252, 238, 195) 29%, white 29%, white 34%, rgb(252, 238, 195) 34%, rgb(252, 238, 195) 44%, white 44%, white 49%, transparent 49%, transparent);
-background-size: 100px 50px;
+    background-image:
+    radial-gradient(circle at 100% 150%, rgb(252, 238, 195) 24%, white 24%, white 28%, rgb(252, 238, 195) 28%, rgb(252, 238, 195) 36%, white 36%, white 40%, transparent 40%, transparent),
+    radial-gradient(circle at 0    150%, rgb(252, 238, 195) 24%, white 24%, white 28%, rgb(252, 238, 195) 28%, rgb(252, 238, 195) 36%, white 36%, white 40%, transparent 40%, transparent),
+    radial-gradient(circle at 50%  100%, white 10%, rgb(252, 238, 195) 10%, rgb(252, 238, 195) 23%, white 23%, white 30%, rgb(252, 238, 195) 30%, rgb(252, 238, 195) 43%, white 43%, white 50%, rgb(252, 238, 195) 50%, rgb(252, 238, 195) 63%, white 63%, white 71%, transparent 71%, transparent),
+    radial-gradient(circle at 100% 50%, white 5%, rgb(252, 238, 195) 5%, rgb(252, 238, 195) 15%, white 15%, white 20%, rgb(252, 238, 195) 20%, rgb(252, 238, 195) 29%, white 29%, white 34%, rgb(252, 238, 195) 34%, rgb(252, 238, 195) 44%, white 44%, white 49%, transparent 49%, transparent),
+    radial-gradient(circle at 0    50%, white 5%, rgb(252, 238, 195) 5%, rgb(252, 238, 195) 15%, white 15%, white 20%, rgb(252, 238, 195) 20%, rgb(252, 238, 195) 29%, white 29%, white 34%, rgb(252, 238, 195) 34%, rgb(252, 238, 195) 44%, white 44%, white 49%, transparent 49%, transparent);
+    background-size: 100px 50px;
+
+    font-family: 'Open Sans', sans-serif;
 }
 
 a {
@@ -57,12 +60,20 @@ a:hover {
     width: 100px;
     object-fit: cover;
 }
+
 li.nav-item{
     list-style-type:none;
 }
+
 .nav-link{
     color:grey;
 }
+
+.nav-link:hover{
+  color: rgb(194, 153, 18);
+  transition: 0.5s;
+}
+
 .header{
     display:flex;
     flex-direction: row;
@@ -221,7 +232,7 @@ tbody {
 }
 .site-footer a:hover
 {
-  color:#3366cc;
+  color:#3366cc; 
   text-decoration:none;
 }
 .footer-links
@@ -246,6 +257,7 @@ tbody {
   background-color:#33353d
 }
 
+/************************ MEDIA QUERIES ************************/
 @media (max-width:991px)
 {
   .site-footer [class^=col-]
@@ -263,6 +275,10 @@ tbody {
   {
     text-align:center
   }
+
+  #menu li{
+    padding-right: 0px;
+}
 }
 .social-icons
 {

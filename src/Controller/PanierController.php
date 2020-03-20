@@ -28,7 +28,7 @@ class PanierController extends AbstractController
     /**
      * @Route("/panier", name="panier")
      */
-    public function index(SessionInterface $session, RecetteRepository $recetteRepo, ProduitRepository $produitRepo, CompositionRepository $compoRepo)
+    public function index(SessionInterface $session, RecetteRepository $recetteRepo, ProduitRepository $produitRepo, CompositionRepository $compoRepo, Request $rq)
     {
         $panier = $session->get('panier', []); // Si le panier est vide : tableau vide)
         $panierWithData = [];
@@ -55,19 +55,51 @@ class PanierController extends AbstractController
             $totalPanier += $prixRecetteQte;
 
         }
+        // Calcul des frais de ports (offerts à partir de 49€)
         if ($totalPanier > 49) {
             $fdp = 0;
         } else {
             $fdp = 5;
+        }   
+
+        if( $rq->isMethod("POST") ) {
+            $codePromo = $rq->request->get("code_promo") ;
+            if ( $codePromo = "WELCOME10") {
+                $session->remove('montantCommande');
+                $totalCommande = $totalPanier + $fdp - 10;
+            } else if ( $codePromo = "NEWSLETTER") {
+                $session->remove('montantCommande');
+                $totalCommande = $totalPanier;
+            } else if ($codePromo = "10POURCENT") {
+                $session->remove('montantCommande');
+                $totalCommande = ($totalPanier * 10/100) + $fdp;
+                dd($totalCommande);
+            } else {
+                $session->remove('montantCommande');
+                $totalCommande = $totalPanier + $fdp;   
+            }
+            $montantCommande[] = [
+                'totalCommande' => $totalCommande
+            ];
+    
+            $session->set('montantCommande', $montantCommande);
+        } else {
+            $totalCommande = $totalPanier + $fdp;
+            $montantCommande[] = [
+                'totalCommande' => $totalCommande
+            ];
+    
+            $session->set('montantCommande', $montantCommande);
         }
 
-        $totalCommande = $totalPanier + $fdp;
-        $montantCommande[] = [
-            'totalCommande' => $totalCommande
-        ];
-        $session->set('montantCommande', $montantCommande);
+        // $totalCommande = $totalPanier + $fdp;
+        // $montantCommande[] = [
+        //     'totalCommande' => $totalCommande
+        // ];
 
-        return $this->render('panier/index.html.twig', [ 'items' => $panierWithData, "totalPanier" => $totalPanier, "fdp" => $fdp ]);
+        // $session->set('montantCommande', $montantCommande);
+
+        return $this->render('panier/index.html.twig', [ 'items' => $panierWithData, "totalPanier" => $totalPanier, "fdp" => $fdp, "totalCommande" => $totalCommande ]);
     }
 
     /**
@@ -87,6 +119,7 @@ class PanierController extends AbstractController
 
         return $this->redirectToRoute("panier");
     }
+    
 
     /**
      * @Route("/panier/baisse/{id}", name="baisse_panier")
@@ -176,8 +209,9 @@ class PanierController extends AbstractController
      /**
      * @Route("/panier/commander/confirmation", name="confirmation_panier")
      */
-    public function confirmation()
+    public function confirmation(SessionInterface $session)
     {
+        $session->remove('panier'); // Vide le panier une fois que la commande est confirmée
         return $this->render('panier/tunnel3.html.twig');
     }
 

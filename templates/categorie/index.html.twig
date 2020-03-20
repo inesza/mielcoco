@@ -18,16 +18,16 @@
         </thead>
         {% for categorie in liste_categories %}
             <tr>
-                <td>{{ categorie.nom }}</td>
+                <td class="align-middle">{{ categorie.nom }}</td>
                 <td><a href="{{ path("admin_categorie_modifier", { id: categorie.id }) }}" class="fa fa-pen"></a></td>
-                <td><a href="{{ path("admin_categorie_supprimer", { id: categorie.id }) }}" class="fa fa-trash confirmModalLink"  data-toggle="modal" data-target="#supprProduit"></a></td>
+                <td class="align-middle"><a href="{{ path("admin_categorie_supprimer", { id: categorie.id }) }}" class="fa fa-trash confirmModalLink"  data-toggle="modal" data-target="#supprProduit"></a></td>
             </tr>
         {% endfor %}
     </table>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="supprCategorie" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="supprProduit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

@@ -5,7 +5,7 @@
 
 /* Général */
 body {
-    background-color:rgb(167, 33, 33);
+    background-color:rgb(252, 238, 195);
 background-image:
 radial-gradient(circle at 100% 150%, rgb(252, 238, 195) 24%, white 24%, white 28%, rgb(252, 238, 195) 28%, rgb(252, 238, 195) 36%, white 36%, white 40%, transparent 40%, transparent),
 radial-gradient(circle at 0    150%, rgb(252, 238, 195) 24%, white 24%, white 28%, rgb(252, 238, 195) 28%, rgb(252, 238, 195) 36%, white 36%, white 40%, transparent 40%, transparent),
@@ -15,13 +15,21 @@ radial-gradient(circle at 0    50%, white 5%, rgb(252, 238, 195) 5%, rgb(252, 23
 background-size: 100px 50px;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+    color: rgb(194, 153, 18);
+    transition: 0.5s;
+}
+
 .titres {
     font-family: 'Lobster Two', cursive;
 }
 
-<<<<<<< Updated upstream
-
-=======
 /* Navbar */
 .logo {
     width: 230px;
@@ -30,7 +38,6 @@ background-size: 100px 50px;
 #menu a{
     color:gray;
 }
->>>>>>> Stashed changes
 
 /* Administration */
 
@@ -55,7 +62,8 @@ li.nav-item{
     display:flex;
     flex-direction: row;
     justify-content: space-between;
-    padding-top:50px;
+    align-items: center;
+    padding-top:30px;
     padding-bottom:30px;
 }
 
@@ -107,25 +115,24 @@ li.nav-item{
     align-items: center;
 }
 
+/* Recettes */
+
 .recipe h2 {
     float: left;
 }
 
 .recipe-top .left {
     background-color: #ffc107;
-    padding: 30px;
-    width: 55%;
-    float: left !important;
+    border-top-left-radius : 20px;
 }
 
 .recipe-top .right {
-    width: 45%;
-    float: right !important;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .recipe-top .right img {
     width: 100%;
-    float: right !important;
 }
 
 .table-ingredient {
@@ -149,6 +156,12 @@ tbody {
     border-color: inherit;
 }
 
+.img-responsive{
+    max-width: 100%; 
+    height: auto; 
+    display: block;
+}
+
 .picto {
     margin: 0px 5px 0px 0px;
     width: 50px;
@@ -157,6 +170,25 @@ tbody {
 
 .row-2 {
     padding: 30px 0px 0px;
+}
+
+.img-fiche-recette {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-top-right-radius: 20px;
+}
+
+.img-fiche-recette-ingredient {
+    height : 50px;
+    width: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.recipe {
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
 }
 
 /* FOOTER */
@@ -278,6 +310,7 @@ tbody {
 {
   background-color:#007bb6
 }
+
 @media (max-width:767px)
 {
   .social-icons li.title
@@ -286,4 +319,5 @@ tbody {
     margin-right:0;
     font-weight:600
   }
-}
+
+

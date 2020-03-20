@@ -34,7 +34,7 @@ class Produit
     private $unite;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", precision=10, scale=2)
      */
     private $prix_unitaire;
 
@@ -89,12 +89,12 @@ class Produit
         return $this;
     }
 
-    public function getPrixUnitaire(): ?int
+    public function getPrixUnitaire(): ?float
     {
         return $this->prix_unitaire;
     }
 
-    public function setPrixUnitaire(int $prix_unitaire): self
+    public function setPrixUnitaire(float $prix_unitaire): self
     {
         $this->prix_unitaire = $prix_unitaire;
 

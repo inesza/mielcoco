@@ -6,17 +6,6 @@
         {% block stylesheets %}{{ encore_entry_link_tags("app") }}{% endblock %}
     </head>
     <body>
-<<<<<<< Updated upstream
-    <header class="container">
-        <div class="header">
-            <a class="navbar-brand" id="logo" href="{{ path('home') }}">Miel & Coco </a>
-
-                <form class="form-inline  my-2 my-lg-0" method="POST">
-                    <input class="form-control mr-sm-2" type="search" name="recherche" aria-label="Search">
-                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit" href="{{ path('recherche') }}"><i class="fas fa-search"></i></button>
-                </form>  
-                <li class="nav-item">
-=======
     <header class="bg-white" id="haut">
         <div class="header container engagement-all d-flex justify-content-around w-100 flex-wrap">
             <a class="navbar-brand" href="{{ path('home') }}"><img class="logo" src="/images/divers/logomielcoco.png" alt="Miel&Coco"></a>
@@ -26,7 +15,6 @@
                 <button class="btn btn-outline-warning my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
             </form>  
                 <ul class="nav navbar-nav navbar-right ">
->>>>>>> Stashed changes
                 {% if not is_granted("IS_AUTHENTICATED_FULLY") %}
                     <a class="nav-link" href="{{ path("app_login") }}">Connexion</a>
                     <a class="nav-link" href="{{ path("user_register") }}">Créer un compte</a>
@@ -38,35 +26,16 @@
                 
                 {% if is_granted("ROLE_USER") %} 
                     <a class="nav-link" href="">Mon compte</a>
+                {% endif %}
                     <li class="nav-item">
                       <a href="{{ path("panier") }}" class="text-warning h2"><i class="fas fa-shopping-cart"></i></a>
                     </li>
-                {% endif %}
-<<<<<<< Updated upstream
-                
-                </li>
-
-        </div>
-        <nav class="container navbar-expand-lg navbar-light bg-light mb-3">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                {# si l'ADMIN est connecte #}
-                 <ul class="navbar-nav mr-auto">
-                    {% if is_granted("ROLE_ADMIN") %} 
-=======
-                </ul>
-
-        </div>
-        <div class="navigation bg-light ">
-          <nav class="container navbar navbar-expand-lg navbar-light bg-light">
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <div class="navigation bg-light">
+          <nav class="container navbar-expand-lg navbar-light bg-light">
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   {# si l'ADMIN est connecte #}
                   {% if is_granted("ROLE_ADMIN") %} 
-                  <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
->>>>>>> Stashed changes
+                  <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administration</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -105,15 +74,17 @@
           </nav>
         </div>
     </header>
-    <div class="container my-4">
+    
         {% for type, messages in app.flashes %}
-        <div class="alert alert-{{ type }} col-md-4">
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
+        <div class="container my-4">
+          <div class="alert alert-{{ type }} col-md-4">
+              {% for message in messages %}
+                  {{ message }}
+              {% endfor %}
+          </div>
         </div>
         {% endfor %}
-    </div>
+    
         {% block body %}{% endblock %}
         
         <!-- Footer -->
@@ -152,11 +123,12 @@
       </div>
 {# </footer>
       <!-- Grid column -->
-      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-5">
        <h6 class="text-uppercase mb-4 font-weight-bold">Nous suivre</h6>
         <!-- Social buttons -->
             <li class="list-inline-item">
               <a class="btn-floating btn-sm rgba-white-slight">
+              <a class="btn-floating btn-sm rgba-white-slight mx-1">
                 <i class="fab fa-facebook-f"></i>
               </a>
             </li>
@@ -170,7 +142,6 @@
                 <i class="fab fa-instagram"></i>
               </a>
             </li>
-          </ul>
         </div>
       </div>
       <!-- Grid column -->

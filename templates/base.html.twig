@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Miel & Coco - Cosmétiques maison{% endblock %}</title>
+        <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{{ encore_entry_link_tags("app") }}{% endblock %}
     </head>
     <body>
@@ -30,12 +30,17 @@
                     <li class="nav-item">
                       <a href="{{ path("panier") }}" class="text-warning h2"><i class="fas fa-shopping-cart"></i></a>
                     </li>
-        <div class="navigation bg-light">
-          <nav class="container navbar-expand-lg navbar-light bg-light">
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        </div>
+        <div class=" navigation bg-light">
+          <nav class=" container navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"    aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                   {# si l'ADMIN est connecte #}
                   {% if is_granted("ROLE_ADMIN") %} 
-                  <ul class="navbar-nav mr-auto">
+                  <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administration</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -48,7 +53,6 @@
                     </li>
                     {% endif %}
                 </ul>
-
 
                 <ul class="container navbar-nav mr-auto mt-2 mt-lg-0"id="menu">
                     <li class="nav-item active">
@@ -70,6 +74,7 @@
                         <a class="nav-link" href="{{ path("accessoires") }}">ACCESSOIRES</a>
                     </li>
                 </ul>
+
             </div>
           </nav>
         </div>
@@ -121,50 +126,6 @@
           </div>
         </div>
       </div>
-{# </footer>
-      <!-- Grid column -->
-      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-5">
-       <h6 class="text-uppercase mb-4 font-weight-bold">Nous suivre</h6>
-        <!-- Social buttons -->
-            <li class="list-inline-item">
-              <a class="btn-floating btn-sm rgba-white-slight">
-              <a class="btn-floating btn-sm rgba-white-slight mx-1">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a class="btn-floating btn-sm rgba-white-slight">
-                <i class="fab fa-twitter"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a class="btn-floating btn-sm rgba-white-slight">
-                <i class="fab fa-instagram"></i>
-              </a>
-            </li>
-        </div>
-      </div>
-      <!-- Grid column -->
-
-      <hr class="w-100 clearfix d-md-none">
-
-      <!-- Grid column -->
-      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-5">
-        <a href="{{ path('home') }}"><img class="logo mb-3" src="/images/divers/logomielcoco.png" alt="Miel&Coco"></a>
-        <br>
-        <address="text-center text-md-left">©2020 - Tous droits réservés.</address><br>
-      </div>
- 
-    </div>
-    <!-- Footer links -->
-
-  </div>
-  <!-- Footer Links -->
-
-</footer>
-<!-- Footer --> #}
-        {% block javascripts %}{{ encore_entry_script_tags("app") }}{% endblock %}
+      {% block javascripts %}{{ encore_entry_script_tags("app") }}{% endblock %}
     </body>
 </html>
-
-

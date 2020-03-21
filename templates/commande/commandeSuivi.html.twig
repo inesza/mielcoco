@@ -5,47 +5,29 @@
 {% block body %}
 <div class="container bg-white p-5">
         {% if commandes is empty %}
-            <main class="container">
-                <section>
-                    <h1> Mes commandes </h1>
-                        <div class="justify-content-around w-100"> 
-                            <div class="align-items-center text-center">
-                                <h5>Vous n'avez aucune commande</h5>
-                                <p>Faites un petit tour dans notre boutique et laissez-vous tenter par nos articles... </p>
-                            </div>
-                        </div>
-                </section>
-            </main>
+                <h1> Mes commandes </h1>
+                    <h5>Vous n'avez aucune commande</h5>
+                    <p>Faites un petit tour dans notre boutique et laissez-vous tenter par nos articles... </p>
         {% else %}
-        <div class="container bg-white p-5">
             <h1> Mes commandes </h1>
             <table class="table table-hover">
-                <thead>
+                <thead class="bg-light">
                     <tr>
-                        <th colspan="2"></th>
-                        <th class="text-right">Numéro de commande</th>
-                        <th colspan="2"></th>
-                        <th class="text-right">Montant</th>
-                        <th colspan="2"></th>
-                        <th class="text-right">Date</th>
-                        <th colspan="2"></th>
-                        <th class="text-right">Etat</th>
+                        <th >Numéro de commande</th>
+                        <th >Montant</th>
+                        <th >Date</th>
+                        <th>Etat</th>
                     <tr>  
                 </thead>    
                 {% for commande in commandes %}
                     <tr>
-                        <td colspan="2"></td>
-                        <td class="text-right">{{ commande.id }}</td>
-                        <td colspan="2"></td>
-                        <td class="text-right">{{ commande.montant}}</td>
-                        <td colspan="2"></td>
-                        <td class="text-right">{{ commande.date|date("m/d/Y")}}</td>
-                        <td colspan="2"></td>
-                        <td class="text-right">{{ commande.etat}}</td>
+                        <td>{{ commande.id }}</td>
+                        <td>{{ commande.montant}}</td>
+                        <td>{{ commande.date|date("m/d/Y")}}</td>
+                        <td>{{ commande.etat}}</td>
                     </tr>
                 {% endfor %}
             </table>
-        </div>
         {% endif %}
 </div>
 {% endblock %}

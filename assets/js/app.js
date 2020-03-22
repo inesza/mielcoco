@@ -12,6 +12,8 @@ require('bootstrap');
 
 
 $(document).ready(function () {
+
+    // Modal confirmation de suppression
     var theHREF;
 
     $(".confirmModalLink").click(function(e) {

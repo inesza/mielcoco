@@ -174,7 +174,7 @@ class PanierController extends AbstractController
      */
     public function adresse( SessionInterface $session, ClientRepository $clientRepo, EMI $em, Request $rq)
     {
-        $panier = $session->get('panier'); // Si je n'ai pas de panier, j'en crée un sous forme de tableau vide
+        $panier = $session->get('panier'); 
         $user = $this->getUser();
 
         if(!empty($panier)) {
@@ -228,6 +228,17 @@ class PanierController extends AbstractController
         $session->remove('panier'); // Vide le panier une fois que la commande est confirmée
         return $this->render('panier/tunnel3.html.twig');
     }
+
+    //  /**
+    //  * @Route("/nbArticles", name="nbArticles")
+    //  */
+    // public function nbArticles(SessionInterface $session)
+    // {
+        
+    //     $panier = $session->get('panier', []);
+        
+    //     return $this->render('base.html.twig', ['panier' => $panier]);
+    // }
 
     
 

@@ -38,7 +38,7 @@
     </div>
     <div class="row d-flex justify-content-between mt-3">
         <div>
-            <button class='btn btn-light'>Vider mon panier</button>
+            <a class='btn btn-light confirmVider' href="{{ path('vider_panier') }}" data-toggle="modal" data-target="#viderPanier">Vider mon panier</a>
         </div>
         <div class="row d-flex flex-column align-items-end">
             <div class="mb-2 h4">
@@ -52,6 +52,15 @@
                     <input type="text" class="form-control" name="code_promo" placeholder="Code promo">
                     <button type="submit" class="btn btn-warning">OK</button>
                 </form>
+                <div class="text-right mb-3">
+                    <small>{{ 
+                        codePromo == "NEWSLETTER" ? "Le code promo NEWSLETTER est appliqué" :
+                        codePromo == "10POURCENT" ? "Le code promo 10POURCENT est appliqué" :
+                        codePromo == "WELCOME10" ? "Le code promo WELCOME10 est appliqué" :
+                        codePromo == 0 ?  "Aucun code promo n'a été appliqué" :
+                        "<span class='text-warning'>Ce code promo n'est pas valide</span>"
+                    }}</small>
+                </div>
             </div>
             <div class="mb-2 h2">
                 Total : {{ totalCommande }} €
@@ -63,7 +72,7 @@
 
     
     {% else %}
-    <div class="panier-vide d-flex flex-column align-items-center">
+    <div class="panier-vide d-flex flex-column align-items-center w-100">
         <p class="h2 my-5">Rien dans le panier :( </p>
             <img src="/images/divers/paniervide.svg" class="w-25">
         <a class="btn btn-warning my-5" href="{{ path('home') }}">Je commence mon shopping</a>
@@ -72,7 +81,7 @@
     {% endif %}
 </div>
 </div>
-    <!-- Modal -->
+    <!-- Modal retirer produit -->
     <div class="modal fade" id="supprProduit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -87,7 +96,28 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="annulerSuppr">Non, je la garde !</button>
-                    <button type="button" class="btn btn-primary" id="confirmerSuppr">Oui, je l'enlève</button>
+                    <button type="button" class="btn btn-warning" id="confirmerSuppr">Oui, je l'enlève</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal vider panier-->
+    <div class="modal fade" id="viderPanier" tabindex="-1" role="dialog" aria-labelledby="viderPanierLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viderPanierLabel">Vider le panier</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                        Voulez-vous vraiment vider votre panier ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal" id="annulerVider">Non</button>
+                    <a type="button" class="btn btn-secondary" id="confirmerVider" href="{{ path('vider_panier') }}">Oui</a>
                 </div>
             </div>
         </div>

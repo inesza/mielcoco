@@ -5,9 +5,11 @@
 {% block body %}
 <div class="container bg-white p-5">
     <h1>Administration - Catégories</h1>
-    <p>Nombre de catégories : {{ liste_categories|length }}</p> 
-    <p><a href="{{ path("admin_categorie_ajouter") }}" class="btn btn-dark">Ajouter une catégorie</a></p>
-    <table class="table table-hover align-middle">
+    <div class="d-flex justify-content-between">
+        <p>Nombre de catégories : {{ liste_categories|length }}</p> 
+        <p><a href="{{ path("admin_categorie_ajouter") }}" class="btn btn-dark">Ajouter une catégorie</a></p>
+    </div>
+    <table class="table table-hover align-middle col-md-6 offset-md-3 mt-4">
         <thead class="bg-light">
             <tr>
                 <th>Nom de la catégorie</th>

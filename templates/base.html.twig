@@ -75,7 +75,10 @@
                 </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a href="{{ path("panier") }}" class="text-warning h2"><i class="fas fa-shopping-cart"></i></a>
+                    <a href="{{ path("panier") }}" class="text-warning h2">
+                        <i class="fas fa-shopping-cart panierPicto"><div class="nbArticles">{{ app.session.get('panier')|length }}</div></i>
+                        
+                    </a>
                 </li>
             </ul>
         </div>

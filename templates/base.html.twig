@@ -2,11 +2,12 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="icon" type="image/ico" href="/images/divers/favicon.ico" />
         <title>{% block title %}Miel & Coco - Cosmétiques maison{% endblock %}</title>
         {% block stylesheets %}{{ encore_entry_link_tags("app") }}{% endblock %}
     </head>
     <body>
-    <header class="bg-white sticky-top" id="haut">
+    <header class="bg-white" id="haut">
         {# si l'ADMIN est connecte #}
         {% if is_granted("ROLE_ADMIN") %} 
         <div class=" navigation bg-dark">
@@ -76,8 +77,7 @@
                 {% endif %}
                 <li class="nav-item">
                     <a href="{{ path("panier") }}" class="text-warning h2">
-                        <i class="fas fa-shopping-cart panierPicto"><div class="nbArticles">{{ app.session.get('panier')|length }}</div></i>
-                        
+                        <i class="fas fa-shopping-cart panierPicto"><div class="nbArticles">{{ app.session.get('panier')|length }}</div></i>  
                     </a>
                 </li>
             </ul>

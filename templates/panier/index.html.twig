@@ -5,14 +5,15 @@
 {% block body %}
 <div class="container bg-white p-5">
     <h1 class="titres">Mon panier</h1>
-    <div class="row">
+    <div class="row mx-0 w-100">
         {% if items | length > 0 %}
-        <table class="table table-hover">
+        <table class="table table-hover w-100">
             <thead>
                 <tr>
                     <th colspan="2"></th>
                     <th class="text-right">Prix</th>
-                    <th colspan="2" class="text-center">Quantité</th>
+                    <th class="text-right">Quantité</th>
+                    <th></th>
                     <th class="text-right">Total</th>
                 </tr>
             </thead>
@@ -23,24 +24,24 @@
                     <td>{{ item.recette.nom }}</td>
                     <td class="text-right"> {{ item.prix }} €
                     </td>
-                    <td class="text-center">
+                    <td class="text-right">
                         <a href="{{ path('baisse_panier', {'id': item.recette.id }) }}"><i class="fas fa-minus-circle mr-2"></i></a>
                         {{ item.quantite }}  
                         <a href="{{ path('ajout_panier', {'id': item.recette.id }) }}"><i class="fas fa-plus-circle ml-2"></i></a>
                         
                     </td>
-                    <td><a href="{{ path('supprimer_panier', {'id': item.recette.id }) }}" class="fa fa-trash confirmModalLink"  data-toggle="modal" data-target="#supprProduit"></a></td>
+                    <td><a href="{{ path('supprimer_panier', {'id': item.recette.id }) }}" class="fa fa-trash confirmModalLink ml-2"  data-toggle="modal" data-target="#supprProduit"></a></td>
                     <td class="text-right"> {{ item.prix  * item.quantite }} € </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
-    <div class="row d-flex justify-content-between mt-3">
+    <div class="row d-flex justify-content-between mt-3 w-100">
         <div>
             <a class='btn btn-light confirmVider' href="{{ path('vider_panier') }}" data-toggle="modal" data-target="#viderPanier">Vider mon panier</a>
         </div>
-        <div class="row d-flex flex-column align-items-end">
+        <div class="row d-flex flex-column align-items-end mx-0">
             <div class="mb-2 h4">
                 Panier : {{ totalPanier }} €
             </div>

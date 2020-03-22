@@ -6,10 +6,10 @@
         {% block stylesheets %}{{ encore_entry_link_tags("app") }}{% endblock %}
     </head>
     <body>
-    <header class="bg-white" id="haut">
+    <header class="bg-white sticky-top" id="haut">
         {# si l'ADMIN est connecte #}
         {% if is_granted("ROLE_ADMIN") %} 
-        <div class=" navigation bg-dark fixed-top">
+        <div class=" navigation bg-dark">
             <nav class=" container navbar-expand-lg navbar-light">
                 <button class="navbar-toggler text-light my-2 w-100 border-0" type="button" data-toggle="collapse" data-target="#navbarAdmin" aria-controls="navbarAdmin" aria-expanded="false" aria-label="Toggle navigation">
                   <i class="fas fa-tools"></i> Administration <i class="fas fa-caret-down"></i>

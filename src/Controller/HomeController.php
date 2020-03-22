@@ -56,7 +56,7 @@ class HomeController extends AbstractController
     public function rechRecette(RecetteRepository $recetteRepo, $nom)
     {
         $liste_recettes = $recetteRepo->findByNom($nom);
-        return $this->render('home/listeRecettes.html.twig', compact("liste_recettes"));
+        return $this->render('home/listeRecettes.html.twig', compact("liste_recettes")); 
     }
     
     /**

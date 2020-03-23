@@ -24,109 +24,137 @@ use App\Entity\Produit;
 use App\Repository\ProduitRepository;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class RecetteController extends AbstractController
 {
+
+//******************************************* ADMINISTRATION RECETTE *********************************/
+
+
     /**
      * @Route("/admin/recette", name="admin_recette")
-     * @IsGranted("ROLE_ADMIN")
+     * 
      */
-    public function index(RecetteRepository $recetteRepo)
+    public function index(RecetteRepository $recetteRepo, AuthorizationCheckerInterface $authChecker)
     {
-        $liste_recettes = $recetteRepo->findAll();   
-        return $this->render('recette/index.html.twig', compact("liste_recettes") );
+        if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
+           return $this->redirectToRoute('home');
+        } else { // Accès autorisé
+
+            $liste_recettes = $recetteRepo->findAll();   
+            return $this->render('recette/index.html.twig', compact("liste_recettes") );    
+        }
+        
     }
 
     /**
      * @Route("/admin/recette/ajouter", name="admin_recette_ajouter")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function add(RecetteRepository $recetteRepo, CategorieRepository $catRepo, EMI $em, Request $rq)
+    public function add(RecetteRepository $recetteRepo, CategorieRepository $catRepo, EMI $em, Request $rq, AuthorizationCheckerInterface $authChecker)
     {
-        $formRecette = $this->createForm(RecetteType::class);
-        $formRecette->handleRequest($rq);
-        if($formRecette->isSubmitted()) {
-            if($formRecette->isValid()) {
-            $recette = $formRecette->getData();
-            $nomRecette = $formRecette->get('nom')->getData();
-        
-            $idCategories = $rq->request->get('recette')['categorie'];
-            foreach ($idCategories as $id) {
-                 $recette->addCategory($catRepo->find($id));
-            }
+        if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
+            return $this->redirectToRoute('home');
+        } else { // Accès autorisé
 
-            $photoRecette = $formRecette->get('photo')->getData();
-            if ($photoRecette) {
-                $filename = $nomRecette .'-'.uniqid().'.'.$photoRecette->guessExtension();
-                $photoRecette->move(
-                    $this->getParameter('photosRecettes'),
-                    $filename
-                );
-                $recette->setPhoto($filename);
+            $formRecette = $this->createForm(RecetteType::class);
+            $formRecette->handleRequest($rq);
+            if($formRecette->isSubmitted()) {
+                if($formRecette->isValid()) {
+                $recette = $formRecette->getData();
+                $nomRecette = $formRecette->get('nom')->getData();
+            
+                $idCategories = $rq->request->get('recette')['categorie'];
+                foreach ($idCategories as $id) {
+                    $recette->addCategory($catRepo->find($id));
+                }
+
+                $photoRecette = $formRecette->get('photo')->getData();
+                if ($photoRecette) {
+                    $filename = $nomRecette .'-'.uniqid().'.'.$photoRecette->guessExtension();
+                    $photoRecette->move(
+                        $this->getParameter('photosRecettes'),
+                        $filename
+                    );
+                    $recette->setPhoto($filename);
+                }
+                    
+                    $em->persist($recette);
+                    
+                    $em->flush();
+                    $this->addFlash("success", "Recette bien ajoutée. Ajoutez les ingrédients.");
+                    return $this->redirectToRoute("admin_recette");
+                } else {
+                    $this->addFlash("danger", "Le formulaire n'est pas valide");
+                }
             }
-                
-                $em->persist($recette);
-                
-                $em->flush();
-                $this->addFlash("success", "Recette bien ajoutée. Ajoutez les ingrédients.");
-                return $this->redirectToRoute("admin_recette");
-            } else {
-                $this->addFlash("danger", "Le formulaire n'est pas valide");
-            }
-        }
-        $formRecette = $formRecette->createView();  
-        return $this->render('recette/formRecette.html.twig', compact("formRecette") );
+            $formRecette = $formRecette->createView();  
+            return $this->render('recette/formRecette.html.twig', compact("formRecette") );
+         }
     }
 
     /**
      * @Route("/admin/recette/ajouter/compo-{id}", name="admin_recette_ajouter_compo")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function addCompo(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, EMI $em, Request $rq, int $id)
+    public function addCompo(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, EMI $em, Request $rq, int $id, AuthorizationCheckerInterface $authChecker)
     {
+        if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
+            return $this->redirectToRoute('home');
+         } else { // Accès autorisé
         
-        $recette = $recetteRepo->find($id);
-        $formCompo = $this->createForm(CompositionType::class);
-        $formCompo->handleRequest($rq);
-        if($formCompo->isSubmitted()) {
-            if($formCompo->isValid()) {
-                $compo = $formCompo->getData();
-                $compo->setRecette($recette);
-                $em->persist($compo); 
-                $em->flush(); 
-                
-                $this->addFlash("success", "Ingrédient bien ajouté.");
-            } else {
-                $this->addFlash("danger", "Le formulaire n'est pas valide");
+            $recette = $recetteRepo->find($id);
+            $formCompo = $this->createForm(CompositionType::class);
+            $formCompo->handleRequest($rq);
+            if($formCompo->isSubmitted()) {
+                if($formCompo->isValid()) {
+                    $compo = $formCompo->getData();
+                    $compo->setRecette($recette);
+                    $em->persist($compo); 
+                    $em->flush(); 
+                    
+                    $this->addFlash("success", "Ingrédient bien ajouté.");
+                } else {
+                    $this->addFlash("danger", "Le formulaire n'est pas valide");
+                }
             }
-        }
-        $formCompo = $formCompo->createView();  
-        return $this->render('recette/formCompo.html.twig', compact("formCompo", "recette") );
+            $formCompo = $formCompo->createView();  
+            return $this->render('recette/formCompo.html.twig', compact("formCompo", "recette") );
+         }
     }
 
     /**
      * @Route("/admin/recette/ajouter/compo-{id}/retirer-{idcompo}", name="admin_ingredient_retirer", requirements={"id" = "\d+"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function removeIngredient(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, EMI $em, int $id, int $idcompo)
+    public function removeIngredient(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, EMI $em, int $id, int $idcompo, AuthorizationCheckerInterface $authChecker)
     {
-        $recette = $recetteRepo->find($id); 
-        $em->remove($compoRepo->find($idcompo));
-        $em->flush(); 
+        if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
+            return $this->redirectToRoute('home');
+        } else { // Accès autorisé
+            $recette = $recetteRepo->find($id); 
+            $em->remove($compoRepo->find($idcompo));
+            $em->flush(); 
 
-        $this->addFlash("success", "Ingrédient retiré de la recette");  
-        return $this->redirectToRoute("admin_recette_ajouter_compo", compact("id"));
+            $this->addFlash("success", "Ingrédient retiré de la recette");  
+            return $this->redirectToRoute("admin_recette_ajouter_compo", compact("id"));
+        }
     }
 
     /**
      * @Route("/admin/recette/ajouter/compo-{id}", name="admin_recette_produitsAjoutes")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function produitsAjoutes(ProduitRepository $produitRepo, CompositionRepository $compoRepo)
+    public function produitsAjoutes(ProduitRepository $produitRepo, CompositionRepository $compoRepo, AuthorizationCheckerInterface $authChecker)
     { 
-        $recette = $recetteRepo->find($id);      
-        $produitsAjoutes = $recette->getCompositions();
-        return $this->render('recette/formCompo.html.twig', compact("produitsAjoutes") );
+        if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
+            return $this->redirectToRoute('home');
+        } else { // Accès autorisé
+            $recette = $recetteRepo->find($id);      
+            $produitsAjoutes = $recette->getCompositions();
+            return $this->render('recette/formCompo.html.twig', compact("produitsAjoutes") );
+        }
     }
 
     
@@ -137,87 +165,87 @@ class RecetteController extends AbstractController
      * @Route("/admin/recette/modifier/{id}", name="admin_recette_modifier", requirements={"id" = "\d+"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function update(RecetteRepository $RecetteRepo, CategorieRepository $catRepo, EMI $em, Request $rq, int $id)
+    public function update(RecetteRepository $RecetteRepo, CategorieRepository $catRepo, EMI $em, Request $rq, int $id, AuthorizationCheckerInterface $authChecker)
     {
-        $recetteAModifier = $RecetteRepo->find($id);
-        $formRecette = $this->createForm(RecetteType::class, $recetteAModifier);
-        $formRecette->handleRequest($rq);
-        if($formRecette->isSubmitted()) {
-            if($formRecette->isValid()) {
-                $anciennePhoto = $recetteAModifier->getPhoto();
-                $photoRecette = $formRecette->get('photo')->getData();
-                $nomRecette = $formRecette->get('nom')->getData();
-                if ($photoRecette) {
-                    if ($anciennePhoto) {
-                        unlink("../public/images/recettes/" . $anciennePhoto);
+        if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
+            return $this->redirectToRoute('home');
+        } else { // Accès autorisé
+            $recetteAModifier = $RecetteRepo->find($id);
+            $formRecette = $this->createForm(RecetteType::class, $recetteAModifier);
+            $formRecette->handleRequest($rq);
+            if($formRecette->isSubmitted()) {
+                if($formRecette->isValid()) {
+                    $anciennePhoto = $recetteAModifier->getPhoto();
+                    $photoRecette = $formRecette->get('photo')->getData();
+                    $nomRecette = $formRecette->get('nom')->getData();
+                    if ($photoRecette) {
+                        if ($anciennePhoto) {
+                            unlink("../public/images/recettes/" . $anciennePhoto);
+                        }
+                        $filename = $nomRecette .'-'.uniqid().'.'.$photoRecette->guessExtension();
+                        $photoRecette->move(
+                            $this->getParameter('photosRecettes'),
+                            $filename
+                        );
+                        $recetteAModifier->setPhoto($filename);
+                    } 
+                    
+                    $categories = $recetteAModifier->getCategories();
+                    foreach ($categories as $categorie){
+                        $recetteAModifier->removeCategory($categorie);    
                     }
-                    $filename = $nomRecette .'-'.uniqid().'.'.$photoRecette->guessExtension();
-                    $photoRecette->move(
-                        $this->getParameter('photosRecettes'),
-                        $filename
-                    );
-                    $recetteAModifier->setPhoto($filename);
-                } 
-                
-                $categories = $recetteAModifier->getCategories();
-                foreach ($categories as $categorie){
-                    $recetteAModifier->removeCategory($categorie);    
+                    $idCategories = $rq->request->get('recette')['categorie'];
+                    foreach ($idCategories as $id) {
+                        $recetteAModifier->addCategory($catRepo->find($id));
+                    }
+                    $em->persist($recetteAModifier); 
+                    $em->flush();   
+                    $this->addFlash("success", "Modification bien enregistrée"); 
+                    return $this->redirectToRoute("admin_recette");
+                } else {
+                    $this->addFlash("danger", "Le formulaire n'est pas valide");
                 }
-                $idCategories = $rq->request->get('recette')['categorie'];
-                foreach ($idCategories as $id) {
-                    $recetteAModifier->addCategory($catRepo->find($id));
-                }
-                $em->persist($recetteAModifier); 
-                $em->flush();   
-                $this->addFlash("success", "Modification bien enregistrée"); 
-                return $this->redirectToRoute("admin_recette");
-            } else {
-                $this->addFlash("danger", "Le formulaire n'est pas valide");
             }
+            $formRecette = $formRecette->createView();  
+            return $this->render('recette/formRecette.html.twig', ["formRecette" => $formRecette, "recette" => $recetteAModifier, "mode" => "Modifier"] );
         }
-        $formRecette = $formRecette->createView();  
-        return $this->render('recette/formRecette.html.twig', ["formRecette" => $formRecette, "recette" => $recetteAModifier, "mode" => "Modifier"] );
     }
 
     /**
      * @Route("/admin/recette/supprimer/{id}", name="admin_recette_supprimer", requirements={"id" = "\d+"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function delete(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, EMI $em, Request $rq, int $id)
+    public function delete(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, EMI $em, Request $rq, int $id, AuthorizationCheckerInterface $authChecker)
     {
-        $recetteASupprimer = $recetteRepo->find($id);
+        if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
+            return $this->redirectToRoute('home');
+        } else { // Accès autorisé
+            $recetteASupprimer = $recetteRepo->find($id);
 
-        $photoASupprimer = $recetteASupprimer->getPhoto();
-        if (file_exists("../public/images/recettes/" . $photoASupprimer)) {
-            unlink("../public/images/recettes/" . $photoASupprimer);
+            $photoASupprimer = $recetteASupprimer->getPhoto();
+            if (file_exists("../public/images/recettes/" . $photoASupprimer)) {
+                unlink("../public/images/recettes/" . $photoASupprimer);
+            }
+            $em->remove($recetteASupprimer); 
+            $em->flush();  
+            $this->addFlash("success", "Recette supprimée de la base");  
+            return $this->redirectToRoute("admin_recette");
         }
-        $em->remove($recetteASupprimer); 
-        $em->flush();  
-        $this->addFlash("success", "Recette supprimée de la base");  
-        return $this->redirectToRoute("admin_recette");
     }
 
     /**
      * @Route("/admin/recette/{id}", name="admin_recette_detail", requirements={"id"="\d+"}) 
      */
-    public function recette_detail(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, ProduitRepository $produitRepo, EMI $em, int $id, Request $rq) {
-        $recette = $recetteRepo->find($id);      
-        $composition = $recette->getCompositions();
-        $recette->getPrixRecette();
+    public function recette_detail(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, ProduitRepository $produitRepo, EMI $em, int $id, Request $rq, AuthorizationCheckerInterface $authChecker) {
+        if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
+            return $this->redirectToRoute('home');
+        } else { // Accès autorisé
+            $recette = $recetteRepo->find($id);      
+            $composition = $recette->getCompositions();
+            $recette->getPrixRecette();
 
-        return $this->render("recette/recette_detail.html.twig", compact("recette", "composition"));   
+            return $this->render("recette/recette_detail.html.twig", compact("recette", "composition"));   
+        }
     }
 
-    /**
-     * @Route("/detail/recette/{id}", name="recette_fiche", requirements={"id"="\d+"}) 
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function recette_fiche(RecetteRepository $recetteRepo, EMI $em, int $id, Request $rq) {
-        $recette = $recetteRepo->find($id);      
-        $composition = $recette->getCompositions();
-        $categorie = $recette->getCategories();
-        $recette->getPrixRecette();
-
-        return $this->render("recette/recette_fiche.html.twig", compact("recette"));   
-    }
 }

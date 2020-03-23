@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface as EMI;
 
 use Symfony\Component\HttpFoundation\Request;// La classe Request permet d'avoir des informations concernant la requête HTTP
 use App\Entity\Categorie; //Entity: est égal à un objet
@@ -165,6 +166,19 @@ class HomeController extends AbstractController
             $recette->getPrixRecette();
         } 
         return $this->render('categories/toutesRecettes.html.twig', compact("liste_recettes") );
+    }
+
+    /**
+     * @Route("/detail/recette/{id}", name="recette_fiche", requirements={"id"="\d+"}) 
+     * 
+     */
+    public function recette_fiche(RecetteRepository $recetteRepo, EMI $em, int $id, Request $rq) {
+        $recette = $recetteRepo->find($id);      
+        $composition = $recette->getCompositions();
+        $categorie = $recette->getCategories();
+        $recette->getPrixRecette();
+
+        return $this->render("recette/recette_fiche.html.twig", compact("recette"));   
     }
 
 }

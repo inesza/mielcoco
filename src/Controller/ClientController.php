@@ -11,8 +11,6 @@ use Symfony\Component\HttpFoundation\Request;// La classe Request permet d'avoir
 use App\Entity\Client;
 use App\Repository\ClientRepository;
 use App\Form\ClientType;
-use Doctrine\ORM\EntityManagerInterface as EMI;
-use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Commande;
 use App\Repository\CommandeRepository;
 use App\Form\CommandeType;

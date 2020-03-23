@@ -8,16 +8,12 @@ use Symfony\Component\Routing\Annotation\Route;
 //Dès maintenant la classe EMI fait référence à la classe Doctrine\ORM\EntityManagerInterface
 use Doctrine\ORM\EntityManagerInterface as EMI; //Permet de modifier les informations de la BDD
 use Symfony\Component\HttpFoundation\Request;// La classe Request permet d'avoir des informations concernant la requête HTTP
-use App\Entity\Client;
-use App\Repository\ClientRepository;
-use App\Form\ClientType;
-use App\Entity\Commande;
-use App\Repository\CommandeRepository;
-use App\Form\CommandeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Entity\Commande;
+use App\Repository\CommandeRepository;
 
 class ClientController extends AbstractController
 {
@@ -30,49 +26,50 @@ class ClientController extends AbstractController
         return $this->render('client/index.html.twig');
     }
     
-    //------------------------------COORDONNEES---------------------------------------------------------
+    //------------------------------INFORMATIONS DE L'UTILISATEUR--------------------------------------------------
 
     /**
-     * @Route("/mon_compte/modifier/{id}", name="client_update" , requirements={"id"="\d+"})
+     * @Route("/user/modifier/{id}", name="user_update" , requirements={"id"="\d+"})
      * @IsGranted("ROLE_USER")
      */
-    public function update(ClientRepository $clientRepo, Request $request, EMI $em)
+    public function update(UserRepository $userRepo, Request $request, EMI $em, int $id)
     {
         $bouton = "update";
+        $userAmodifier = $userRepo->find($id);
+        // $user=  $this->getUser();
 
-        $clientAmodifier = $this->getUser()->getClient();
-        $formClient = $this->createForm(ClientType::class, $clientAmodifier); // je crée un formulaire basé sur ClientType
-        //handleRequest() détecte le moment où le formulaire a été soumis
-        $formClient->handleRequest($request); // je lie le formulaire à la requête HTTP
-        //submit() contrôle quand exactement le formulaire est soumis et quelles données lui sont transmises.
-        //$ form-> isValid () est un raccourci qui demande à l'objet $clientAmodifier object s'il contient ou non des données valides.
-        if ($formClient->isSubmitted() && $formClient->isValid()) {
-            $em->persist($clientAmodifier);// Enregistrement en BDD
-            $em->flush();  // exécute la requête en attente
-            $this->addFlash("Success", "Vos modifications ont été enregistrées");// je définie le message qui sera affiché 
+        if($request->isMethod("POST")){
+            $email = $request->request->get('email');
+            $password = trim($request->request->get('password')); // trim supprime les espaces au début et à la fin d'une chaîne de caractères
+            if($password){
+                $password = password_hash($password, PASSWORD_DEFAULT);
+                $userAmodifier->setPassword($password);
+            }
+            $userAmodifier->setEmail($email);
+    
+            $em->persist($userAmodifier);//  requête UPDATE
+            $em->flush(); // exécute la  requête en attente
 
-            return $this->redirectToRoute("home");// redirection vers la route
+            return $this->redirectToRoute("mon_compte"); // redirection vers la route
         }
-        return $this->render('client/coordonnees.html.twig', ["client" => $clientAmodifier, "bouton" => $bouton, "formClient" => $formClient->createView()]); 
-        //CreateView () crée un autre objet avec la représentation visuelle du formulaire.
+        return $this->render('client/informations.html.twig', [ "user" => $userAmodifier, "mode" => "modifier" ]);
     }
 
     /**
-     * @Route("/user/supprimer/{id}", name="client_delete", requirements={"id"="\d+"})
+     * @Route("/user/supprimer/{id}", name="user_delete", requirements={"id"="\d+"})
      * @IsGranted("ROLE_USER")
      */
-    public function delete(clientRepository $clientRepo, Request $request,EMI $em, int $id)
+    public function delete(UserRepository $userRepo, Request $request, EMI $em, int $id)
     {
         $bouton = "delete";
+        $userAsupprimer = $userRepo->find($id);
 
-        $clientAsupprimer = $clientRepo->find($id);
-        if ($clientAsupprimer) {
-            $em->remove($clientAsupprimer);
-            $em->flush();
-            return $this->redirectToRoute("home");
+        if ($request->isMethod("POST")) {
+            $em->remove($userAsupprimer);  //  requête DELETE
+            $em->flush();  // exécute la  requête en attente
+            return $this->redirectToRoute('mon_compte');  // redirection vers la route
         }
-        return $this->render('client/coordonnees.html.twig', ["client" => $clientAsupprimer, "bouton" => $bouton]);
-
+        return $this->render('client/informations.html.twig', ["client" => $clientAsupprimer, "bouton" => $bouton]);
     }  
     //------------------------------COMMANDES---------------------------------------------------------
      /**

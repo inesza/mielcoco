@@ -3,6 +3,8 @@
 {% block title %}Miel & Coco - Administration produits{% endblock %}
 
 {% block body %}
+{% if is_granted("ROLE_ADMIN") %}
+
 <div class="container bg-white p-5">
     <h1>Administration - Produits</h1>
     <p>Nombre de produits : {{ liste_produits|length }}</p> 
@@ -49,4 +51,6 @@
     </div>
   </div>
 </div>
+
+{% endif %}
 {% endblock %}

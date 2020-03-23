@@ -3,6 +3,8 @@
 {% block title %}Miel & Coco - Administration recettes{% endblock %}
 
 {% block body %}
+{% if is_granted("ROLE_ADMIN") %}
+
 <div class="container bg-white p-5">
     <a class="btn btn-secondary mb-1" href="{{ path("admin_recette") }}"><i class="fas fa-caret-left"></i> Retour à la liste des recettes</a>
     <div class="col-md-6 offset-md-3 my-4 bg-light p-4 rounded">
@@ -53,4 +55,6 @@
     </div>
   </div>
 </div>
+
+{% endif %}
 {% endblock %}

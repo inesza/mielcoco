@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UserRepository;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 class UserController extends AbstractController
@@ -17,6 +18,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/admin/user/{id}", name="user_show", requirements={"id"="\d+"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function show(UserRepository $ur, $id)
     {
@@ -26,6 +28,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/admin/user/list", name="user_list")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function liste(UserRepository $ur)
     {
@@ -38,6 +41,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/admin/user/modifier/{id}", name="user_update")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function update(UserRepository $ur, Request $rq, EMI $em, int $id)
     {
@@ -58,6 +62,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/admin/user/supprimer/{id}", name="user_delete")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(UserRepository $ur, Request $rq, EMI $em, int $id)
     {
@@ -68,33 +73,4 @@ class UserController extends AbstractController
             return $this->redirectToRoute("user_list");  // redirection vers la route
         }
     }
-
-    /**
-     * @Route("/admin/user/ajouter", name="user_add")
-     */
-    public function add(EMI $em, Request $rq)
-    {
-    
-
-        if($rq->isMethod("POST")){ 
-            $email = $rq->request->get('email');
-            $mdp = $rq->request->get('password');
-            $mdp = password_hash($mdp, PASSWORD_DEFAULT);
-            $roles = $rq->request->get('roles');
-            
-            $user = new User; 
-            $user->setEmail($email);
-            $user->setPassword($mdp);
-            $user->setRoles(array($rq->request->get("role")));
-
-            $em->persist($user);
-            $em->flush();
-
-            return $this->redirectToRoute("user_list");
-
-        }else{
-            return $this->render('user/ajout.html.twig'); 
-        }
-    }
-
 }

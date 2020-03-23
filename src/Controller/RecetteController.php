@@ -23,10 +23,13 @@ use App\Repository\CategorieRepository;
 use App\Entity\Produit;
 use App\Repository\ProduitRepository;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 class RecetteController extends AbstractController
 {
     /**
      * @Route("/admin/recette", name="admin_recette")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(RecetteRepository $recetteRepo)
     {
@@ -36,6 +39,7 @@ class RecetteController extends AbstractController
 
     /**
      * @Route("/admin/recette/ajouter", name="admin_recette_ajouter")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function add(RecetteRepository $recetteRepo, CategorieRepository $catRepo, EMI $em, Request $rq)
     {
@@ -76,6 +80,7 @@ class RecetteController extends AbstractController
 
     /**
      * @Route("/admin/recette/ajouter/compo-{id}", name="admin_recette_ajouter_compo")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function addCompo(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, EMI $em, Request $rq, int $id)
     {
@@ -101,6 +106,7 @@ class RecetteController extends AbstractController
 
     /**
      * @Route("/admin/recette/ajouter/compo-{id}/retirer-{idcompo}", name="admin_ingredient_retirer", requirements={"id" = "\d+"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function removeIngredient(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, EMI $em, int $id, int $idcompo)
     {
@@ -114,6 +120,7 @@ class RecetteController extends AbstractController
 
     /**
      * @Route("/admin/recette/ajouter/compo-{id}", name="admin_recette_produitsAjoutes")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function produitsAjoutes(ProduitRepository $produitRepo, CompositionRepository $compoRepo)
     { 
@@ -128,6 +135,7 @@ class RecetteController extends AbstractController
 
     /**
      * @Route("/admin/recette/modifier/{id}", name="admin_recette_modifier", requirements={"id" = "\d+"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function update(RecetteRepository $RecetteRepo, CategorieRepository $catRepo, EMI $em, Request $rq, int $id)
     {
@@ -173,6 +181,7 @@ class RecetteController extends AbstractController
 
     /**
      * @Route("/admin/recette/supprimer/{id}", name="admin_recette_supprimer", requirements={"id" = "\d+"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, EMI $em, Request $rq, int $id)
     {
@@ -201,6 +210,7 @@ class RecetteController extends AbstractController
 
     /**
      * @Route("/detail/recette/{id}", name="recette_fiche", requirements={"id"="\d+"}) 
+     * @IsGranted("ROLE_ADMIN")
      */
     public function recette_fiche(RecetteRepository $recetteRepo, EMI $em, int $id, Request $rq) {
         $recette = $recetteRepo->find($id);      

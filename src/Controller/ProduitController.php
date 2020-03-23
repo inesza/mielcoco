@@ -12,11 +12,13 @@ use App\Form\ProduitType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\File;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ProduitController extends AbstractController
 {
     /**
      * @Route("/admin/produit", name="admin_produit")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(ProduitRepository $produitRepo)
     {
@@ -26,6 +28,7 @@ class ProduitController extends AbstractController
 
     /**
      * @Route("/admin/produit/ajouter", name="admin_produit_ajouter")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function add(ProduitRepository $produitRepo, EMI $em, Request $rq)
     {
@@ -58,6 +61,7 @@ class ProduitController extends AbstractController
 
     /**
      * @Route("/admin/produit/modifier/{id}", name="admin_produit_modifier", requirements={"id" = "\d+"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function update(ProduitRepository $produitRepo, EMI $em, Request $rq, int $id)
     {
@@ -94,6 +98,7 @@ class ProduitController extends AbstractController
 
     /**
      * @Route("/admin/produit/supprimer/{id}", name="admin_produit_supprimer", requirements={"id" = "\d+"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(ProduitRepository $produitRepo, EMI $em, Request $rq, int $id)
     {

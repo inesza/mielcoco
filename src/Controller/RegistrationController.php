@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Component\HttpFoundation\Cookie; 
 
 class RegistrationController extends AbstractController
 {
@@ -32,6 +33,7 @@ class RegistrationController extends AbstractController
                 )
             );
             $user->setRoles(["ROLE_USER"]);
+            // $user->setCookie($cookie);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

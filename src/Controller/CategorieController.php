@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface as EMI;
 use App\Repository\CategorieRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\CategorieType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class CategorieController extends AbstractController
 {
@@ -22,6 +23,7 @@ class CategorieController extends AbstractController
 
     /**
      * @Route("/admin/categorie/ajouter", name="admin_categorie_ajouter")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function add(CategorieRepository $categorieRepo, EMI $em, Request $rq)
     {
@@ -45,6 +47,7 @@ class CategorieController extends AbstractController
 
     /**
      * @Route("/admin/categorie/modifier/{id}", name="admin_categorie_modifier", requirements={"id" = "\d+"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function update(CategorieRepository $categorieRepo, EMI $em, Request $rq, int $id)
     {
@@ -68,6 +71,7 @@ class CategorieController extends AbstractController
 
     /**
      * @Route("/admin/categorie/supprimer/{id}", name="admin_categorie_supprimer", requirements={"id" = "\d+"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(CategorieRepository $categorieRepo, EMI $em, Request $rq, int $id)
     {

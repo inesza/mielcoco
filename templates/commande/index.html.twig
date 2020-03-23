@@ -1,9 +1,10 @@
 {% extends "base.html.twig" %}
 
-{% block title %} Liste des commandes {% endblock %}
+{% block title %}Miel & Coco - Liste des commandes {% endblock %}
 
 {% block body %}
-    
+{% if is_granted("ROLE_ADMIN") %}
+
 <div class="container bg-white p-5">
     <h1>Administration - Commandes</h1>
     <p>Nombre de commandes : {{ taille }}</p> 
@@ -33,4 +34,5 @@
     </table>
 </div>
 
+{% endif %}
 {% endblock %}

@@ -279,6 +279,10 @@ tbody {
   {
     margin-bottom:30px
   }
+
+  header {
+    position : relative;
+  }
 }
 @media (max-width:767px)
 {
@@ -289,13 +293,6 @@ tbody {
   .site-footer .copyright-text,.site-footer .social-icons
   {
     text-align:center
-  }
-
-  header {
-    position : relative;
-    // top: 0;
-    // left: 0;
-    // z-index: 100;
   }
 
   #menu li{

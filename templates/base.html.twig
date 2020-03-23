@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="icon" type="image/ico" href="/images/divers/favicon.ico" />
         <title>{% block title %}Miel & Coco - Cosmétiques maison{% endblock %}</title>
         {% block stylesheets %}{{ encore_entry_link_tags("app") }}{% endblock %}
     </head>
@@ -9,7 +10,7 @@
     <header class="bg-white" id="haut">
         {# si l'ADMIN est connecte #}
         {% if is_granted("ROLE_ADMIN") %} 
-        <div class=" navigation bg-dark fixed-top">
+        <div class=" navigation bg-dark">
             <nav class=" container navbar-expand-lg navbar-light">
                 <button class="navbar-toggler text-light my-2 w-100 border-0" type="button" data-toggle="collapse" data-target="#navbarAdmin" aria-controls="navbarAdmin" aria-expanded="false" aria-label="Toggle navigation">
                   <i class="fas fa-tools"></i> Administration <i class="fas fa-caret-down"></i>
@@ -75,7 +76,9 @@
                 </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a href="{{ path("panier") }}" class="text-warning h2"><i class="fas fa-shopping-cart"></i></a>
+                    <a href="{{ path("panier") }}" class="text-warning h2">
+                        <i class="fas fa-shopping-cart panierPicto"><div class="nbArticles">{{ app.session.get('panier')|length }}</div></i>  
+                    </a>
                 </li>
             </ul>
         </div>

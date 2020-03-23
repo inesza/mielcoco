@@ -61,21 +61,24 @@ class PanierController extends AbstractController
         } else {
             $fdp = 5;
         }   
+        $session->get('montantCommande', []);
 
         if( $rq->isMethod("POST") ) {
+            $session->remove('montantCommande');
+            $montantCommande[] = [0];
             $codePromo = $rq->request->get("code_promo") ;
-            if ( $codePromo = "WELCOME10") {
-                $session->remove('montantCommande');
-                $totalCommande = $totalPanier + $fdp - 10;
-            } else if ( $codePromo = "NEWSLETTER") {
-                $session->remove('montantCommande');
+            if ( $codePromo == "WELCOME10") {
+                if ($totalPanier + $fdp <= 10) {
+                    $totalCommande = 0;
+                } else {
+                    $totalCommande = $totalPanier + $fdp - 10;    
+                }
+            } else if ( $codePromo == "NEWSLETTER") {
+                $fdp = 0;
                 $totalCommande = $totalPanier;
-            } else if ($codePromo = "10POURCENT") {
-                $session->remove('montantCommande');
-                $totalCommande = ($totalPanier * 10/100) + $fdp;
-                dd($totalCommande);
+            } else if ($codePromo == "10POURCENT") {
+                $totalCommande = ($totalPanier -($totalPanier * 10/100)) + $fdp;
             } else {
-                $session->remove('montantCommande');
                 $totalCommande = $totalPanier + $fdp;   
             }
             $montantCommande[] = [
@@ -85,6 +88,7 @@ class PanierController extends AbstractController
             $session->set('montantCommande', $montantCommande);
         } else {
             $totalCommande = $totalPanier + $fdp;
+            $codePromo = 0;
             $montantCommande[] = [
                 'totalCommande' => $totalCommande
             ];
@@ -99,7 +103,17 @@ class PanierController extends AbstractController
 
         // $session->set('montantCommande', $montantCommande);
 
-        return $this->render('panier/index.html.twig', [ 'items' => $panierWithData, "totalPanier" => $totalPanier, "fdp" => $fdp, "totalCommande" => $totalCommande ]);
+        return $this->render('panier/index.html.twig', [ 'items' => $panierWithData, "totalPanier" => $totalPanier, "fdp" => $fdp, "totalCommande" => $totalCommande, "codePromo" => $codePromo ]);
+    }
+
+    /**
+     * @Route("/panier/vider", name="vider_panier")
+     */
+    public function vider_panier(SessionInterface $session)
+    {
+        $session->remove('panier');
+        
+        return $this->redirectToRoute("panier");
     }
 
     /**
@@ -160,7 +174,7 @@ class PanierController extends AbstractController
      */
     public function adresse( SessionInterface $session, ClientRepository $clientRepo, EMI $em, Request $rq)
     {
-        $panier = $session->get('panier'); // Si je n'ai pas de panier, j'en crée un sous forme de tableau vide
+        $panier = $session->get('panier'); 
         $user = $this->getUser();
 
         if(!empty($panier)) {
@@ -214,6 +228,17 @@ class PanierController extends AbstractController
         $session->remove('panier'); // Vide le panier une fois que la commande est confirmée
         return $this->render('panier/tunnel3.html.twig');
     }
+
+    //  /**
+    //  * @Route("/nbArticles", name="nbArticles")
+    //  */
+    // public function nbArticles(SessionInterface $session)
+    // {
+        
+    //     $panier = $session->get('panier', []);
+        
+    //     return $this->render('base.html.twig', ['panier' => $panier]);
+    // }
 
     
 

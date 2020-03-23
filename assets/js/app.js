@@ -12,6 +12,8 @@ require('bootstrap');
 
 
 $(document).ready(function () {
+
+    // Modal confirmation de suppression
     var theHREF;
 
     $(".confirmModalLink").click(function(e) {
@@ -25,6 +27,20 @@ $(document).ready(function () {
     });
 
     $("#confirmerSuppr").click(function(e) {
+        window.location.href = theHREF;
+    });
+
+    $(".confirmVider").click(function(e) {
+        e.preventDefault();
+        theHREF = $(this).attr("href");
+        $("#viderPanier").modal("show");
+    });
+
+    $("#annulerVider").click(function(e) {
+        $("#viderPanier").modal("hide");
+    });
+
+    $("#confirmerVider").click(function(e) {
         window.location.href = theHREF;
     });
 });

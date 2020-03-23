@@ -3,15 +3,17 @@
 {% block title %}Miel & Coco - {{ mode is defined ? mode|capitalize : "Ajouter" }} une catégorie{% endblock %}
 
 {% block body %}
-
-{% if is_granted("ROLE_ADMIN") %}
-
 <div class="container bg-white p-5">
-{{ form_start(formCategorie) }}
-    {{ form_row(formCategorie.nom) }}
-    <br>
-    <button class="btn btn-dark">{{ mode is defined ? mode|capitalize : "Ajouter" }}</button>
-{{ form_end(formCategorie) }}
+    <a class="btn btn-secondary mb-5" href="{{ path("admin_categorie") }}"><i class="fas fa-caret-left"></i> Annuler et revenir à la liste des catégories</a>
+    <h1 class="mb-3">{{ mode is defined ? mode|capitalize : "Ajouter" }} une catégorie</h1>
+
+    <div class="formulaire col-md-5 offset-md-3 my-4">
+        {{ form_start(formCategorie) }}
+        {{ form_row(formCategorie.nom) }}
+        <br>
+        <button class="btn btn-warning">{{ mode is defined ? mode|capitalize : "Ajouter" }}</button>
+        {{ form_end(formCategorie) }}
+    </div>
 </div>
 
 {% endif %}

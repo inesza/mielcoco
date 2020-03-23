@@ -43,4 +43,5 @@ $(document).ready(function () {
     $("#confirmerVider").click(function(e) {
         window.location.href = theHREF;
     });
+
 });

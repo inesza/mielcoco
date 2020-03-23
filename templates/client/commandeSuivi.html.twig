@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Miel & Coco - Mes commandes{% endblock %}
+
+{% block body %}
+<main class="container bg-white pl-0 d-flex flex-column flex-md-row">
+    <aside class="col-md-3 bg-light py-5">
+        <section class="mb-md-5 d-flex flex-column w-100 align-items-center align-items-md-start">   
+                <h5 class="titres mb-3"><i class="fas fa-star text-warning"></i>  Bonjour, {{ user.email }} <i class="fas fa-star text-warning"></i></h5>
+                <nav class="nav flex-row flex-md-column align-items-md-start justify-content-center flex-wrap">
+                    <a class="nav-link" href="{{ path('mon_compte') }}">Mes infos personnelles</a>
+                    <a class="nav-link" href="{{ path('client_coordonnees') }}">Mes coordonnées</a>
+                    <a class="nav-link active text-warning" href="{{ path('client_commande') }}"><strong>Mes commandes</strong></a>
+                </nav>
+        </section>
+    </aside>
+    <section class="p-5 w-100">
+        <h2 class="titres mb-5">Mes commandes</h2>
+        {# empty: pour vérifier si une variable est une chaîne vide, un tableau vide, un hachage vide, exactement faux ou exactement nul #}
+        {% if commandes is empty %}
+        <div class="justify-content-around w-100"> 
+            <div class="align-items-center text-center">
+                <p class="h2 my-5">Vous n'avez aucune commande</p> <br>
+                <p>Faites un petit tour dans notre boutique et laissez-vous tenter par nos articles... </p>
+                <a class="btn btn-warning my-5" href="{{ path('home') }}">Je commence mon shopping</a>
+            </div>
+        </div>
+        {% else %}
+        <table class="table table-hover w-100">
+            <thead class="bg-light">
+                <tr>
+                    <th >N° de commande</th>
+                    <th >Montant</th>
+                    <th >Date</th>
+                    <th>Etat</th>
+                <tr>  
+            </thead> 
+            {# pour afficher une liste de commandes fournie dans une variable appelée commande: #}
+            {% for commande in commandes %} 
+                    <td>{{ commande.id }}</td>
+                    <td>{{ commande.montant}}€</td>
+                    <td>{{ commande.date|date("d/m/Y")}}</td>
+                    <td>{{ 
+                    commande.etat == "traitement" ? "En cours de traitement" 
+                    : commande.etat == "livraison" ? "En cours de livraison"
+                    : commande.etat == "expedie" ? "Commande terminée"
+                    : commande.etat == "annule" ? "Commande annulée"
+                }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </section>
+</main>
+{% endblock %}
+
+
+
+           
+

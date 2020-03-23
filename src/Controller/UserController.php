@@ -40,7 +40,7 @@ class UserController extends AbstractController
     {
         if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
             $this->addFlash("danger", "VVous devez être administrateur·ice pour voir cette page");
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('home'); 
         } else { // Accès autorisé
             $users = $ur->findAll();
             $taille = count($users);

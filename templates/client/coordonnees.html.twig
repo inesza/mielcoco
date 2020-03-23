@@ -3,28 +3,99 @@
 {% block title %}Miel & Coco - Mes coordonnées{% endblock %}
 
 {% block body %}
-{% if is_granted("ROLE_USER") %} 
-
-<main class="container bg-white p-5">
-    <h1 class="mb-5 offset-md-2">Mes coordonnées personnelles</h1>
-
-    <div class="formulaire col-md-5 offset-md-3 my-4">
-    {{ form_start(formClient) }}
-            {{ form_row(formClient.prenom) }}
-            {{ form_row(formClient.nom) }}
-            {{ form_row(formClient.adresse) }}
-            {{ form_row(formClient.cp) }}
-            {{ form_row(formClient.ville) }}
-            {{ form_row(formClient.telephone) }}
-        <br>
-        <div class="navigation d-flex justify-content-between w-100 my-3">
-            <button class="btn btn-warning">Valider<i class="fas fa-caret-right"></i></button>   
+<main class="container bg-white pl-0 d-flex flex-column flex-md-row">
+    <aside class="col-md-3 bg-light py-5">
+        <section class="mb-md-5 d-flex flex-column w-100 align-items-center align-items-md-start">   
+                <h5 class="titres mb-3"><i class="fas fa-star text-warning"></i>  Bonjour, {{ user.email }} <i class="fas fa-star text-warning"></i></h5>
+                <nav class="nav flex-row flex-md-column align-items-md-start justify-content-center flex-wrap">
+                    <a class="nav-link" href="{{ path('mon_compte') }}">Mes infos personnelles</a>
+                    <a class="nav-link active text-warning" href="{{ path('client_coordonnees') }}"><strong>Mes coordonnées</strong></a>
+                    <a class="nav-link" href="{{ path('client_commande') }}">Mes commandes</a>
+                </nav>
+        </section>
+    </aside>
+    <section class="p-5">
+        <h2 class="titres mb-5">Mes coordonnées</h2>
+        {# empty: pour vérifier si une variable est une chaîne vide, un tableau vide, un hachage vide, exactement faux ou exactement nul #}
+        {% if user.client is empty %}
+        <div class="formulaire my-4">
+            {{ form_start(formClient) }}
+            <div class="form-row">
+                <div class="col">
+                    {{ form_row(formClient.prenom) }}
+                </div>
+                <div class="col">
+                    {{ form_row(formClient.nom) }}
+                </div>
+            </div>
+            <div>
+                {{ form_row(formClient.adresse) }}
+            </div>
+            <div class="form-row">
+                <div class="col-3">
+                    {{ form_row(formClient.cp) }}
+                </div>
+                <div class="col">
+                    {{ form_row(formClient.ville) }}
+                </div>  
+            </div>
+            <div class="form-row">
+                <div class="col-6">
+                    {{ form_row(formClient.telephone) }}
+                </div>
+            </div>
+            <div class="navigation">
+                <button class="btn btn-warning">Enregistrer</i></button>   
+            </div>
+            {{ form_end(formClient) }}
         </div>
-  
-    </div>
-
+        {% else %}
+        <div class="mb-3">
+            <div class="mb-2">
+                <strong>{{ user.client.prenom|capitalize }} {{ user.client.nom|capitalize}}</strong>
+            </div>
+            <div class="mb-2">
+                {{ user.client.adresse}}
+                <br>
+                {{ user.client.cp }} {{ user.client.ville }}
+            </div>
+            <div>
+                <i class="fas fa-phone-square-alt text-warning"></i> {{ user.client.telephone }}
+            </div>
+        </div>
+        <div>
+            <a class="btn btn-warning mb-5" href="{{ path('client_coordonnees_modif') }}">Mettre à jour mes coordonnées</a>
+        </div>   
+        {% endif %}
+        <div>
+            <a class="btn btn-danger btn-sm text-white text-sm mt-5 confirmModalLink" href="{{ path('client_delete') }}" data-toggle="modal" data-target="#supprProduit">Supprimer mon compte</a>
+        </div>
+    </section>
 </main>
 
-{% endif %}
-
+<!-- Modal -->
+<div class="modal fade" id="supprProduit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Supprimer mon compte</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-danger">
+            Voulez-vous vraiment supprimer ce compte ? Cette action est irréversible.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="annulerSuppr">J'ai changé d'avis</button>
+        <button type="button" class="btn btn-danger text-light" id="confirmerSuppr">Oui, je supprime</button>
+      </div>
+    </div>
+  </div>
+</div> 
 {% endblock %}
+
+
+
+           
+

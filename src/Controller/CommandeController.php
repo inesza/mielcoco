@@ -12,47 +12,58 @@ use App\Entity\Commande;
 use App\Entity\Client;
 use App\Form\CommandeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class CommandeController extends AbstractController
 {
     /**
      * @Route("/admin/commande", name="liste_commande")
-     * @IsGranted("ROLE_ADMIN")
+     * 
      */
-    public function liste(CommandeRepository $cr)
+    public function liste(CommandeRepository $cr, AuthorizationCheckerInterface $authChecker)
     {
-        $commandes = $cr->findAll();
-    
-        $taille = count($commandes);
-        return $this->render('commande/index.html.twig', [
-            "commandes" => $commandes, "taille" => $taille
-        ]);
+        if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
+            $this->addFlash("danger", "Vous devez être administrateur·ice pour voir cette page");
+            return $this->redirectToRoute('home');
+        } else { // Accès autorisé
+            $commandes = $cr->findAll();
+        
+            $taille = count($commandes);
+            return $this->render('commande/index.html.twig', [
+                "commandes" => $commandes, "taille" => $taille
+            ]);
+        }
     }
 
     /**
      * @Route("/admin/commande/modifier/{id}", name="commande_modifier", requirements={"id" = "\d+"})
-     * @IsGranted("ROLE_ADMIN")
+     * 
      */
 
-    public function modifier(CommandeRepository $cr, EMI $em, Request $rq, int $id)
+    public function modifier(CommandeRepository $cr, EMI $em, Request $rq, int $id, AuthorizationCheckerInterface $authChecker)
     {
-        $commandeModif = $cr->find($id);
-        $dateCommande = $commandeModif->getDate();
-        $formCommande = $this->createForm(CommandeType::class, $commandeModif);
-        $commandeModif->setDate($dateCommande);
+        if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
+            $this->addFlash("danger", "Vous devez être administrateur·ice pour voir cette page");
+            return $this->redirectToRoute('home');
+        } else { // Accès autorisé
+            $commandeModif = $cr->find($id);
+            $dateCommande = $commandeModif->getDate();
+            $formCommande = $this->createForm(CommandeType::class, $commandeModif);
+            $commandeModif->setDate($dateCommande);
 
-        $formCommande->handleRequest($rq);
-        if($formCommande->isSubmitted()) {
-            if($formCommande->isValid()) {
-                $em->persist($commandeModif); 
-                $em->flush();   
-                $this->addFlash("success", "Modification bien enregistrée"); 
-                return $this->redirectToRoute("liste_commande");
-            } else {
-                $this->addFlash("danger", "Le formulaire n'est pas valide");
+            $formCommande->handleRequest($rq);
+            if($formCommande->isSubmitted()) {
+                if($formCommande->isValid()) {
+                    $em->persist($commandeModif); 
+                    $em->flush();   
+                    $this->addFlash("success", "Modification bien enregistrée"); 
+                    return $this->redirectToRoute("liste_commande");
+                } else {
+                    $this->addFlash("danger", "Le formulaire n'est pas valide");
+                }
             }
+            $formCommande = $formCommande->createView();  
+            return $this->render('commande/formCommande.html.twig', ["formCommande" => $formCommande, "commande" => $commandeModif] );
         }
-        $formCommande = $formCommande->createView();  
-        return $this->render('commande/formCommande.html.twig', ["formCommande" => $formCommande, "commande" => $commandeModif] );
     }
-}
+} // Fin de la classe

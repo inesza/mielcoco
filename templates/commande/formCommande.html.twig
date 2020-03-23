@@ -6,35 +6,20 @@
 {% block body %}
 
 <div class="container bg-white p-5">
+    <div>
+        <h2>Commande n°{{ commande.id }} - {{ commande.date|date("d/m/Y") }} - {{ commande.montant }}€</h2>
+        <p>Client n°{{ commande.client.id }} - {{ commande.client.nom|upper }} {{ commande.client.prenom }}</p>
+    </div>
 
-
-    <form>
-        <div class="form-group">
-            <label for="id">Id commande</label>
-            <input type="text" class="form-control"  placeholder="{{ commande.id }}" readonly>
-        </div>
-        <div class="form-group">
-            <label for="client_id">Id client</label>
-            <input type="text" class="form-control"  placeholder="{{ commande.client.id }}" readonly>
-        </div>
-        <div class="form-group">
-            <label for="nom">Nom</label>
-            <input type="text" class="form-control"  placeholder="{{ commande.client.nom }}" readonly>
-        </div>
-        <div class="form-group">
-            <label for="montant">Montant</label>
-            <input type="text" class="form-control"  placeholder="{{ commande.montant }}" readonly>
-        </div>
-
-    </form>
-
+    <div class="col-md-5">
     {{ form_start(formCommande) }}
 
-    {{ form_row(formCommande.etat) }}
-    
-    <button class="btn btn-dark">Enregistrer</button> 
+        {{ form_row(formCommande.etat) }}
+        
+        <button class="btn btn-warning">Enregistrer</button> 
 
     {{ form_end(formCommande) }}
+    </div>
 
 </div>
 

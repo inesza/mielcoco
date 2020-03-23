@@ -4,14 +4,17 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 
-use App\Entity\Categorie;
-use App\Repository\CategorieRepository;
+use Symfony\Component\HttpFoundation\Request;// La classe Request permet d'avoir des informations concernant la requête HTTP
+use App\Entity\Categorie; //Entity: est égal à un objet
+use App\Repository\CategorieRepository;//Permet de récupérer les informations dans la BDD
 use App\Entity\Recette;
-use App\Entity\Produit;
 use App\Repository\RecetteRepository;
+use App\Entity\Produit;
 use App\Repository\ProduitRepository;
+use App\Entity\Composition;
+use App\Repository\CompositionRepository;
+
 
 class HomeController extends AbstractController
 {
@@ -30,14 +33,14 @@ class HomeController extends AbstractController
         
         return $this->render('home/home.html.twig', compact("bestsellers", "compo"));
     }
- //------------------------------RECHERCHE---------------------------------------------------------
+ //------------------------------RECHERCHE RECETTE -----------------------------
     /**
      * @Route("/recherche", name="recherche")
      */
     public function recherche(ProduitRepository $produitRepo, RecetteRepository $recetteRepo, Request $rq)
-    {
-        if($rq->isMethod("POST")){
-            $nom = $rq->request->get("recherche");
+    {   //  ->request: permet de récupérer ce qui se trouve dans $_POST
+        if($rq->isMethod("POST")){ // Récupération des données envoyées par le formulaire
+            $nom = $rq->request->get("recherche");  //cela équivaut à: $nom = $_POST["name"]
             $liste_recettes = $recetteRepo->findByNom($nom);
             // $liste_produits = $produitRepo->findByNom($nom);
         } 
@@ -45,9 +48,7 @@ class HomeController extends AbstractController
             $liste_recettes = $recetteRepo->findAll();
             // $liste_produits = $produitRepo->findAll();
         }
-        return $this->render('home/recherche.html.twig', compact("liste_recettes"
-        // , "liste_produits"
-        ));
+        return $this->render('home/recherche.html.twig', compact("liste_recettes"));
     }
 
     /**
@@ -57,16 +58,20 @@ class HomeController extends AbstractController
     {
         $liste_recettes = $recetteRepo->findByNom($nom);
         return $this->render('home/listeRecettes.html.twig', compact("liste_recettes")); 
+        // compact("liste_recettes", "autre_variable") 
+        // est équivalent à 
+        // [ "liste_recettes" => $liste_recettes, "autre_variable" => $autre_variable ] 
     }
+//------------------------------RECHERCHE RECETTE PAR PRODUIT-----------------------------
+    // /**
+    //  * @Route("/recette/produit/{nom}", name="recherche_produit")
+    //  */
+    // public function rechProduit(compositionRepository $compoRepo, $nom)
+    // {
+    //     $liste_recettes = $compoRepo->findByNom($nom);
+    //     return $this->render('home/recherche.html.twig', compact("liste_recettes"));
+    // }
     
-    /**
-     * @Route("/produit/{nom}", name="recherche_produit")
-     */
-    public function rechProduit(ProduitRepository $produitRepo, $nom)
-    {
-        $liste_produits = $produitRepo->findByNom($nom);
-        return $this->render('home/listeProduits.html.twig', compact("liste_produits"));
-    }
  //------------------------------FOOTER--------------------------------------------------------
     /**
      * @Route("/qui_sommes_nous", name="qui_sommes_nous")

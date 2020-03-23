@@ -26,7 +26,8 @@ class CommandeType extends AbstractType
                 'choices'  => [
                     'En cours de traitement' => "traitement",
                     'En cours de livraison' => "livraison",
-                    'Commande livrée' => "expedie"
+                    'Commande livrée' => "expedie",
+                    'Commande annulée' => "annule"
                     ]
             ]);
     }

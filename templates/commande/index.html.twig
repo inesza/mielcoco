@@ -31,6 +31,7 @@
                         commande.etat == "traitement" ? "En cours de traitement" 
                         : commande.etat == "livraison" ? "En cours de livraison"
                         : commande.etat == "expedie" ? "Commande terminée"
+                        : commande.etat == "annule" ? "Commande annulée"
                     }}</td>
                     <td class="align-middle"><a href="{{ path("commande_modifier", { id: commande.id }) }}" class="fa fa-pen"></a></td>
                 </tr>

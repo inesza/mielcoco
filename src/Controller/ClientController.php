@@ -52,7 +52,7 @@ class ClientController extends AbstractController
 
             return $this->redirectToRoute("mon_compte"); // redirection vers la route
         }
-        return $this->render('client/informations.html.twig', [ "user" => $userAmodifier, "mode" => "modifier" ]);
+        return $this->render('client/infoclient.html.twig', [ "user" => $userAmodifier, "mode" => "modifier" ]);
     }
 
     /**
@@ -69,7 +69,7 @@ class ClientController extends AbstractController
             $em->flush();  // exécute la  requête en attente
             return $this->redirectToRoute('mon_compte');  // redirection vers la route
         }
-        return $this->render('client/informations.html.twig', ["client" => $clientAsupprimer, "bouton" => $bouton]);
+        return $this->render('client/infoclient.html.twig', ["client" => $clientAsupprimer, "bouton" => $bouton]);
     }  
     //------------------------------COMMANDES---------------------------------------------------------
      /**

@@ -105,6 +105,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     {
         return $this->urlGenerator->generate('app_login');
     }
+//------------------------------------COOKIES------------------------------
 
     public function setCookie(Cookie $cookie, Response $res){
         $cookie = new Cookie(

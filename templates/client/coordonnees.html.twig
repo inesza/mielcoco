@@ -3,44 +3,28 @@
 {% block title %}Miel & Coco - Mes coordonnées{% endblock %}
 
 {% block body %}
+{% if is_granted("ROLE_USER") %} 
+
 <main class="container bg-white p-5">
     <h1 class="mb-5 offset-md-2">Mes coordonnées personnelles</h1>
 
     <div class="formulaire col-md-5 offset-md-3 my-4">
     {{ form_start(formClient) }}
-        <div class="form-row">
-            <div class="col">
-                {{ form_row(formClient.prenom) }}
-            </div>
-            <div class="col">
-                {{ form_row(formClient.nom) }}
-            </div>
-        </div>
-        <div>
+            {{ form_row(formClient.prenom) }}
+            {{ form_row(formClient.nom) }}
             {{ form_row(formClient.adresse) }}
-        </div>
-        <div class="form-row">
-            <div class="col-3">
-                {{ form_row(formClient.cp) }}
-            </div>
-            <div class="col">
-                {{ form_row(formClient.ville) }}
-            </div>  
-        </div>
-        <div class="form-row">
-            <div class="col-6">
-                {{ form_row(formClient.telephone) }}
-            </div>
-        </div>
+            {{ form_row(formClient.cp) }}
+            {{ form_row(formClient.ville) }}
+            {{ form_row(formClient.telephone) }}
         <br>
         <div class="navigation d-flex justify-content-between w-100 my-3">
             <button class="btn btn-warning">Valider<i class="fas fa-caret-right"></i></button>   
         </div>
   
     </div>
-    
-    {% endfor %}
 
 </main>
+
+{% endif %}
 
 {% endblock %}

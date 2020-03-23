@@ -3,11 +3,11 @@
 {% block title %}Miel & Coco - Liste des membres {% endblock %}
 
 {% block body %}
-    
+{% if is_granted("ROLE_ADMIN") %} 
+
 <div class="container bg-white p-5">
     <h1>Administration - Utilisateurs</h1>
     <p>Nombre de membres : {{ taille }}</p> 
-    <p><a href="{{ path("user_add") }}" class="btn btn-dark">Ajouter un utilisateur</a></p>
     <table class="table table-bordered">
         <thead class="bg-light">
             <tr>
@@ -46,4 +46,7 @@
     </div>
   </div>
 </div>
+
+{% endif %}
+
 {% endblock %}

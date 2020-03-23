@@ -11,11 +11,13 @@ use App\Repository\ClientRepository;
 use App\Entity\Commande;
 use App\Entity\Client;
 use App\Form\CommandeType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class CommandeController extends AbstractController
 {
     /**
      * @Route("/admin/commande", name="liste_commande")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function liste(CommandeRepository $cr)
     {
@@ -29,6 +31,7 @@ class CommandeController extends AbstractController
 
     /**
      * @Route("/admin/commande/modifier/{id}", name="commande_modifier", requirements={"id" = "\d+"})
+     * @IsGranted("ROLE_ADMIN")
      */
 
     public function modifier(CommandeRepository $cr, EMI $em, Request $rq, int $id)

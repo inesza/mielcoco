@@ -3,11 +3,16 @@
 {% block title %}Miel & Coco - {{ mode is defined ? mode|capitalize : "Ajouter" }} une catégorie{% endblock %}
 
 {% block body %}
-<div class="container">
+
+{% if is_granted("ROLE_ADMIN") %}
+
+<div class="container bg-white p-5">
 {{ form_start(formCategorie) }}
     {{ form_row(formCategorie.nom) }}
     <br>
     <button class="btn btn-dark">{{ mode is defined ? mode|capitalize : "Ajouter" }}</button>
 {{ form_end(formCategorie) }}
 </div>
+
+{% endif %}
 {% endblock %}

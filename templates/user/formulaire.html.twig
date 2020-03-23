@@ -8,8 +8,9 @@
             <input type="text" name="email" value="{{ user is defined ? user.email : "" }}">
             <br><br>
             <label>Rôle</label>
-            <textarea name="role">{{ user is defined ? user.roles[0] : "" }}</textarea>
+            <input type="text" name="role" value="{{ user is defined ? user.roles[0] : "" }}">
         </div>
+        <br>
         <div class="d-flex justify-content-center mt-4">
             <button type="submit" class="btn btn-warning"><i class="fa fa-save"></i> {{ mode is defined ? mode|capitalize : "Ajouter" }}</button>
         </div>

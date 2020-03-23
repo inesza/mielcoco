@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Miel & Coco - Mes informations{% endblock %}
+
+{% block body %}
+<div class = "container bg-white p-5">
+    <form method="post" class="col-md-5 offset-md-3">
+        <h1 class="h3 mb-3 font-weight-normal titres">Mes informations</h1>
+        <br>
+        <label for="inputEmail">Email</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+        <br>
+        <label for="inputPassword">Mot de passe</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" required>
+
+        <input type="hidden" name="_csrf_token"
+            value="{{ csrf_token('authenticate') }}">
+        <br>
+    
+        <br>
+        <button class="btn btn-warning" type="submit">Valider</button>
+    </form>
+</div>

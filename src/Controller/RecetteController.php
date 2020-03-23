@@ -210,7 +210,7 @@ class RecetteController extends AbstractController
 
     /**
      * @Route("/detail/recette/{id}", name="recette_fiche", requirements={"id"="\d+"}) 
-     * @IsGranted("ROLE_ADMIN")
+     * 
      */
     public function recette_fiche(RecetteRepository $recetteRepo, EMI $em, int $id, Request $rq) {
         $recette = $recetteRepo->find($id);      

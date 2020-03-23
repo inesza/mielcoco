@@ -4,14 +4,16 @@
 
 {% block body %}
 <div class="container bg-white p-5">
+{# empty: pour vérifier si une variable est une chaîne vide, un tableau vide, un hachage vide, exactement faux ou exactement nul #}
         {% if commandes is empty %}
             <main class="container">
                 <section>
                     <h1> Mes commandes </h1>
                         <div class="justify-content-around w-100"> 
                             <div class="align-items-center text-center">
-                                <h5>Vous n'avez aucune commande</h5>
+                                <p class="h2 my-5">Vous n'avez aucune commande</p> <br>
                                 <p>Faites un petit tour dans notre boutique et laissez-vous tenter par nos articles... </p>
+                                <a class="btn btn-warning my-5" href="{{ path('home') }}">Je commence mon shopping</a>
                             </div>
                         </div>
                 </section>
@@ -31,9 +33,9 @@
                         <th colspan="2"></th>
                         <th class="text-right">Etat</th>
                     <tr>  
-                </thead>    
-                {% for commande in commandes %}
-                    <tr>
+                </thead> 
+                {# pour afficher une liste de commandes fournie dans une variable appelée commande: #}
+                {% for commande in commandes %} 
                         <td colspan="2"></td>
                         <td class="text-right">{{ commande.id }}</td>
                         <td colspan="2"></td>

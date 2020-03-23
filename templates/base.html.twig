@@ -75,8 +75,10 @@
               {# <!-- Mon compte -->
               {# si le client est connecte #}
                 {% if is_granted("ROLE_USER") %} 
-                <div>
-                  <p>Bonjour, {{app.user.email }}</p>
+                <div class="row">
+                  <div class="col-3">
+                    <p>Bonjour, {{app.user.email }}</p>
+                  </div>
                 </div>
                 <div class="dropdown">
                   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

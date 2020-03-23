@@ -5,12 +5,13 @@
 {% block body %}
 
 
-<div class="container">
+<main class="container bg-white p-5">
 
-    <h2>Produits & Recettes</h2>
+    <h1>Nos Recettes</h1>
 
     {# <dl>
-    {% for produit in liste_produits %}
+    {# pour afficher une liste de produits fournie dans une variable appelée produit: #} 
+    {# {% for produit in liste_produits %}
     <dl>
         <dt>
             <dd><img class="img-produit" src="/images/produits/{{ produit.photo }}"></dt> 
@@ -20,9 +21,20 @@
         </dt>
     </di>
     {% endfor %}
-    </dl> #}
-    
+    </dl> #} 
+        {# empty: pour vérifier si une variable est une chaîne vide, un tableau vide, un hachage vide, exactement faux ou exactement nul #}
+        {% if liste_recettes is empty %}
+                <section>
+                        <div class="justify-content-around w-100"> 
+                            <div class="align-items-center text-center">
+                                <p class="h2 my-5">Désolé, aucun résultat ne correspond à votre recherche.</p> <br>
+                                <a class="btn btn-warning my-5" href="">Toutes nos recettes</a>
+                            </div>
+                        </div>
+                </section>      
+        {% else %}
     <dl>
+    {# pour afficher une liste de recettes fournie dans une variable appelée recette: #}
     {% for recette in liste_recettes %}
     {# <dl>
         <dt>
@@ -46,5 +58,6 @@
     </div>
     {% endfor %}
     </dl>
-</div>
+    {% endif %}
+</main>
 {% endblock %}

@@ -7,154 +7,154 @@
         {% block stylesheets %}{{ encore_entry_link_tags("app") }}{% endblock %}
     </head>
     <body>
-    <header class="bg-white" id="haut">
-        {# si l'ADMIN est connecte #}
-        {% if is_granted("ROLE_ADMIN") %} 
-        <div class=" navigation bg-dark">
-            <nav class=" container navbar-expand-lg navbar-light">
-                <button class="navbar-toggler text-light my-2 w-100 border-0" type="button" data-toggle="collapse" data-target="#navbarAdmin" aria-controls="navbarAdmin" aria-expanded="false" aria-label="Toggle navigation">
-                  <i class="fas fa-tools"></i> Administration <i class="fas fa-caret-down"></i>
-                </button>
-                <div class="collapse navbar-collapse  text-center w-100" id="navbarAdmin">
-                    <ul class="container navbar-nav mr-auto mt-2 mt-lg-0"id="menu">
-                        <li class="nav-item">
-                          <span class="nav-link text-muted">ADMINISTRATION</span></li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path("admin_produit") }}">Produits</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path("admin_recette") }}">Recettes</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{ path("admin_categorie") }}">Categories</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path("user_list") }}">Utilisateurs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path("liste_commande") }}">Commandes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path("app_logout") }}"><small>Déconnexion <i class="fas fa-sign-out-alt ml-2"></i></small></a>
-                        </li>
-                    </ul>
-                </div> 
-           </nav>
-        </div>
-        {% endif %}
+        <header class="bg-white" id="haut">
+            {# si l'ADMIN est connecte #}
+            {% if is_granted("ROLE_ADMIN") %} 
+            <div class=" navigation bg-dark">
+                <nav class=" container navbar-expand-lg navbar-light">
+                    <button class="navbar-toggler text-light my-2 w-100 border-0" type="button" data-toggle="collapse" data-target="#navbarAdmin" aria-controls="navbarAdmin" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-tools"></i> Administration <i class="fas fa-caret-down"></i>
+                    </button>
+                    <div class="collapse navbar-collapse  text-center w-100" id="navbarAdmin">
+                        <ul class="container navbar-nav mr-auto mt-2 mt-lg-0"id="menu">
+                            <li class="nav-item">
+                            <span class="nav-link text-muted">ADMINISTRATION</span></li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path("admin_produit") }}">Produits</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path("admin_recette") }}">Recettes</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ path("admin_categorie") }}">Categories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path("user_list") }}">Utilisateurs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path("liste_commande") }}">Commandes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path("app_logout") }}"><small>Déconnexion <i class="fas fa-sign-out-alt ml-2"></i></small></a>
+                            </li>
+                        </ul>
+                    </div> 
+            </nav>
+            </div>
+            {% endif %}
 
-        <div class="header container engagement-all d-flex justify-content-between flex-column flex-sm-row w-100 flex-wrap">
-            <a class="navbar-brand" href="{{ path('home') }}"><img class="logo" src="/images/divers/logomielcoco.png" alt="Miel&Coco"></a>
+            <div class="header container engagement-all d-flex justify-content-between flex-column flex-sm-row w-100 flex-wrap">
+                <a class="navbar-brand" href="{{ path('home') }}"><img class="logo" src="/images/divers/logomielcoco.png" alt="Miel&Coco"></a>
 
-            <form class="form-inline my-2 my-lg-0 " method="POST" action="{{ path('recherche') }}">
-              <div class="d-flex align-items-center">
-                <input class="form-control mr-sm-2 border-warning" type="search" name="recherche" aria-label="Search">
-                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-              </div>
-            </form>  
+                <form class="form-inline my-2 my-lg-0 " method="POST" action="{{ path('recherche') }}">
+                <div class="d-flex align-items-center">
+                    <input class="form-control mr-sm-2 border-warning" type="search" name="recherche" aria-label="Search">
+                    <button class="btn btn-outline-warning my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                </div>
+                </form>  
 
-            <ul class="nav navbar-nav navbar-right flex-row align-items-center mr-4 ">
-                {% if not is_granted("IS_AUTHENTICATED_FULLY") %}
-                <li class="nav-item dropdown mr-4">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="text-secondary h2"><i class="far fa-user"></i></span></a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ path("app_login") }}">Connexion</a>
-                        <a class="dropdown-item" href="{{ path("user_register") }}">Créer un compte</a>
-                    </div>
-                </li>            
-                {% elseif is_granted("IS_AUTHENTICATED_FULLY") %} 
-                <li class="nav-item dropdown mr-4">
-                    <a class="nav-link dropdown-toggle text-secondary" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <small>{{app.user.email }}</small><span class="h2 ml-2"><i class="fas fa-user"></i></span>
-                            
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ path("mon_compte") }}">Mon compte</a>
-                        <a class="dropdown-item" href="{{ path("commande") }}">Mes commandes</a>
-                        <a class="dropdown-item" href="{{ path("app_logout") }}">Déconnexion <i class="fas fa-sign-out-alt ml-2"></i></a>
-                    </div>
-                </li>
-                {% endif %}
-                <li class="nav-item">
-                    <a href="{{ path("panier") }}" class="text-warning h2">
-                        <i class="fas fa-shopping-cart panierPicto"><div class="nbArticles">{{ app.session.get('panier')|length }}</div></i>  
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="navigation bg-light">
-            <nav class=" container navbar-expand-lg navbar-light">
-                <button class="navbar-toggler text-muted w-100 my-2 border-0" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                  Nos recettes <i class="fas fa-caret-down"></i>
-                </button>
-                <div class="collapse navbar-collapse text-center w-75 mx-auto" id="navbarTogglerDemo02">
-                    <ul class="d-md-flex justify-content-md-around container navbar-nav p-0 mt-2 mt-lg-0"id="menu">
-                        <li class="nav-item">
-                            <a class="nav-link text-center" href="{{ path("recettes") }}">VOIR TOUT</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path("corps") }}">CORPS</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path("cheveux") }}">CHEVEUX</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path("visage") }}">VISAGE</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path("accessoires") }}">ACCESSOIRES</a>
-                        </li>
-                    </ul>
-                </div> 
-           </nav>
-        </div>
-    </header>
+                <ul class="nav navbar-nav navbar-right flex-row align-items-center mr-4 ">
+                    {% if not is_granted("IS_AUTHENTICATED_FULLY") %}
+                    <li class="nav-item dropdown mr-4">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="text-secondary h2"><i class="far fa-user"></i></span></a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ path("app_login") }}">Connexion</a>
+                            <a class="dropdown-item" href="{{ path("user_register") }}">Créer un compte</a>
+                        </div>
+                    </li>            
+                    {% elseif is_granted("IS_AUTHENTICATED_FULLY") %} 
+                    <li class="nav-item dropdown mr-4">
+                        <a class="nav-link dropdown-toggle text-secondary" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <small>{{app.user.email }}</small><span class="h2 ml-2"><i class="fas fa-user"></i></span>
+                                
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ path("mon_compte") }}">Mon compte</a>
+                            <a class="dropdown-item" href="{{ path("commande") }}">Mes commandes</a>
+                            <a class="dropdown-item" href="{{ path("app_logout") }}">Déconnexion <i class="fas fa-sign-out-alt ml-2"></i></a>
+                        </div>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a href="{{ path("panier") }}" class="text-warning h2">
+                            <i class="fas fa-shopping-cart panierPicto"><div class="nbArticles">{{ app.session.get('panier')|length }}</div></i>  
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navigation bg-light">
+                <nav class=" container navbar-expand-lg navbar-light">
+                    <button class="navbar-toggler text-muted w-100 my-2 border-0" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    Nos recettes <i class="fas fa-caret-down"></i>
+                    </button>
+                    <div class="collapse navbar-collapse text-center w-75 mx-auto" id="navbarTogglerDemo02">
+                        <ul class="d-md-flex justify-content-md-around container navbar-nav p-0 mt-2 mt-lg-0"id="menu">
+                            <li class="nav-item">
+                                <a class="nav-link text-center" href="{{ path("recettes") }}">VOIR TOUT</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path("corps") }}">CORPS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path("cheveux") }}">CHEVEUX</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path("visage") }}">VISAGE</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path("accessoires") }}">ACCESSOIRES</a>
+                            </li>
+                        </ul>
+                    </div> 
+            </nav>
+            </div>
+        </header>
    
         {% for type, messages in app.flashes %}
-        <div class="container my-4">
-          <div class="alert alert-{{ type }} col-md-5">
-              {% for message in messages %}
-                  {{ message }}
-              {% endfor %}
-          </div>
-        </div>
+            <div class="container my-4">
+            <div class="alert alert-{{ type }} col-md-5">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+            </div>
         {% endfor %}
     
         {% block body %}{% endblock %}
+       
         <!-- Footer -->
-    <!-- Footer -->
-<footer class="site-footer bg-light">
-  <div class="container flex-colum flex-sm-row align-items-center text-center text-sm-left justify-content-sm-around">
-    <div class="row justify-content-md-center">
-      <div class="col-xs-6 col-md-5">
-        <a href="#haut"><img class="logo mb-3" src="/images/divers/mielcoco_nb.png" alt="Miel&Coco"></a>
-    </div>
-    <div class="col-xs-6 col-md-4">
-        <h6 class="font-weight-bold">A propos de Miel & Coco</h6>
-        <ul class="footer-links">
-          <li><a href="{{ path('qui_sommes_nous') }}">Qui sommes nous?</a></li>
-          <li><a href="{{ path('cosmetique_bio') }}">Cosmétique Bio</a></li>
-          <li><a href="{{ path('cgv_mentions') }}#cgv">Conditions générales de vente</a></li>
-          <li><a href="{{ path('cgv_mentions') }}#mentions">Mentions légales</a></li>
-          <li><a href="{{ path('cgv_mentions') }}#donnees">Protection des données </a></li>
-        </ul>
-      </div>
-  </div>
-  <hr>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 col-sm-6 col-xs-12">
-        <p class="copyright-text">2020 &copy;Miel&Coco. Tous droits réservés.</p>
-      </div>
-    <div class="col-md-4 col-sm-6 col-xs-12">
-            <ul class="social-icons">
-              <li><a class="facebook"><i class="fab fa-facebook"></i></a></li>
-              <li><a class="twitter"><i class="fab fa-twitter"></i></a></li>
-              <li><a class="instagram"><i class="fab fa-instagram"></i></a></li>   
-            </ul>
-          </div>
-        </div>
-      </div>
-      {% block javascripts %}{{ encore_entry_script_tags("app") }}{% endblock %}
+        <footer class="site-footer bg-light">
+            <div class="container flex-colum flex-sm-row align-items-center text-center text-sm-left justify-content-sm-around">
+                <div class="row justify-content-md-center">
+                    <div class="col-xs-6 col-md-5">
+                        <a href="#haut"><img class="logo mb-3" src="/images/divers/mielcoco_nb.png" alt="Miel&Coco"></a>
+                    </div>
+                    <div class="col-xs-6 col-md-4">
+                        <h6 class="font-weight-bold">A propos de Miel & Coco</h6>
+                        <ul class="footer-links">
+                        <li><a href="{{ path('qui_sommes_nous') }}">Qui sommes nous?</a></li>
+                        <li><a href="{{ path('cosmetique_bio') }}">Cosmétique Bio</a></li>
+                        <li><a href="{{ path('cgv_mentions') }}#cgv">Conditions générales de vente</a></li>
+                        <li><a href="{{ path('cgv_mentions') }}#mentions">Mentions légales</a></li>
+                        <li><a href="{{ path('cgv_mentions') }}#donnees">Protection des données </a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-8 col-sm-6 col-xs-12">
+                        <p class="copyright-text">2020 &copy;Miel&Coco. Tous droits réservés.</p>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <ul class="social-icons">
+                        <li><a class="facebook"><i class="fab fa-facebook"></i></a></li>
+                        <li><a class="twitter"><i class="fab fa-twitter"></i></a></li>
+                        <li><a class="instagram"><i class="fab fa-instagram"></i></a></li>   
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        {% block javascripts %}{{ encore_entry_script_tags("app") }}{% endblock %}
     </body>
 </html>

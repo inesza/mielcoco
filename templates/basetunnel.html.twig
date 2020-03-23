@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Miel & Coco - Cosmétiques maison{% endblock %}</title>
-        {% block stylesheets %}{{ encore_entry_link_tags("app") }}{% endblock %}
-    </head>
-    <body>
+  <head>
+      <meta charset="UTF-8">
+      <title>{% block title %}Miel & Coco - Cosmétiques maison{% endblock %}</title>
+      {% block stylesheets %}{{ encore_entry_link_tags("app") }}{% endblock %}
+  </head>
+  <body>
     <header class="bg-white" id="haut">
-        {# si l'ADMIN est connecte #}
-        {% if is_granted("ROLE_ADMIN") %} 
+      {# si l'ADMIN est connecte #}
+      {% if is_granted("ROLE_ADMIN") %} 
         <div class=" navigation bg-dark">
             <nav class=" container navbar-expand-lg navbar-light">
                 <button class="navbar-toggler text-light my-2 w-100 border-0" type="button" data-toggle="collapse" data-target="#navbarAdmin" aria-controls="navbarAdmin" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,51 +40,51 @@
                 </div> 
            </nav>
         </div>
-        {% endif %}
+      {% endif %}
 
-        <div class="header container engagement-all d-flex justify-content-between flex-column flex-sm-row w-100 flex-wrap">
-            <a class="navbar-brand" href="{{ path('home') }}"><img class="logo" src="/images/divers/logomielcoco.png" alt="Miel&Coco"></a>
-        </div>
+      <div class="header container engagement-all d-flex justify-content-between flex-column flex-sm-row w-100 flex-wrap">
+        <a class="navbar-brand" href="{{ path('home') }}"><img class="logo" src="/images/divers/logomielcoco.png" alt="Miel&Coco"></a>
+      </div>
     </header>
     
-        {% for type, messages in app.flashes %}
-        <div class="container my-4">
-          <div class="alert alert-{{ type }} col-md-4">
-              {% for message in messages %}
-                  {{ message }}
-              {% endfor %}
+    {% for type, messages in app.flashes %}
+      <div class="container my-4">
+        <div class="alert alert-{{ type }} col-md-4">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+    
+    {% block body %}{% endblock %}
+        
+    
+
+<!-- Footer -->
+    <footer class="site-footer bg-light">
+      <div class="container flex-colum flex-sm-row align-items-center text-center text-sm-left justify-content-sm-around">
+        <div class="row justify-content-md-center">
+          <div class="col-xs-6 col-md-5">
+            <a href="#haut"><img class="logo mb-3" src="/images/divers/mielcoco_nb.png" alt="Miel&Coco"></a>
+          </div>
+          <div class="col-xs-6 col-md-4">
+            <h6 class="font-weight-bold">A propos de Miel & Coco</h6>
+            <ul class="footer-links">
+              <li><a href="{{ path('qui_sommes_nous') }}">Qui sommes nous?</a></li>
+              <li><a href="{{ path('cosmetique_bio') }}">Cosmétique Bio</a></li>
+              <li><a href="{{ path('cgv_mentions') }}#cgv">Conditions générales de vente</a></li>
+              <li><a href="{{ path('cgv_mentions') }}#mentions">Mentions légales</a></li>
+              <li><a href="{{ path('cgv_mentions') }}#donnees">Protection des données </a></li>
+            </ul>
           </div>
         </div>
-        {% endfor %}
-    
-        {% block body %}{% endblock %}
-        
-        <!-- Footer -->
-    <!-- Footer -->
-<footer class="site-footer">
-  <div class="container flex-colum flex-sm-row align-items-center text-center text-sm-left justify-content-sm-around">
-    <div class="row justify-content-md-center">
-      <div class="col-xs-6 col-md-5">
-        <a href="#haut"><img class="logo mb-3" src="/images/divers/logomielcoco.png" alt="Miel&Coco"></a>
-    </div>
-    <div class="col-xs-6 col-md-4">
-        <h6 class="font-weight-bold">A propos de Miel & Coco</h6>
-        <ul class="footer-links">
-          <li><a href="{{ path('qui_sommes_nous') }}">Qui sommes nous?</a></li>
-          <li><a href="{{ path('cosmetique_bio') }}">Cosmétique Bio</a></li>
-          <li><a href="{{ path('cgv_mentions') }}">Conditions générales de vente</a></li>
-          <li><a href="{{ path('cgv_mentions') }}">Mentions légales</a></li>
-          <li><a href="{{ path('cgv_mentions') }}">Protection des données </a></li>
-        </ul>
-      </div>
-  </div>
-  <hr>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 col-sm-6 col-xs-12">
-        <p class="copyright-text">2020 &copy;Miel&Coco. Tous droits réservés.</p>
-      </div>
-    <div class="col-md-4 col-sm-6 col-xs-12">
+        <hr>
+        <div class="row">
+          <div class="col-md-8 col-sm-6 col-xs-12">
+            <p class="copyright-text">2020 &copy;Miel&Coco. Tous droits réservés.</p>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
             <ul class="social-icons">
               <li><a class="facebook"><i class="fab fa-facebook"></i></a></li>
               <li><a class="twitter"><i class="fab fa-twitter"></i></a></li>
@@ -93,6 +93,7 @@
           </div>
         </div>
       </div>
-      {% block javascripts %}{{ encore_entry_script_tags("app") }}{% endblock %}
-    </body>
+    </footer>
+    {% block javascripts %}{{ encore_entry_script_tags("app") }}{% endblock %}
+  </body>
 </html>

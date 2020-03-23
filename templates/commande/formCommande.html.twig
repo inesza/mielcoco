@@ -25,19 +25,16 @@
             <label for="montant">Montant</label>
             <input type="text" class="form-control"  placeholder="{{ commande.montant }}" readonly>
         </div>
-
     </form>
 
     {{ form_start(formCommande) }}
 
-    {{ form_row(formCommande.etat) }}
-    
-    <button class="btn btn-dark">Enregistrer</button> 
+        {{ form_row(formCommande.etat) }}
+
+        <button class="btn btn-dark">Enregistrer</button> 
 
     {{ form_end(formCommande) }}
 
 </div>
-
-
 
 {% endblock %}

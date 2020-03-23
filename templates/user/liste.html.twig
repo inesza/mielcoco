@@ -11,16 +11,16 @@
     <table class="table table-bordered">
         <thead class="bg-light">
             <tr>
-                <th>Membres</th><th>Role</th><th colspan=2>Actions</th>
+              <th>Membres</th><th>Role</th><th colspan=2>Actions</th>
             </tr>
         </thead>
-            {% for user in users %}
-                <tr>
-                    <td class="align-middle"><a href="{{ path("user_show", { id: user.id }) }}">{{ user.email }}</a></td>
-                    <td class="align-middle">{{ user.roles[0] }}</td>
-                    <td class="align-middle"><a href="{{ path("user_update", { id: user.id }) }}" class="fa fa-pen"></a></td>
-                    <td class="align-middle"><a href="{{ path("user_delete", { id: user.id }) }}" class="fa fa-trash confirmModalLink" data-toggle="modal" data-target="#supprProduit"></a></td>
-                </tr>
+        {% for user in users %}
+          <tr>
+            <td class="align-middle"><a href="{{ path("user_show", { id: user.id }) }}">{{ user.email }}</a></td>
+            <td class="align-middle">{{ user.roles[0] }}</td>
+            <td class="align-middle"><a href="{{ path("user_update", { id: user.id }) }}" class="fa fa-pen"></a></td>
+            <td class="align-middle"><a href="{{ path("user_delete", { id: user.id }) }}" class="fa fa-trash confirmModalLink" data-toggle="modal" data-target="#supprProduit"></a></td>
+          </tr>
         {% endfor %}
     </table>
 </div>

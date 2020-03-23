@@ -42,29 +42,28 @@
         </section>
         
         <div class="d-flex bottom-recipe flex-wrap">
-        {% if "Accessoires" not in catNoms %}
-            <section class="ingredient d-flex flex-column p-5 col-md-6">
-                <h2>Ingrédients</h2>
-                {% for composition in recette.compositions %}<div class="row">
-                    <div class="d-flex align-items-center my-1 pl-5">
-                        <img class='img-fiche-recette-ingredient mr-4' src='/images/produits/{{ composition.produit.photo }}'>
-                        <div><span class="h5">{{  composition.produit.nom }}</span>, {{ composition.quantite}} {{ composition.produit.unite}}</div>
-                    </div>
-
-                </div>
-                {% endfor %}
-            </section>
-            <section class="ingredient mb-5 d-flex flex-column p-5 col-md-6">
-                <h2>Instructions</h2>
-                <p>{{ recette.instructions }}</p>
-            </section>
+            {% if "Accessoires" not in catNoms %}
+                <section class="ingredient d-flex flex-column p-5 col-md-6">
+                    <h2>Ingrédients</h2>
+                    {% for composition in recette.compositions %}
+                        <div class="row">
+                            <div class="d-flex align-items-center my-1 pl-5">
+                                <img class='img-fiche-recette-ingredient mr-4' src='/images/produits/{{ composition.produit.photo }}'>
+                                <div><span class="h5">{{  composition.produit.nom }}</span>, {{ composition.quantite}} {{ composition.produit.unite}}</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </section>
+                <section class="ingredient mb-5 d-flex flex-column p-5 col-md-6">
+                    <h2>Instructions</h2>
+                    <p>{{ recette.instructions }}</p>
+                </section>
             {% endif %}
-            <div class="mb-5 d-flex flex-column align-items-center justify-content-center w-100">
-            <p class="h2">{{ recette.prixRecette }}€</p>
-            <a href="{{ path('ajout_panier', { id: recette.id }) }}" class="btn btn-warning btn-lg"><i class="fas fa-shopping-basket"></i> Ajouter au panier</a>
-            </div>
+                <div class="mb-5 d-flex flex-column align-items-center justify-content-center w-100">
+                <p class="h2">{{ recette.prixRecette }}€</p>
+                <a href="{{ path('ajout_panier', { id: recette.id }) }}" class="btn btn-warning btn-lg"><i class="fas fa-shopping-basket"></i> Ajouter au panier</a>
+                </div>
         </div>
-        
         
     </main>
 </div>

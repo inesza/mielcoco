@@ -8,13 +8,13 @@
         <h1 class="h3 mb-3 font-weight-normal titres offset-md-3">Créer votre compte</h1>
         <br>
         <div class="col-md-5 offset-md-3">
-        {{ form_start(registrationForm) }}
-            {{ form_row(registrationForm.email) }}
-            {{ form_row(registrationForm.plainPassword) }}
-            {{ form_row(registrationForm.agreeTerms) }}
-            <br>
-            <button class="btn btn-warning">Créer mon compte</button>
-        {{ form_end(registrationForm) }}
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword) }}
+                {{ form_row(registrationForm.agreeTerms) }}
+                <br>
+                <button class="btn btn-warning">Créer mon compte</button>
+            {{ form_end(registrationForm) }}
         </div>
     </div>
 {% endblock %}

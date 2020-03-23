@@ -7,20 +7,21 @@
 <main class="container-lg p-0 home-container">
     <section class="slider mb-5">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="5000">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <a href="{{path("recherche_recette", { nom: "miel"} )}}"><img class="d-block w-100" src="/images/slider/miel.png" alt="Miel"></a>
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="/images/slider/10pourcent.png" alt="codepromo">
-            </div>
-            <div class="carousel-item">
-                <a href="{{path("recette_fiche", { id: 11} )}}"><img class="d-block w-100" src="/images/slider/huile.png" alt="huile"></a>
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <a href="{{path("recherche_recette", { nom: "miel"} )}}"><img class="d-block w-100" src="/images/slider/miel.png" alt="Miel"></a>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="/images/slider/10pourcent.png" alt="codepromo">
+                </div>
+                <div class="carousel-item">
+                    <a href="{{path("recette_fiche", { id: 11} )}}"><img class="d-block w-100" src="/images/slider/huile.png" alt="huile"></a>
+                </div>
             </div>
         </div>
     </section>

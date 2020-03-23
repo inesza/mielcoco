@@ -7,17 +7,18 @@
     <a class="btn btn-secondary mb-5" href="{{ path("admin_produit") }}"><i class="fas fa-caret-left"></i> Annuler et revenir à la liste des produits</a>
     <h1>{{ mode is defined ? mode|capitalize : "Ajouter" }} un produit</h1>
     <div class="formulaire col-md-5 offset-md-3 my-4">
-    {{ form_start(formProduit) }}
-        {{ form_row(formProduit.photo) }}
-        {% if mode is defined and mode == "Modifier" %} 
-            <img class='img-produit mb-3' src='/images/produits/{{ produit.photo }}'>
-        {% endif %}
-        {{ form_row(formProduit.nom) }}
-        {{ form_row(formProduit.unite) }}
-        {{ form_row(formProduit.prix_unitaire) }}
-        <div class="d-flex justify-content-center mt-4">
-            <button class="btn btn-warning">Enregistrer</button>
-        </div>
-    {{ form_end(formProduit) }}
+        {{ form_start(formProduit) }}
+            {{ form_row(formProduit.photo) }}
+            {% if mode is defined and mode == "Modifier" %} 
+                <img class='img-produit mb-3' src='/images/produits/{{ produit.photo }}'>
+            {% endif %}
+            {{ form_row(formProduit.nom) }}
+            {{ form_row(formProduit.unite) }}
+            {{ form_row(formProduit.prix_unitaire) }}
+            <div class="d-flex justify-content-center mt-4">
+                <button class="btn btn-warning">Enregistrer</button>
+            </div>
+        {{ form_end(formProduit) }}
+    </div>
 </div>
 {% endblock %}

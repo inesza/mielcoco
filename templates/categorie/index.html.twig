@@ -3,6 +3,7 @@
 {% block title %}Miel & Coco - Administration Catégories{% endblock %}
 
 {% block body %}
+
 {% if is_granted("ROLE_ADMIN") %}
 <div class="container bg-white p-5">
     <h1>Administration - Catégories</h1>
@@ -48,4 +49,5 @@
   </div>
 </div>
 {% endif %}
+
 {% endblock %}

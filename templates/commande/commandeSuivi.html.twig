@@ -6,16 +6,16 @@
 <div class="container bg-white p-5">
 {# empty: pour vérifier si une variable est une chaîne vide, un tableau vide, un hachage vide, exactement faux ou exactement nul #}
         {% if commandes is empty %}
-                <section>
-                    <h1 class="titres mb-3"> Mes commandes </h1>
-                        <div class="justify-content-around w-100"> 
-                            <div class="align-items-center text-center">
-                                <p class="h2 my-5">Vous n'avez aucune commande</p> <br>
-                                <p>Faites un petit tour dans notre boutique et laissez-vous tenter par nos articles... </p>
-                                <a class="btn btn-warning my-5" href="{{ path('home') }}">Je commence mon shopping</a>
-                            </div>
-                        </div>
-                </section>
+            <section>
+                <h1 class="titres mb-3"> Mes commandes </h1>
+                <div class="justify-content-around w-100"> 
+                    <div class="align-items-center text-center">
+                        <p class="h2 my-5">Vous n'avez aucune commande</p> <br>
+                        <p>Faites un petit tour dans notre boutique et laissez-vous tenter par nos articles... </p>
+                        <a class="btn btn-warning my-5" href="{{ path('home') }}">Je commence mon shopping</a>
+                    </div>
+                </div>
+            </section>
         {% else %}
             <h1> Mes commandes </h1>
             <table class="table table-hover">
@@ -25,18 +25,15 @@
                         <th >Montant</th>
                         <th >Date</th>
                         <th>Etat</th>
-                    <tr>  
+                    </tr>  
                 </thead> 
                 {# pour afficher une liste de commandes fournie dans une variable appelée commande: #}
-                {% for commande in commandes %} 
-                        <td colspan="2"></td>
-                        <td class="text-right">{{ commande.id }}</td>
-                        <td colspan="2"></td>
-                        <td class="text-right">{{ commande.montant}}</td>
-                        <td colspan="2"></td>
-                        <td class="text-right">{{ commande.date|date("m/d/Y")}}</td>
-                        <td colspan="2"></td>
-                        <td class="text-right">{{ commande.etat}}</td>
+                {% for commande in commandes %}    
+                    <tr>  
+                        <td>{{ commande.id }}</td>
+                        <td>{{ commande.montant}}</td>
+                        <td>{{ commande.date|date("m/d/Y")}}</td>
+                        <td>{{ commande.etat}}</td>
                     </tr>
                 {% endfor %}
             </table>

@@ -33,7 +33,6 @@ class RegistrationController extends AbstractController
                 )
             );
             $user->setRoles(["ROLE_USER"]);
-            // $user->setCookie($cookie);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

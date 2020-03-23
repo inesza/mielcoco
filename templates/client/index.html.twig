@@ -1,18 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon Compte{% endblock %}
+{% block title %}Miel & Coco - Mon Compte{% endblock %}
 
 {% block body %}
-<main class="container bg-white p-5">
-    <h1 class="titres mb-3">Mon compte</h1>
-    <section class="mb-5 d-flex flex-column align-items-center">
-             <div class="m-sm-5">    
-                <h2 class="titres my-5"><i class="fas fa-star text-warning"></i> Bonjour, {{ app.user.email }} <i class="fas fa-star text-warning"></i></h2>
-                <p class="text-justify"></p>
+<main class="container bg-white pl-0 d-flex flex-column flex-md-row">
+    <aside class="col-md-3 bg-light py-5">
+        <section class="mb-md-5 d-flex flex-column w-100 align-items-center align-items-md-start">   
+                <h5 class="titres mb-3"><i class="fas fa-star text-warning"></i>  Bonjour, {{ user.email }} <i class="fas fa-star text-warning"></i></h5>
+                <nav class="nav flex-row flex-md-column align-items-md-start justify-content-center flex-wrap">
+                    <a class="nav-link active text-warning" href="{{ path('mon_compte') }}"><strong>Mes infos personnelles</strong></a>
+                    <a class="nav-link" href="{{ path('client_coordonnees') }}">Mes coordonnées</a>
+                    <a class="nav-link" href="{{ path('client_commande') }}">Mes commandes</a>
+                </nav>
+        </section>
+    </aside>
+    <section class="p-5">
+        <h2 class="titres mb-5">Mes informations personnelles</h2>
+        <p>Email : <strong>{{ user.email }}</strong></p>
+        <form class="my-2 my-lg-0 " method="POST" action="{{ path('client_update', {id: user.id} ) }}">
+            <label>Modifier mon mot de passe</label>
+            <div class="d-flex">
+            <input class="form-control mr-sm-2 border-warning" type="password" name="password" aria-label="password" placeholder="Nouveau mot de passe">
+            <button class="btn btn-warning my-2 my-sm-0" type="submit">OK</button>
             </div>
-            <div class="panier-vide d-flex flex-column align-items-center w-100">
-                <a class="btn btn-warning my-5" href="{{ path('home') }}">Je commence mon shopping</a>
-            </div>
+        </form>
+
     </section>
+    
 </main>  
 {% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Miel & Coco - Mes coordonnées{% endblock %}
+
+{% block body %}
+{% if is_granted("ROLE_USER") %} 
+<main class="container bg-white pl-0 d-flex flex-column flex-md-row">
+    <aside class="col-md-3 bg-light py-5">
+        <section class="mb-md-5 d-flex flex-column w-100 align-items-center align-items-md-start">   
+                <h5 class="titres mb-3"><i class="fas fa-star text-warning"></i>  Bonjour, {{ user.email }} <i class="fas fa-star text-warning"></i></h5>
+                <nav class="nav flex-row flex-md-column align-items-md-start justify-content-center flex-wrap">
+                    <a class="nav-link" href="{{ path('mon_compte') }}">Mes infos personnelles</a>
+                    <a class="nav-link active text-warning" href="{{ path('client_coordonnees') }}"><strong>Mes coordonnées</strong></a>
+                    <a class="nav-link" href="{{ path('client_commande') }}">Mes commandes</a>
+                </nav>
+        </section>
+    </aside>
+    <section class="p-5">
+        <h2 class="titres mb-5">Mettre à jour mes coordonnées</h2>
+        <div class="formulaire my-4">
+            {{ form_start(formClient) }}
+            <div class="form-row">
+                <div class="col">
+                    {{ form_row(formClient.prenom) }}
+                </div>
+                <div class="col">
+                    {{ form_row(formClient.nom) }}
+                </div>
+            </div>
+            <div>
+                {{ form_row(formClient.adresse) }}
+            </div>
+            <div class="form-row">
+                <div class="col-3">
+                    {{ form_row(formClient.cp) }}
+                </div>
+                <div class="col">
+                    {{ form_row(formClient.ville) }}
+                </div>  
+            </div>
+            <div class="form-row">
+                <div class="col-6">
+                    {{ form_row(formClient.telephone) }}
+                </div>
+            </div>
+            <br>
+            <div class="navigation d-flex justify-content-around w-100 my-3">
+                <a class="btn btn-secondary" href="{{ path('client_coordonnees') }}"><i class="fas fa-caret-left"></i> Annuler</a>
+                <button class="btn btn-warning">Enregistrer</i></button>   
+            </div>
+            {{ form_end(formClient) }}
+        </div>
+    </section>  
+</main>  
+
+{% endif %}
+
+{% endblock %}

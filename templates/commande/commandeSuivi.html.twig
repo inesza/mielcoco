@@ -21,7 +21,7 @@
             <table class="table table-hover">
                 <thead class="bg-light">
                     <tr>
-                        <th >Numéro de commande</th>
+                        <th >N° de commande</th>
                         <th >Montant</th>
                         <th >Date</th>
                         <th>Etat</th>
@@ -29,14 +29,14 @@
                 </thead> 
                 {# pour afficher une liste de commandes fournie dans une variable appelée commande: #}
                 {% for commande in commandes %} 
-                        <td colspan="2"></td>
-                        <td class="text-right">{{ commande.id }}</td>
-                        <td colspan="2"></td>
-                        <td class="text-right">{{ commande.montant}}</td>
-                        <td colspan="2"></td>
-                        <td class="text-right">{{ commande.date|date("m/d/Y")}}</td>
-                        <td colspan="2"></td>
-                        <td class="text-right">{{ commande.etat}}</td>
+                        <td>{{ commande.id }}</td>
+                        <td>{{ commande.montant}}€</td>
+                        <td>{{ commande.date|date("d/m/Y")}}</td>
+                        <td>{{ 
+                        commande.etat == "traitement" ? "En cours de traitement" 
+                        : commande.etat == "livraison" ? "En cours de livraison"
+                        : commande.etat == "expedie" ? "Commande terminée"
+                    }}</td>
                     </tr>
                 {% endfor %}
             </table>

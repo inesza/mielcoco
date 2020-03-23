@@ -242,6 +242,7 @@ class RecetteController extends AbstractController
 
     /**
      * @Route("/admin/recette/{id}", name="admin_recette_detail", requirements={"id"="\d+"}) 
+     * 
      */
     public function recette_detail(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, ProduitRepository $produitRepo, EMI $em, int $id, Request $rq, AuthorizationCheckerInterface $authChecker) {
         if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès

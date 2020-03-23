@@ -3,6 +3,16 @@
 {% block title %}Mon Compte{% endblock %}
 
 {% block body %}
-    
-    
+<main class="container bg-white p-5">
+    <h1 class="titres mb-3">Mon compte</h1>
+    <section class="mb-5 d-flex flex-column align-items-center">
+             <div class="m-sm-5">    
+                <h2 class="titres my-5"><i class="fas fa-star text-warning"></i> Bonjour, {{ app.user.email }} <i class="fas fa-star text-warning"></i></h2>
+                <p class="text-justify"></p>
+            </div>
+            <div class="panier-vide d-flex flex-column align-items-center w-100">
+                <a class="btn btn-warning my-5" href="{{ path('home') }}">Je commence mon shopping</a>
+            </div>
+    </section>
+</main>  
 {% endblock %}

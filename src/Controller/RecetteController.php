@@ -255,5 +255,4 @@ class RecetteController extends AbstractController
             return $this->render("recette/recette_detail.html.twig", compact("recette", "composition"));   
         }
     }
-
 }

@@ -39,6 +39,7 @@ class RecetteController extends AbstractController
     public function index(RecetteRepository $recetteRepo, AuthorizationCheckerInterface $authChecker)
     {
         if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
+            $this->addFlash("danger", "Vous devez être administrateur·ice pour voir cette page");
            return $this->redirectToRoute('home');
         } else { // Accès autorisé
 
@@ -50,11 +51,12 @@ class RecetteController extends AbstractController
 
     /**
      * @Route("/admin/recette/ajouter", name="admin_recette_ajouter")
-     * @IsGranted("ROLE_ADMIN")
+     * 
      */
     public function add(RecetteRepository $recetteRepo, CategorieRepository $catRepo, EMI $em, Request $rq, AuthorizationCheckerInterface $authChecker)
     {
         if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
+            $this->addFlash("danger", "Vous devez être administrateur·ice pour voir cette page");
             return $this->redirectToRoute('home');
         } else { // Accès autorisé
 
@@ -96,11 +98,12 @@ class RecetteController extends AbstractController
 
     /**
      * @Route("/admin/recette/ajouter/compo-{id}", name="admin_recette_ajouter_compo")
-     * @IsGranted("ROLE_ADMIN")
+     * 
      */
     public function addCompo(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, EMI $em, Request $rq, int $id, AuthorizationCheckerInterface $authChecker)
     {
         if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
+            $this->addFlash("danger", "Vous devez être administrateur·ice pour voir cette page");
             return $this->redirectToRoute('home');
          } else { // Accès autorisé
         
@@ -126,11 +129,12 @@ class RecetteController extends AbstractController
 
     /**
      * @Route("/admin/recette/ajouter/compo-{id}/retirer-{idcompo}", name="admin_ingredient_retirer", requirements={"id" = "\d+"})
-     * @IsGranted("ROLE_ADMIN")
+     * 
      */
     public function removeIngredient(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, EMI $em, int $id, int $idcompo, AuthorizationCheckerInterface $authChecker)
     {
         if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
+            $this->addFlash("danger", "Vous devez être administrateur·ice pour voir cette page");
             return $this->redirectToRoute('home');
         } else { // Accès autorisé
             $recette = $recetteRepo->find($id); 
@@ -144,11 +148,12 @@ class RecetteController extends AbstractController
 
     /**
      * @Route("/admin/recette/ajouter/compo-{id}", name="admin_recette_produitsAjoutes")
-     * @IsGranted("ROLE_ADMIN")
+     * 
      */
     public function produitsAjoutes(ProduitRepository $produitRepo, CompositionRepository $compoRepo, AuthorizationCheckerInterface $authChecker)
     { 
         if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
+            $this->addFlash("danger", "Vous devez être administrateur·ice pour voir cette page");
             return $this->redirectToRoute('home');
         } else { // Accès autorisé
             $recette = $recetteRepo->find($id);      
@@ -163,11 +168,12 @@ class RecetteController extends AbstractController
 
     /**
      * @Route("/admin/recette/modifier/{id}", name="admin_recette_modifier", requirements={"id" = "\d+"})
-     * @IsGranted("ROLE_ADMIN")
+     * 
      */
     public function update(RecetteRepository $RecetteRepo, CategorieRepository $catRepo, EMI $em, Request $rq, int $id, AuthorizationCheckerInterface $authChecker)
     {
         if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
+            $this->addFlash("danger", "Vous devez être administrateur·ice pour voir cette page");
             return $this->redirectToRoute('home');
         } else { // Accès autorisé
             $recetteAModifier = $RecetteRepo->find($id);
@@ -213,11 +219,12 @@ class RecetteController extends AbstractController
 
     /**
      * @Route("/admin/recette/supprimer/{id}", name="admin_recette_supprimer", requirements={"id" = "\d+"})
-     * @IsGranted("ROLE_ADMIN")
+     * 
      */
     public function delete(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, EMI $em, Request $rq, int $id, AuthorizationCheckerInterface $authChecker)
     {
         if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
+            $this->addFlash("danger", "Vous devez être administrateur·ice pour voir cette page");
             return $this->redirectToRoute('home');
         } else { // Accès autorisé
             $recetteASupprimer = $recetteRepo->find($id);
@@ -238,6 +245,7 @@ class RecetteController extends AbstractController
      */
     public function recette_detail(RecetteRepository $recetteRepo, CompositionRepository $compoRepo, ProduitRepository $produitRepo, EMI $em, int $id, Request $rq, AuthorizationCheckerInterface $authChecker) {
         if (false === $authChecker->isGranted('ROLE_ADMIN')) { // contrôle d'accès
+            $this->addFlash("danger", "Vous devez être administrateur·ice pour voir cette page");
             return $this->redirectToRoute('home');
         } else { // Accès autorisé
             $recette = $recetteRepo->find($id);      

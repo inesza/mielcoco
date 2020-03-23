@@ -36,6 +36,7 @@
                         commande.etat == "traitement" ? "En cours de traitement" 
                         : commande.etat == "livraison" ? "En cours de livraison"
                         : commande.etat == "expedie" ? "Commande terminée"
+                        : commande.etat == "annule" ? "Commande annulée"
                     }}</td>
                     </tr>
                 {% endfor %}

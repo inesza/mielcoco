@@ -37,16 +37,14 @@ class HomeController extends AbstractController
     /**
      * @Route("/recherche", name="recherche")
      */
-    public function recherche(ProduitRepository $produitRepo, RecetteRepository $recetteRepo, Request $rq)
+    public function recherche(RecetteRepository $recetteRepo, Request $rq)
     {   //  ->request: permet de récupérer ce qui se trouve dans $_POST
         if($rq->isMethod("POST")){ // Récupération des données envoyées par le formulaire
             $nom = $rq->request->get("recherche");  //cela équivaut à: $nom = $_POST["name"]
             $liste_recettes = $recetteRepo->findByNom($nom);
-            // $liste_produits = $produitRepo->findByNom($nom);
         } 
         else {
             $liste_recettes = $recetteRepo->findAll();
-            // $liste_produits = $produitRepo->findAll();
         }
         return $this->render('home/recherche.html.twig', compact("liste_recettes"));
     }
@@ -62,16 +60,7 @@ class HomeController extends AbstractController
         // est équivalent à 
         // [ "liste_recettes" => $liste_recettes, "autre_variable" => $autre_variable ] 
     }
-//------------------------------RECHERCHE RECETTE PAR PRODUIT-----------------------------
-    // /**
-    //  * @Route("/recette/produit/{nom}", name="recherche_produit")
-    //  */
-    // public function rechProduit(compositionRepository $compoRepo, $nom)
-    // {
-    //     $liste_recettes = $compoRepo->findByNom($nom);
-    //     return $this->render('home/recherche.html.twig', compact("liste_recettes"));
-    // }
-    
+
  //------------------------------FOOTER--------------------------------------------------------
     /**
      * @Route("/qui_sommes_nous", name="qui_sommes_nous")

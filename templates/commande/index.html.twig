@@ -24,8 +24,8 @@
                 <tr>
                     <td class="align-middle">{{ commande.id }}</td>
                     <td class="align-middle">{{ commande.client.id }}</td>
-                    <td class="align-middle">{{ commande.client.nom }}</td>
-                    <td class="align-middle">{{ commande.montant}}</td>
+                    <td class="align-middle">{{ commande.client.nom|upper }} {{ commande.client.prenom }}</td>
+                    <td class="align-middle">{{ commande.montant}}€</td>
                     <td class="align-middle">{{ commande.date|date("d/m/Y")}}</td>
                     <td class="align-middle">{{ 
                         commande.etat == "traitement" ? "En cours de traitement" 

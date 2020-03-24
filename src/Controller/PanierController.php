@@ -206,12 +206,11 @@ class PanierController extends AbstractController
         if( $rq->isMethod("POST") ) {
             $commande = new Commande;
             $montantCommande = $session->get('montantCommande');
-            dd($montantCommande);
 
             $client = $this->getUser()->getClient();
             $commande->setClient($client);
             $commande->setDate(new \DateTime('now'));
-            $commande->setEtat("En cours de traitement");
+            $commande->setEtat("traitement");
             if(!isset($montantCommande[0]['totalCommande'])) { // Si un code promo a été appliqué
                 $commande->setMontant($montantCommande[1]['totalCommande']);    
             } else {

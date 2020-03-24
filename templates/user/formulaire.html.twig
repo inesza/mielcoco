@@ -7,8 +7,13 @@
             <label>Nom</label>
             <input type="text" name="email" value="{{ user is defined ? user.email : "" }}">
             <br><br>
-            <label>Rôle</label>
-            <input type="text" name="role" value="{{ user is defined ? user.roles[0] : "" }}">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="role" id="inlineRadio1" value="ROLE_ADMIN" {{ user is defined ? user.roles[0] == "ROLE_ADMIN" ? "checked" }}>
+                <label class="form-check-label mr-4">Administrateur</label>
+
+                <input class="form-check-input" type="radio" name="role" id="inlineRadio1" value="ROLE_USER" {{ user is defined ? user.roles[0] == "ROLE_USER" ? "checked" }}>
+                <label class="form-check-label">Utilisateur</label>
+            </div>
         </div>
         <br>
         <div class="d-flex justify-content-center mt-4">

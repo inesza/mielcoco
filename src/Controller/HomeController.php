@@ -43,7 +43,10 @@ class HomeController extends AbstractController
         if($rq->isMethod("POST")){ // Récupération des données envoyées par le formulaire
             $nom = $rq->request->get("recherche");  //cela équivaut à: $nom = $_POST["name"]
             $liste_recettes = $recetteRepo->findByNom($nom);
-        } 
+            foreach ($liste_recettes as $recette){
+                $recette->getPrixRecette();
+            } 
+        }  
         else {
             $liste_recettes = $recetteRepo->findAll();
         }
@@ -56,6 +59,9 @@ class HomeController extends AbstractController
     public function rechRecette(RecetteRepository $recetteRepo, $nom)
     {
         $liste_recettes = $recetteRepo->findByNom($nom);
+        foreach ($liste_recettes as $recette){
+            $recette->getPrixRecette();
+        } 
         return $this->render('home/listeRecettes.html.twig', compact("liste_recettes")); 
         // compact("liste_recettes", "autre_variable") 
         // est équivalent à 

@@ -7,35 +7,35 @@
     <h1 class="titres">Mon panier</h1>
     <div class="row mx-0 w-100">
         {% if items | length > 0 %}
-        <table class="table table-hover w-100">
-            <thead>
-                <tr>
-                    <th colspan="2"></th>
-                    <th class="text-right">Prix</th>
-                    <th class="text-right">Quantité</th>
-                    <th></th>
-                    <th class="text-right">Total</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for item in items %}
-                <tr>
-                    <td style="width: 16.66%"><img class="img-recette" src="/images/recettes/{{ item.recette.photo }}"></td> 
-                    <td>{{ item.recette.nom }}</td>
-                    <td class="text-right"> {{ item.prix }} €
-                    </td>
-                    <td class="text-right">
-                        <a href="{{ path('baisse_panier', {'id': item.recette.id }) }}"><i class="fas fa-minus-circle mr-2"></i></a>
-                        {{ item.quantite }}  
-                        <a href="{{ path('ajout_panier', {'id': item.recette.id }) }}"><i class="fas fa-plus-circle ml-2"></i></a>
-                        
-                    </td>
-                    <td><a href="{{ path('supprimer_panier', {'id': item.recette.id }) }}" class="fa fa-trash confirmModalLink ml-2"  data-toggle="modal" data-target="#supprProduit"></a></td>
-                    <td class="text-right"> {{ item.prix  * item.quantite }} € </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+            <table class="table table-hover w-100">
+                <thead>
+                    <tr>
+                        <th colspan="2"></th>
+                        <th class="text-right">Prix</th>
+                        <th class="text-right">Quantité</th>
+                        <th></th>
+                        <th class="text-right">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td style="width: 16.66%"><img class="img-recette" src="/images/recettes/{{ item.recette.photo }}"></td> 
+                        <td>{{ item.recette.nom }}</td>
+                        <td class="text-right"> {{ item.prix }} €
+                        </td>
+                        <td class="text-right">
+                            <a href="{{ path('baisse_panier', {'id': item.recette.id }) }}"><i class="fas fa-minus-circle mr-2"></i></a>
+                            {{ item.quantite }}  
+                            <a href="{{ path('ajout_panier', {'id': item.recette.id }) }}"><i class="fas fa-plus-circle ml-2"></i></a>
+                            
+                        </td>
+                        <td><a href="{{ path('supprimer_panier', {'id': item.recette.id }) }}" class="fa fa-trash confirmModalLink ml-2"  data-toggle="modal" data-target="#supprProduit"></a></td>
+                        <td class="text-right"> {{ item.prix  * item.quantite }} € </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
     </div>
     <div class="row d-flex justify-content-between mt-3 w-100">
         <div>
@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="mb-2 h2">
-                Total : {{ totalCommande }} €
+                Total : {{ totalCommande|round(2) }} €
             </div>
             <div>
                 <a class='btn btn-warning' href="{{ path('adresse_panier') }}">Valider mon panier</a>

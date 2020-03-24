@@ -44,6 +44,9 @@ class RecetteController extends AbstractController
         } else { // Accès autorisé
 
             $liste_recettes = $recetteRepo->findAll();   
+            foreach ($liste_recettes as $recette){
+                $recette->getPrixRecette();
+            } 
             return $this->render('recette/index.html.twig', compact("liste_recettes") );    
         }
         
@@ -78,7 +81,7 @@ class RecetteController extends AbstractController
                     $photoRecette->move(
                         $this->getParameter('photosRecettes'),
                         $filename
-                    );
+                    ); 
                     $recette->setPhoto($filename);
                 }
                     
@@ -122,6 +125,8 @@ class RecetteController extends AbstractController
                     $this->addFlash("danger", "Le formulaire n'est pas valide");
                 }
             }
+            $recette->getPrixRecette();
+            
             $formCompo = $formCompo->createView();  
             return $this->render('recette/formCompo.html.twig', compact("formCompo", "recette") );
          }
@@ -158,6 +163,7 @@ class RecetteController extends AbstractController
         } else { // Accès autorisé
             $recette = $recetteRepo->find($id);      
             $produitsAjoutes = $recette->getCompositions();
+
             return $this->render('recette/formCompo.html.twig', compact("produitsAjoutes") );
         }
     }

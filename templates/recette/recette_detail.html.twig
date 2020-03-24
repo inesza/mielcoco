@@ -10,10 +10,10 @@
     <div class="col-md-6 offset-md-3 my-4 bg-light p-4 rounded">
         <h1>{{ recette.nom }}</h1>
         <img class="w-100 my-3" src="/images/recettes/{{ recette.photo }}">
-        <p><strong>Description</strong><br>{{ recette.description }}</p>
-        <p><strong>Instructions</strong><br>{{ recette.instructions }}</p>
-        <p><strong>Niveau</strong><br>{{ recette.niveau }}</p>
-        <p><strong>Catégories</strong><br>
+        <p><span class = "font-weight-bold">Description</span><br>{{ recette.description }}</p>
+        <p><span class = "font-weight-bold">Instructions</span><br>{{ recette.instructions }}</p>
+        <p><span class = "font-weight-bold">Niveau</span><br>{{ recette.niveau }}</p>
+        <p><span class = "font-weight-bold">Catégories</span><br>
             {% for indice, categorie in recette.categories %}
                 {% if indice > 0 %}
                     {{ " - " }}
@@ -21,13 +21,14 @@
                 {{  categorie.nom }}
             {% endfor %}
         </p>
-        <p><strong>Composition</strong>
+        <p><span class = "font-weight-bold">Composition</span>
         <ul>
             {% for compo in recette.compositions %}
                 <li> {{  compo.produit.nom }}, {{ compo.quantite}} {{ compo.produit.unite}} </li>
             {% endfor %}
         </ul>
         </p>
+        <p><span class = "font-weight-bold">Prix total</span> : {{ recette.prixRecette }}€</p>
         <div class="d-flex justify-content-around mt-4">
             <a href="{{ path("admin_recette_supprimer", { id: recette.id }) }}" class="btn btn-secondary text-light" confirmModalLink  data-toggle="modal" data-target="#supprProduit">Supprimer la recette</a>
             <a href="{{ path("admin_recette_modifier", { id: recette.id }) }}" class="btn btn-warning">Modifier la recette</a>

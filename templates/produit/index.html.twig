@@ -9,26 +9,27 @@
     <h1>Administration - Produits</h1>
     <p>Nombre de produits : {{ liste_produits|length }}</p> 
     <p><a href="{{ path("admin_produit_ajouter") }}" class="btn btn-dark">Ajouter un produit</a></p>
+    <div class="table-responsive-md">
+      <table class="table table-hover">
+          <thead class="bg-light">
+              <tr>
+                  <th colspan="2">Produit</th>
+                  <th>prix</th>
+                  <th colspan="2" class="text-center">Actions</th>
+              </tr>
+          </thead>
+          {% for produit in liste_produits %}
+              <tr>
+                  <td><img class="img-produit" src="/images/produits/{{ produit.photo }}"></td> 
+                  <td>{{ produit.nom }}</td>
+                  <td>{{ produit.prixUnitaire }}€/1{{ produit.unite }}</td>
 
-    <table class="table table-hover">
-        <thead class="bg-light">
-            <tr>
-                <th colspan="2">Produit</th>
-                <th>prix</th>
-                <th colspan="2" class="text-center">Actions</th>
-            </tr>
-        </thead>
-        {% for produit in liste_produits %}
-            <tr>
-                <td><img class="img-produit" src="/images/produits/{{ produit.photo }}"></td> 
-                <td>{{ produit.nom }}</td>
-                <td>{{ produit.prixUnitaire }}€/1{{ produit.unite }}</td>
-
-                <td class="text-center"><a href="{{ path("admin_produit_modifier", { id: produit.id }) }}" class="fa fa-pen"></a></td>
-                <td class="text-center"><a href="{{ path("admin_produit_supprimer", { id: produit.id }) }}" class="fa fa-trash confirmModalLink"  data-toggle="modal" data-target="#supprProduit"></a></td>
-            </tr>
-        {% endfor %}
-    </table>
+                  <td class="text-center"><a href="{{ path("admin_produit_modifier", { id: produit.id }) }}" class="fa fa-pen"></a></td>
+                  <td class="text-center"><a href="{{ path("admin_produit_supprimer", { id: produit.id }) }}" class="fa fa-trash confirmModalLink"  data-toggle="modal" data-target="#supprProduit"></a></td>
+              </tr>
+          {% endfor %}
+      </table>
+    </div>
 </div>
 
 <!-- Modal -->

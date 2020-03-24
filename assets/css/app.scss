@@ -1,96 +1,167 @@
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 @import "~bootstrap/scss/bootstrap";
 
-@import url('https://fonts.googleapis.com/css?family=Lobster+Two&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Lobster+Two&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
 
 /* Général */
 body {
-    background-color:rgb(252, 238, 195);
-    background-image:
-    radial-gradient(circle at 100% 150%, rgb(252, 238, 195) 24%, white 24%, white 28%, rgb(252, 238, 195) 28%, rgb(252, 238, 195) 36%, white 36%, white 40%, transparent 40%, transparent),
-    radial-gradient(circle at 0    150%, rgb(252, 238, 195) 24%, white 24%, white 28%, rgb(252, 238, 195) 28%, rgb(252, 238, 195) 36%, white 36%, white 40%, transparent 40%, transparent),
-    radial-gradient(circle at 50%  100%, white 10%, rgb(252, 238, 195) 10%, rgb(252, 238, 195) 23%, white 23%, white 30%, rgb(252, 238, 195) 30%, rgb(252, 238, 195) 43%, white 43%, white 50%, rgb(252, 238, 195) 50%, rgb(252, 238, 195) 63%, white 63%, white 71%, transparent 71%, transparent),
-    radial-gradient(circle at 100% 50%, white 5%, rgb(252, 238, 195) 5%, rgb(252, 238, 195) 15%, white 15%, white 20%, rgb(252, 238, 195) 20%, rgb(252, 238, 195) 29%, white 29%, white 34%, rgb(252, 238, 195) 34%, rgb(252, 238, 195) 44%, white 44%, white 49%, transparent 49%, transparent),
-    radial-gradient(circle at 0    50%, white 5%, rgb(252, 238, 195) 5%, rgb(252, 238, 195) 15%, white 15%, white 20%, rgb(252, 238, 195) 20%, rgb(252, 238, 195) 29%, white 29%, white 34%, rgb(252, 238, 195) 34%, rgb(252, 238, 195) 44%, white 44%, white 49%, transparent 49%, transparent);
-    background-size: 100px 50px;
+  background-color: rgb(252, 238, 195);
+  background-image: radial-gradient(
+      circle at 100% 150%,
+      rgb(252, 238, 195) 24%,
+      white 24%,
+      white 28%,
+      rgb(252, 238, 195) 28%,
+      rgb(252, 238, 195) 36%,
+      white 36%,
+      white 40%,
+      transparent 40%,
+      transparent
+    ),
+    radial-gradient(
+      circle at 0 150%,
+      rgb(252, 238, 195) 24%,
+      white 24%,
+      white 28%,
+      rgb(252, 238, 195) 28%,
+      rgb(252, 238, 195) 36%,
+      white 36%,
+      white 40%,
+      transparent 40%,
+      transparent
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      white 10%,
+      rgb(252, 238, 195) 10%,
+      rgb(252, 238, 195) 23%,
+      white 23%,
+      white 30%,
+      rgb(252, 238, 195) 30%,
+      rgb(252, 238, 195) 43%,
+      white 43%,
+      white 50%,
+      rgb(252, 238, 195) 50%,
+      rgb(252, 238, 195) 63%,
+      white 63%,
+      white 71%,
+      transparent 71%,
+      transparent
+    ),
+    radial-gradient(
+      circle at 100% 50%,
+      white 5%,
+      rgb(252, 238, 195) 5%,
+      rgb(252, 238, 195) 15%,
+      white 15%,
+      white 20%,
+      rgb(252, 238, 195) 20%,
+      rgb(252, 238, 195) 29%,
+      white 29%,
+      white 34%,
+      rgb(252, 238, 195) 34%,
+      rgb(252, 238, 195) 44%,
+      white 44%,
+      white 49%,
+      transparent 49%,
+      transparent
+    ),
+    radial-gradient(
+      circle at 0 50%,
+      white 5%,
+      rgb(252, 238, 195) 5%,
+      rgb(252, 238, 195) 15%,
+      white 15%,
+      white 20%,
+      rgb(252, 238, 195) 20%,
+      rgb(252, 238, 195) 29%,
+      white 29%,
+      white 34%,
+      rgb(252, 238, 195) 34%,
+      rgb(252, 238, 195) 44%,
+      white 44%,
+      white 49%,
+      transparent 49%,
+      transparent
+    );
+  background-size: 100px 50px;
 
-    font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 a {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
 a:hover {
-    text-decoration: none;
-    color: rgb(194, 153, 18);
-    transition: 0.5s;
+  text-decoration: none;
+  color: rgb(194, 153, 18);
+  transition: 0.5s;
 }
 
 .titres {
-    font-family: 'Lobster Two', cursive;
+  font-family: "Lobster Two", cursive;
 }
 
 /* Navbar */
 header {
-  position : sticky;
+  position: sticky;
   top: 0;
   left: 0;
   z-index: 100;
 }
 
 .logo {
-    width: 230px;
-    padding-bottom:10px;
+  width: 230px;
+  padding-bottom: 10px;
 }
-#menu a{
-    color:gray;
+#menu a {
+  color: gray;
 }
 
-/* Home */ 
+/* Home */
 .home-container {
-    background: #ffffff44;
+  background: #ffffff44;
 }
 
 /* Administration */
 
 .img-produit {
-    height : 50px;
-    width: 50px;
-    object-fit: cover;
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
 }
 
 .img-recette {
-    height : 100px;
-    width: 100px;
-    object-fit: cover;
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
 }
 
-li.nav-item{
-    list-style-type:none;
+li.nav-item {
+  list-style-type: none;
 }
 
-.nav-link{
-    color:grey;
+.nav-link {
+  color: grey;
 }
 
-.nav-link:hover{
+.nav-link:hover {
   color: rgb(194, 153, 18);
   transition: 0.5s;
 }
 
-.header{
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
-
-#menu li{
-    padding-right: 50px;
+#menu li {
+  padding-right: 50px;
 }
 
 .panierPicto {
@@ -98,10 +169,10 @@ li.nav-item{
 }
 
 .nbArticles {
-  font-family: 'Open Sans', sans-serif;
-  font-size : 0.4em;
-  background : white;
-  border-radius : 5px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.4em;
+  background: white;
+  border-radius: 5px;
   border: 2px solid #ffc107;
   padding: 2px;
   position: absolute;
@@ -112,259 +183,250 @@ li.nav-item{
 /* Vignettes recette */
 
 .vignette-recette {
-    width: 20rem;
-    border-radius: 20px;
-    background: white;
+  width: 20rem;
+  border-radius: 20px;
+  background: white;
 }
 
 .vignette-recette-img {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
 .vignette-recette-titre {
-    font-family: 'Lobster Two', cursive;
-    font-size : 1.5em;
+  font-family: "Lobster Two", cursive;
+  font-size: 1.5em;
 }
 
 .vignette-recette-texte {
-    font-size: 0.8em;
+  font-size: 0.8em;
 }
 
 /* Engagements */
 
 .engagement {
-    width: 160px;
-    font-size: 0.9em;
+  width: 160px;
+  font-size: 0.9em;
 }
 
 .engagement-img {
-    width : 100%;
+  width: 100%;
 }
 
 .engagement-vignette-img {
-    height: 150px;
-    width: 150px;
-    background: white;
-    border-radius: 50%;
-    padding: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 150px;
+  width: 150px;
+  background: white;
+  border-radius: 50%;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Recettes */
 
 .recipe h2 {
-    float: left;
+  float: left;
 }
 
 .recipe-top .left {
-    background-color: #ffc107;
-    border-top-left-radius : 20px;
+  background-color: #ffc107;
+  border-top-left-radius: 20px;
 }
 
 .recipe-top .right {
-    padding-left: 0;
-    padding-right: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .recipe-top .right img {
-    width: 100%;
+  width: 100%;
 }
 
 .table-ingredient {
-    width: 100%;
-    border: 1px solid #e4cee7;
-    font-size: 12px;
-    margin-top: 10px;
+  width: 100%;
+  border: 1px solid #e4cee7;
+  font-size: 12px;
+  margin-top: 10px;
 }
 
 thead {
-    background-color: #ffc107;
-    display: table-header-group;
-    vertical-align: middle;
-    border-color: inherit;
+  background-color: #ffc107;
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
 }
 
 tbody {
-    background-color: #ffffff;
-    display: table-row-group;
-    vertical-align: middle;
-    border-color: inherit;
+  background-color: #ffffff;
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
 }
 
 .picto {
-    margin: 0px 5px 0px 0px;
-    width: 50px;
-    font-size: 0.9em;
+  margin: 0px 5px 0px 0px;
+  width: 50px;
+  font-size: 0.9em;
 }
 
 .row-2 {
-    padding: 30px 0px 0px;
+  padding: 30px 0px 0px;
 }
 
 .img-fiche-recette {
-    width: 100%;
-    height: 100%;
-    max-height: 400px;
-    object-fit: cover;
-    border-top-right-radius: 20px;
+  width: 100%;
+  height: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-top-right-radius: 20px;
 }
 
 .img-fiche-recette-ingredient {
-    height : 50px;
-    width: 50px;
-    border-radius: 50%;
-    object-fit: cover;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .recipe {
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
 }
 
 /* FOOTER */
 
-.site-footer
-{
-  background-color:white;
-  color:gray;
-  padding-top:20px;
-}
-.site-footer h6
-{
+.site-footer {
+  background-color: white;
   color: gray;
-  text-transform:uppercase;
-  letter-spacing:2px
+  padding-top: 20px;
 }
-.site-footer a
-{
-  color:gray;
+.site-footer h6 {
+  color: gray;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
-.site-footer a:hover
-{
-  color:#3366cc; 
-  text-decoration:none;
+.site-footer a {
+  color: gray;
 }
-.footer-links
-{
-  padding-left:0;
-  list-style:none
+.site-footer a:hover {
+  color: #3366cc;
+  text-decoration: none;
 }
-
-.site-footer .social-icons
-{
-  text-align:right
+.footer-links {
+  padding-left: 0;
+  list-style: none;
 }
 
-.site-footer .social-icons a
-{
-  width:40px;
-  height:40px;
-  line-height:40px;
-  margin-left:6px;
-  margin-right:0;
-  border-radius:100%;
-  background-color:#33353d
+.site-footer .social-icons {
+  text-align: right;
 }
+
+.site-footer .social-icons a {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin-left: 6px;
+  margin-right: 0;
+  border-radius: 100%;
+  background-color: #33353d;
+}
+
+.social-icons {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+.social-icons li {
+  display: inline-block;
+  margin-bottom: 4px;
+}
+.social-icons li.title {
+  margin-right: 15px;
+  text-transform: uppercase;
+  color: #96a2b2;
+  font-weight: 700;
+  font-size: 13px;
+}
+.social-icons a {
+  background-color: #eceeef;
+  color: #818a91;
+  font-size: 16px;
+  display: inline-block;
+  line-height: 44px;
+  width: 44px;
+  height: 44px;
+  text-align: center;
+  margin-right: 8px;
+  border-radius: 100%;
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+.social-icons a:active,
+.social-icons a:focus,
+.social-icons a:hover {
+  color: #fff;
+  background-color: #29aafe;
+}
+.social-icons.size-sm a {
+  line-height: 34px;
+  height: 34px;
+  width: 34px;
+  font-size: 14px;
+}
+.social-icons a.facebook:hover {
+  background-color: #3b5998;
+}
+.social-icons a.instagram:hover {
+  background-color: #ea4c89;
+}
+.social-icons a.twitter:hover {
+  background-color: #007bb6;
+}
+
 
 /************************ MEDIA QUERIES ************************/
-@media (max-width:991px)
-{
-  .site-footer [class^=col-]
-  {
-    margin-bottom:30px
+@media (max-width: 991px) {
+  .site-footer [class^="col-"] {
+    margin-bottom: 30px;
   }
 
   header {
-    position : relative;
+    position: relative;
   }
 }
-@media (max-width:767px)
-{
-  .site-footer
-  {
-    padding-bottom:0
+@media (max-width: 767px) {
+  .site-footer {
+    padding-bottom: 0;
   }
-  .site-footer .copyright-text,.site-footer .social-icons
-  {
-    text-align:center
+  .site-footer .copyright-text,
+  .site-footer .social-icons {
+    text-align: center;
   }
 
-  #menu li{
+  #menu li {
     padding-right: 0px;
-}
-}
-.social-icons
-{
-  padding-left:0;
-  margin-bottom:0;
-  list-style:none
-}
-.social-icons li
-{
-  display:inline-block;
-  margin-bottom:4px
-}
-.social-icons li.title
-{
-  margin-right:15px;
-  text-transform:uppercase;
-  color:#96a2b2;
-  font-weight:700;
-  font-size:13px
-}
-.social-icons a{
-  background-color:#eceeef;
-  color:#818a91;
-  font-size:16px;
-  display:inline-block;
-  line-height:44px;
-  width:44px;
-  height:44px;
-  text-align:center;
-  margin-right:8px;
-  border-radius:100%;
-  -webkit-transition:all .2s linear;
-  -o-transition:all .2s linear;
-  transition:all .2s linear
-}
-.social-icons a:active,.social-icons a:focus,.social-icons a:hover
-{
-  color:#fff;
-  background-color:#29aafe
-}
-.social-icons.size-sm a
-{
-  line-height:34px;
-  height:34px;
-  width:34px;
-  font-size:14px
-}
-.social-icons a.facebook:hover
-{
-  background-color:#3b5998
-}
-.social-icons a.instagram:hover
-{
-  background-color:#ea4c89
-}
-.social-icons a.twitter:hover
-{
-  background-color:#007bb6
-}
-
-@media (max-width:767px)
-{
-  .social-icons li.title
-  {
-    display:block;
-    margin-right:0;
-    font-weight:600
   }
 
+  .img-fiche-recette {
+    border-top-right-radius: 0;
+  }
+  
+  .recipe-top .left {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .social-icons li.title {
+    display: block;
+    margin-right: 0;
+    font-weight: 600;
+  }
 }

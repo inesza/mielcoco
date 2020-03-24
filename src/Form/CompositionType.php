@@ -19,7 +19,7 @@ class CompositionType extends AbstractType
             ->add('produit', EntityType::class, [ 
                 "class" => Produit::class, 
                 "choice_label" => function(Produit $produit){
-                    return $produit->getNom() . " (" . $produit->getUnite() . ")";
+                    return $produit->getNom() . " (" . $produit->getPrixUnitaire() . "€/" . $produit->getUnite() . ")";
                 }
             ])
             ->add('quantite')

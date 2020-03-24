@@ -24,12 +24,14 @@
                 {% for item in recette.compositions %}
                     <tr>
                         <td class="py-1">{{  item.produit.nom }}</td>
-                        <td class="px-5">{{ item.quantite}} {{ item.produit.unite}}</td>
+                        <td class="px-5">{{ item.quantite}} {{ item.produit.unite}}, {{ item.quantite * item.produit.PrixUnitaire }}€</td>
                         <td><a href="{{ path("admin_ingredient_retirer", { id: recette.id , idcompo: item.id }) }}" class="fa fa-trash confirmModalLink"  data-toggle="modal" data-target="#supprProduit"></a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
+
+            <p class="h4 mt-4">Prix de la recette : {{ recette.prixRecette }}€</p>
         </div>
     </section>
 </main>
